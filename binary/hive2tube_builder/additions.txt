@@ -1,0 +1,24 @@
+            tags.add("after effects");
+            tags.add("after");
+            tags.add("effects");
+            tags.add("template");
+            tags.add("project");
+            tags.add("adobe");
+            tags.add("free");
+            tags.add("videohive");
+            tags.add("download");
+            tags.add("clean");
+            tags.add("corparate");
+            tags.add("wedding");
+            tags.add("logo");
+            tags.add("opener");
+            tags.add("titles");
+            tags.add("slideshow");
+            tags.add("xmas");
+            tags.add("Christmas");
+            tags.add("epic");
+            tags.add("cinematic");
+            tags.add("tv");
+            tags.add("video");
+            tags.add("dynamic");
+

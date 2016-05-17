@@ -1,0 +1,1 @@
+exec\terminal\ansicon.exe exec\java\jre1.8.0_65\bin\java -cp app/lib/*;app; com/HTMLParser/HTMLParser
