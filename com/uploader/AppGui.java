@@ -368,16 +368,50 @@ public class AppGui extends JFrame  {
 
             public void actionPerformed(ActionEvent evt)    {
 
-                String textInNameField = profileNameField.getText();
-                String textInDelayField = delayField.getText();
-                String textInReferalField = referalField.getText();
+                String textInNameField = "";
+                String textInDelayField = "";
+                String textInReferalField = "";
 
-                double textInDelayFieldInDouble = Double.parseDouble(textInDelayField);
+                double textInDelayFieldInDouble = 0.0;
 
-                // while(trigger)  {
+                if(profileNameField.getText() != null && !profileNameField.getText().isEmpty()) {
+
+                    textInNameField = profileNameField.getText();
+
+                }   else    {
+
+                    textArea.append("Set Profile Name Please.\n");
+
+                }
+
+                if(delayField.getText() != null && !delayField.getText().isEmpty()) {
+
+                    textInDelayField = delayField.getText();
+                    textInDelayFieldInDouble = Double.parseDouble(textInDelayField);
+
+
+                }   else    {
+
+                    textArea.append("Delay is set to default value.\n");
+
+                }
+
+                if(referalField.getText() != null && !referalField.getText().isEmpty()) {
+
+                    textInReferalField = referalField.getText();
+
+                }   else    {
+
+                    textArea.append("Referal is not set.\n");
+
+                }
+
+                if(textInNameField != null && !textInNameField.isEmpty())  {
+
                     upload_hive_to_tube(textInNameField, textInDelayFieldInDouble, textInReferalField);
-                // }
-                // System.out.println("I like that!");
+
+                }
+
             }
         });
 

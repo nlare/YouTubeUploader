@@ -53,8 +53,16 @@ public class HiveToResource  {
         referal_name = _referal_name;
         public_upload = _public_upload;
 
-        if(_upload_resource == "vimeo") VIMEO_UPLOAD = true;
-        if(_upload_resource == "youtube") YOUTUBE_UPLOAD = true;
+        if(!(Objects.equals(_name_of_profile, "")) || (!Objects.equals(_name_of_profile, null)))    {
+
+            if(_upload_resource == "vimeo") VIMEO_UPLOAD = true;
+            if(_upload_resource == "youtube") YOUTUBE_UPLOAD = true;
+
+        }   else    {
+
+            System.out.println("Set Profile Name!");
+
+        }
 
         STOP = false;
 
@@ -220,7 +228,8 @@ public class HiveToResource  {
 
         }   catch(Exception e) {
 
-            e.printStackTrace();
+            // e.printStackTrace();
+            System.out.println("Cannot connect! Profile Name is not correct or internet connection is lost.");
 
         }
 
@@ -273,7 +282,7 @@ public class HiveToResource  {
 
                 buffer = aAttrLink[count].split("\\?", 2);
 
-                if(Objects.equals(referal_name, "") || Objects.equals(referal_name, null)) {
+                if((Objects.equals(referal_name, "")) || (Objects.equals(referal_name, null))) {
 
                     aAttrLink[count] = buffer[0];
 
@@ -444,7 +453,8 @@ public class HiveToResource  {
 
         }   catch(Exception e)   {
 
-            e.printStackTrace();
+            // e.printStackTrace();
+            System.out.println("Check Profile name please or internet connection.");
 
         }
 
