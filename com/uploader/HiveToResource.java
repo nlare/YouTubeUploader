@@ -28,7 +28,7 @@ public class HiveToResource  {
     public static String GREEN_COLOR = "";
     public static String RED_COLOR = "";
 
-    private static String REF_PART_OF_LINK = "?ref=Karasyamba";
+    private static String REF_PART_OF_LINK = "?ref=";
     private static boolean DELAY_FOR_UPLOAD = true;
     
     private static String link_to_profile;
@@ -36,18 +36,22 @@ public class HiveToResource  {
     private static int number_of_pages;
     private static int current_page;
     private static double delay_in_min;
+    private static String referal_name;
+    private static boolean public_upload;
 
     private static boolean YOUTUBE_UPLOAD = false;
     private static boolean VIMEO_UPLOAD = false;
 
     public static boolean STOP = false;
 
-    public HiveToResource(String _name_of_profile, double _delay_in_min, String _upload_resource)  {
+    public HiveToResource(String _name_of_profile, double _delay_in_min, String _referal_name, String _upload_resource, boolean _public_upload)  {
 
         name_of_profile = new String();
 
         name_of_profile = _name_of_profile;
         delay_in_min = _delay_in_min;
+        referal_name = _referal_name;
+        public_upload = _public_upload;
 
         if(_upload_resource == "vimeo") VIMEO_UPLOAD = true;
         if(_upload_resource == "youtube") YOUTUBE_UPLOAD = true;
@@ -104,6 +108,7 @@ public class HiveToResource  {
 
             System.out.println("Name of videohive.net profile: " + GREEN_COLOR + name_of_profile + WHITE_COLOR);
             System.out.println("Delay in minutes: " + GREEN_COLOR + delay_in_min + WHITE_COLOR);
+            System.out.println("Referal Link: " + GREEN_COLOR + referal_name + WHITE_COLOR);
             
             // Scanner in_str = new Scanner(System.in);
 
@@ -268,7 +273,11 @@ public class HiveToResource  {
 
                 buffer = aAttrLink[count].split("\\?", 2);
 
-                aAttrLink[count] = buffer[0] + REF_PART_OF_LINK;
+                if(Objects.equals(referal_name, "") || Objects.equals(referal_name, null)) {
+
+                    aAttrLink[count] = buffer[0];
+
+                }   else aAttrLink[count] = buffer[0] + REF_PART_OF_LINK + referal_name;
 
                 System.out.println(RED_COLOR + count + ":" + WHITE_COLOR + aAttrLink[count]);
 
@@ -392,7 +401,7 @@ public class HiveToResource  {
                     if(YOUTUBE_UPLOAD)  {
 
                         VideoToYoutube video_to_upload  = new VideoToYoutube();
-                        video_to_upload.AuthAndUpload(local_filename, imgAttrName[count], imgAttrAuthor[count], link_to_profile, aTagsAttrNames[count], aAttrLink[count], aItemDescription[count]);
+                        video_to_upload.AuthAndUpload(local_filename, imgAttrName[count], imgAttrAuthor[count], link_to_profile, aTagsAttrNames[count], aAttrLink[count], aItemDescription[count], public_upload);
 
                     }
                     if(VIMEO_UPLOAD)    {
@@ -438,6 +447,7 @@ public class HiveToResource  {
             e.printStackTrace();
 
         }
+
     }   while(current_page < number_of_pages);
 
     System.out.println(GREEN_COLOR + "The End of Uploading!\n");

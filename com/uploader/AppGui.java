@@ -18,7 +18,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
 import java.io.PrintStream;
 import java.util.Date;
 import java.awt.Graphics;
@@ -34,6 +36,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JCheckBox;
 import javax.swing.Box;
 import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
@@ -54,18 +57,26 @@ public class AppGui extends JFrame  {
     private JTextPane textComponent;
 
     private JPanel textPanel;
+    private JPanel checkBoxPanel;
 
     private JButton buttonYoutubeUpload = new JButton("YoutubeUpload");
-    private JButton buttonVimeoUpload = new JButton("VimeoUpload");
+    private JButton buttonSetPreferenses = new JButton("Preferenses");
+    // private JButton buttonVimeoUpload = new JButton("VimeoUpload");
     private JButton buttonReauth = new JButton("Remove Credentials");
     private JButton buttonStop = new JButton("Stop");
     private JButton buttonExit = new JButton("Exit");
 
     private JTextField profileNameField = new JTextField();
     private JTextField delayField = new JTextField();
+    private JTextField referalField = new JTextField();
 
-    private JLabel profileNameLabel = new JLabel("videohive.com profile name: ");
-    private JLabel delayFieldLabel = new JLabel("delay in minutes: ");
+    private JLabel profileNameLabel = new JLabel("Profile Name (at videohive.net): ");
+    private JLabel delayFieldLabel = new JLabel("Delay beetwen uploads (of each parsed video, in minutes): ");
+    private JLabel referalFieldLabel = new JLabel("Referal Profile (only name of profile at videohive.net): ");
+
+    private JLabel statusLabel;
+
+    private JCheckBox publicUpload = new JCheckBox("Upload as Public?");
 
     private PrintStream standardOut;
 
@@ -73,10 +84,25 @@ public class AppGui extends JFrame  {
 
     Thread thread;
     private boolean trigger;
+    private boolean preferensesVisibleTrigger;
+    private boolean uploadAsPublic;
 
     public AppGui()    {
 
         super("YouTubeUploader");
+
+        preferensesVisibleTrigger = false;
+        uploadAsPublic = false;
+
+        if(!uploadAsPublic)    {
+
+            statusLabel = new JLabel(" (Now Upload As Private)");
+
+        }   else    {
+
+            statusLabel = new JLabel(" (Now Upload As Public)");
+
+        }
 
         try {
 
@@ -93,16 +119,21 @@ public class AppGui extends JFrame  {
         try {
 
             buttonYoutubeUpload.setFont(new Font("Sans",Font.PLAIN,14));
-            buttonVimeoUpload.setFont(new Font("Sans",Font.PLAIN,12));
+            // buttonVimeoUpload.setFont(new Font("Sans",Font.PLAIN,12));
+            buttonSetPreferenses.setFont(new Font("Sans",Font.PLAIN,12));
             buttonReauth.setFont(new Font("Sans",Font.PLAIN,12 ));
             buttonStop.setFont(new Font("Serif",Font.PLAIN,12));
             buttonExit.setFont(new Font("Serif",Font.PLAIN,12));
 
-            profileNameLabel.setFont(new Font("Serif",Font.PLAIN,15));
-            delayFieldLabel.setFont(new Font("Serif",Font.PLAIN,15));
+            profileNameLabel.setFont(new Font("Serif",Font.PLAIN,11));
+            delayFieldLabel.setFont(new Font("Serif",Font.PLAIN,11));
+            referalFieldLabel.setFont(new Font("Serif",Font.PLAIN,11));
+            publicUpload.setFont(new Font("Serif",Font.PLAIN,11));
+            statusLabel.setFont(new Font("Serif",Font.PLAIN,11));
 
             profileNameField.setFont(new Font("Dialog",Font.BOLD,12));
             delayField.setFont(new Font("Dialog",Font.BOLD,12));
+            referalField.setFont(new Font("Dialog",Font.BOLD,12));
 
             Font font = UIManager.getFont("Button.font");
 
@@ -157,6 +188,7 @@ public class AppGui extends JFrame  {
 
         textArea = new JTextArea(100, 10);
         textArea.setEditable(false);
+        textArea.setText("Hi man! We are wrote this app to get you clone all your profile videos \nat videohive.net to YouTube account or channel. Firstly, you can click on \n\"Preferenses\" button and set dirrefent parametres like your videohive \nprofile name or referal link. Secondly - click on \"YouTubeUpload\" button and \nprogram begun to parse all your public profile videos and upload \nit to YouTube. To reauthorize on YouTube click \"RemoveCredentials\".\nTo stop parse your page or uploading to YouTube - click \"Stop\" button.\n");
         // textArea.setContentType("text/html;charset=UTF-8");
 
         // textComponent = new JTextPane(50, 10);
@@ -171,6 +203,9 @@ public class AppGui extends JFrame  {
         textPanel = new JPanel();
         textPanel.setLayout(null);
         textPanel.setPreferredSize(new Dimension(200,200));
+
+        checkBoxPanel = new JPanel();
+        checkBoxPanel.setLayout(null);
 
         PrintStream printStream = new PrintStream(new CustomOutputStream(textArea));
 
@@ -200,8 +235,8 @@ public class AppGui extends JFrame  {
         // Задаем размеры элементов
         profileNameLabel.setSize(new Dimension(450,20));
         delayFieldLabel.setSize(new Dimension(450,20));
-        delayField.setPreferredSize(new Dimension(100,20));
-        delayField.setPreferredSize(new Dimension(100,20));
+        profileNameField.setPreferredSize(new Dimension(10,20));
+        delayField.setPreferredSize(new Dimension(10,20));
 
         Box labelFieldBox1 = Box.createHorizontalBox();
 
@@ -211,7 +246,7 @@ public class AppGui extends JFrame  {
         // labelFieldBox1.add(Box.createHorizontalGlue());
 
         // labelFieldBox1.setSize(new Dimension(1000,20));
-
+        labelFieldBox1.setVisible(preferensesVisibleTrigger);
         // constraints.gridx = 2;
         // constraints.gridy = 0;
 
@@ -221,10 +256,33 @@ public class AppGui extends JFrame  {
         labelFieldBox2.add(delayField,constraints);
         labelFieldBox2.add(Box.createHorizontalGlue());
 
+        labelFieldBox2.setVisible(preferensesVisibleTrigger);
+
+        Box labelFieldBox3 = Box.createHorizontalBox();
+
+        labelFieldBox3.add(referalFieldLabel,constraints);
+        labelFieldBox3.add(referalField,constraints);
+        labelFieldBox3.add(Box.createHorizontalGlue());
+
+        labelFieldBox3.setVisible(preferensesVisibleTrigger);
+
+        // checkBoxPanel.add(publicUpload);
+
+        Box checkBoxField4 = Box.createHorizontalBox();
+
+        publicUpload.setSelected(false);
+
+        checkBoxField4.add(publicUpload,constraints);
+        checkBoxField4.add(statusLabel,constraints);
+        checkBoxField4.add(Box.createHorizontalGlue());
+
+        checkBoxField4.setVisible(preferensesVisibleTrigger);
+
         Box buttonsBox = Box.createHorizontalBox();
 
         buttonsBox.add(buttonYoutubeUpload);
-        buttonsBox.add(buttonVimeoUpload);
+        // buttonsBox.add(buttonVimeoUpload);
+        buttonsBox.add(buttonSetPreferenses);
         buttonsBox.add(buttonReauth);
         buttonsBox.add(buttonStop);
         buttonsBox.add(buttonExit);
@@ -265,6 +323,13 @@ public class AppGui extends JFrame  {
 
         // constraints.insets = new Insets(5,5,5,5);
 
+        // mainBox.add(Box.createHorizontalGlue());
+
+        mainBox.add(buttonsBox,constraints);
+        mainBox.add(Box.createHorizontalStrut(15));
+        mainBox.add(Box.createVerticalStrut(10));
+        mainBox.add(Box.createHorizontalGlue());
+
         mainBox.add(labelFieldBox1,constraints);
         mainBox.add(Box.createHorizontalStrut(15));
         mainBox.add(Box.createVerticalStrut(10));
@@ -272,12 +337,14 @@ public class AppGui extends JFrame  {
         mainBox.add(labelFieldBox2,constraints);
         mainBox.add(Box.createHorizontalStrut(15));
         mainBox.add(Box.createVerticalStrut(10));
-        // mainBox.add(Box.createHorizontalGlue());
 
-        mainBox.add(buttonsBox,constraints);
+        mainBox.add(labelFieldBox3,constraints);
         mainBox.add(Box.createHorizontalStrut(15));
         mainBox.add(Box.createVerticalStrut(10));
-        mainBox.add(Box.createHorizontalGlue());
+
+        mainBox.add(checkBoxField4,constraints);
+        mainBox.add(Box.createHorizontalStrut(15));
+        mainBox.add(Box.createVerticalStrut(10));
 
         // mainBox.add(textAreaBox);
         // mainBox.add(textComponent);
@@ -303,29 +370,61 @@ public class AppGui extends JFrame  {
 
                 String textInNameField = profileNameField.getText();
                 String textInDelayField = delayField.getText();
+                String textInReferalField = referalField.getText();
 
                 double textInDelayFieldInDouble = Double.parseDouble(textInDelayField);
 
                 // while(trigger)  {
-                    upload_hive_to_tube(textInNameField, textInDelayFieldInDouble);
+                    upload_hive_to_tube(textInNameField, textInDelayFieldInDouble, textInReferalField);
                 // }
                 // System.out.println("I like that!");
             }
         });
 
-        buttonVimeoUpload.addActionListener(new ActionListener()  {
+        // buttonVimeoUpload.addActionListener(new ActionListener()  {
+
+        //     public void actionPerformed(ActionEvent evt)    {
+
+        //         String textInNameField = profileNameField.getText();
+        //         String textInDelayField = delayField.getText();
+
+        //         double textInDelayFieldInDouble = Double.parseDouble(textInDelayField);
+
+        //         // while(trigger)  {
+        //             upload_hive_to_vimeo(textInNameField, textInDelayFieldInDouble);
+        //         // }
+        //         // System.out.println("I like that!");
+
+        //     }
+        // });
+
+        buttonSetPreferenses.addActionListener(new ActionListener()  {
 
             public void actionPerformed(ActionEvent evt)    {
 
-                String textInNameField = profileNameField.getText();
-                String textInDelayField = delayField.getText();
+                // String textInNameField = profileNameField.getText();
+                // String textInDelayField = delayField.getText();
 
-                double textInDelayFieldInDouble = Double.parseDouble(textInDelayField);
+                // double textInDelayFieldInDouble = Double.parseDouble(textInDelayField);
+                if(preferensesVisibleTrigger == false)  {
 
-                // while(trigger)  {
-                    upload_hive_to_vimeo(textInNameField, textInDelayFieldInDouble);
-                // }
-                // System.out.println("I like that!");
+                    preferensesVisibleTrigger = true;
+
+                    labelFieldBox1.setVisible(preferensesVisibleTrigger);
+                    labelFieldBox2.setVisible(preferensesVisibleTrigger);
+                    labelFieldBox3.setVisible(preferensesVisibleTrigger);
+                    checkBoxField4.setVisible(preferensesVisibleTrigger);
+
+                }   else    {
+
+                    preferensesVisibleTrigger = false;
+
+                    labelFieldBox1.setVisible(preferensesVisibleTrigger);
+                    labelFieldBox2.setVisible(preferensesVisibleTrigger);
+                    labelFieldBox3.setVisible(preferensesVisibleTrigger);
+                    checkBoxField4.setVisible(preferensesVisibleTrigger);
+
+                }
 
             }
         });
@@ -392,16 +491,31 @@ public class AppGui extends JFrame  {
             }
         });
 
+        publicUpload.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {         
+                statusLabel.setText((e.getStateChange()==1 ? " (Now Upload As Public)" : " (Now Upload As Private)"));
+
+                if(e.getStateChange()==1)   {
+
+                    uploadAsPublic = true;
+
+                }   else    {
+
+                    uploadAsPublic = false;
+
+                }
+            }         
+        });
     }
 
-    private void upload_hive_to_tube(String _name_of_profile, double _delay_in_min)    {
+    private void upload_hive_to_tube(String _name_of_profile, double _delay_in_min, String _referal_name)    {
 
         thread = new Thread(new Runnable()   {
 
             public void run()   {
                 // System.out.println("I like that!");
 
-                HiveToResource h2t = new HiveToResource(_name_of_profile, _delay_in_min, "youtube");
+                HiveToResource h2t = new HiveToResource(_name_of_profile, _delay_in_min, _referal_name, "youtube", uploadAsPublic);
                 h2t.GrabAndLoad();
             }
 
@@ -409,14 +523,14 @@ public class AppGui extends JFrame  {
         thread.start();
     }
 
-    private void upload_hive_to_vimeo(String _name_of_profile, double _delay_in_min)    {
+    private void upload_hive_to_vimeo(String _name_of_profile, double _delay_in_min, String _referal_name)    {
 
         thread = new Thread(new Runnable()   {
 
             public void run()   {
                 // System.out.println("I like that!");
 
-                HiveToResource h2t = new HiveToResource(_name_of_profile, _delay_in_min, "vimeo");
+                HiveToResource h2t = new HiveToResource(_name_of_profile, _delay_in_min, _referal_name , "vimeo", uploadAsPublic);
                 h2t.GrabAndLoad();
             }
 
@@ -433,7 +547,7 @@ public class AppGui extends JFrame  {
                 try {
 
                     JFrame jfrm = new AppGui();
-                    jfrm.setSize(640,640);
+                    jfrm.setSize(560,350);
                     jfrm.setVisible(true);
 
                 }   catch(Exception e)  {

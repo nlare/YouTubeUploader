@@ -37,7 +37,7 @@ public class VideoToYoutube {
     public static String WHITE_COLOR = "";
     public static String GREEN_COLOR = "";
     public static String RED_COLOR = "";
-    public static boolean IS_PUBLIC = false;
+    // public static boolean IS_PUBLIC = false;
     
     private static YouTube youtube;
     // private static 
@@ -46,8 +46,7 @@ public class VideoToYoutube {
     private int video_count = 0;
     // private static final String SAMPLE_VIDEO_FILENAME = "Flash Giant FX.mp4";
 
-    public int AuthAndUpload(String parsed_filename, String parsed_name_of_video, String parsed_name_of_author, String link_to_videohive, String parsed_tags, String parsed_ref_link, String parsed_description)   {
-
+    public int AuthAndUpload(String parsed_filename, String parsed_name_of_video, String parsed_name_of_author, String link_to_videohive, String parsed_tags, String parsed_ref_link, String parsed_description, boolean public_upload)   {
         List<String> scopes = Lists.newArrayList("https://www.googleapis.com/auth/youtube.upload");
 
         try {
@@ -62,7 +61,7 @@ public class VideoToYoutube {
 
             VideoStatus status = new VideoStatus();
 
-            if(IS_PUBLIC)   {
+            if(public_upload)   {
 
                 status.setPrivacyStatus("public");
 
