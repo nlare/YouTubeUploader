@@ -30,6 +30,8 @@ import java.awt.Color;
  
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -59,20 +61,32 @@ public class AppGui extends JFrame  {
     private JPanel textPanel;
     private JPanel checkBoxPanel;
 
-    private JButton buttonYoutubeUpload = new JButton("YoutubeUpload");
-    private JButton buttonSetPreferenses = new JButton("Preferenses");
+    ImageIcon profileNameLabelIcon = new ImageIcon("/home/nlare/_code/java-YouTubeUploader/icon.png");
+    ImageIcon delayFieldLabelIcon = new ImageIcon("/home/nlare/_code/java-YouTubeUploader/icon.png");
+    ImageIcon referalFieldLabelIcon = new ImageIcon("/home/nlare/_code/java-YouTubeUploader/icon.png");
+
+    ImageIcon buttonYoutubeUploadIcon = new ImageIcon("/home/nlare/_code/java-YouTubeUploader/buttonIcon.png");
+    ImageIcon buttonSetPreferensesIcon = new ImageIcon("/home/nlare/_code/java-YouTubeUploader/buttonIcon.png");
+    ImageIcon buttonReauthIcon = new ImageIcon("/home/nlare/_code/java-YouTubeUploader/buttonIcon.png");
+    ImageIcon buttonStopIcon = new ImageIcon("/home/nlare/_code/java-YouTubeUploader/buttonIcon.png");
+    ImageIcon buttonExitIcon = new ImageIcon("/home/nlare/_code/java-YouTubeUploader/buttonIcon.png");
+
+    private JButton buttonYoutubeUpload = new JButton("YoutubeUpload", buttonYoutubeUploadIcon);
+    private JButton buttonSetPreferenses = new JButton("Preferenses", buttonSetPreferensesIcon);
     // private JButton buttonVimeoUpload = new JButton("VimeoUpload");
-    private JButton buttonReauth = new JButton("Remove Credentials");
-    private JButton buttonStop = new JButton("Stop");
-    private JButton buttonExit = new JButton("Exit");
+    private JButton buttonReauth = new JButton("Remove Credentials", buttonReauthIcon);
+    private JButton buttonStop = new JButton("Stop", buttonStopIcon);
+    private JButton buttonExit = new JButton("Exit", buttonExitIcon);
+
+    // buttonYoutubeUpload.setIcon(buttonYoutubeUploadIcon);
 
     private JTextField profileNameField = new JTextField();
     private JTextField delayField = new JTextField();
     private JTextField referalField = new JTextField();
 
-    private JLabel profileNameLabel = new JLabel("Profile Name (at videohive.net): ");
-    private JLabel delayFieldLabel = new JLabel("Delay beetwen uploads (of each parsed video, in minutes): ");
-    private JLabel referalFieldLabel = new JLabel("Referal Profile (only name of profile at videohive.net): ");
+    private JLabel profileNameLabel = new JLabel("Profile Name (at videohive.net): ", profileNameLabelIcon, JLabel.CENTER);
+    private JLabel delayFieldLabel = new JLabel("Delay beetwen uploads (of each parsed video, in minutes): ", delayFieldLabelIcon, JLabel.CENTER);
+    private JLabel referalFieldLabel = new JLabel("Referal Profile (only name of profile at videohive.net): ", referalFieldLabelIcon, JLabel.CENTER);
 
     private JLabel statusLabel;
 
