@@ -7,12 +7,18 @@ import java.io.IOException;
 import java.lang.*;
 import java.net.*;
 import java.io.PrintStream;
+import java.io.FileInputStream;
+import java.io.BufferedInputStream;
 
 import java.lang.Object;
 
 // import java.awt.*;
 import java.awt.Dimension;
 // import javax.swing.*;
+
+import java.awt.Component;
+import java.awt.Event;
+import java.awt.EventQueue;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -21,12 +27,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Date;
 import java.awt.Graphics;
 import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.Observable;
  
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -35,17 +46,20 @@ import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextField.*;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JCheckBox;
 import javax.swing.Box;
 import javax.swing.SwingUtilities;
+import javax.swing.SpringLayout;
 import javax.swing.text.BadLocationException;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 
 import com.alee.utils.*;
 
@@ -61,15 +75,15 @@ public class AppGui extends JFrame  {
     private JPanel textPanel;
     private JPanel checkBoxPanel;
 
-    ImageIcon profileNameLabelIcon = new ImageIcon("/home/nlare/_code/java-YouTubeUploader/icon.png");
-    ImageIcon delayFieldLabelIcon = new ImageIcon("/home/nlare/_code/java-YouTubeUploader/icon.png");
-    ImageIcon referalFieldLabelIcon = new ImageIcon("/home/nlare/_code/java-YouTubeUploader/icon.png");
+    ImageIcon profileNameLabelIcon = new ImageIcon("icon.png");
+    ImageIcon delayFieldLabelIcon = new ImageIcon("icon.png");
+    ImageIcon referalFieldLabelIcon = new ImageIcon("icon.png");
 
-    ImageIcon buttonYoutubeUploadIcon = new ImageIcon("/home/nlare/_code/java-YouTubeUploader/buttonIcon.png");
-    ImageIcon buttonSetPreferensesIcon = new ImageIcon("/home/nlare/_code/java-YouTubeUploader/buttonIcon.png");
-    ImageIcon buttonReauthIcon = new ImageIcon("/home/nlare/_code/java-YouTubeUploader/buttonIcon.png");
-    ImageIcon buttonStopIcon = new ImageIcon("/home/nlare/_code/java-YouTubeUploader/buttonIcon.png");
-    ImageIcon buttonExitIcon = new ImageIcon("/home/nlare/_code/java-YouTubeUploader/buttonIcon.png");
+    ImageIcon buttonYoutubeUploadIcon = new ImageIcon("buttonIcon.png");
+    ImageIcon buttonSetPreferensesIcon = new ImageIcon("buttonIcon.png");
+    ImageIcon buttonReauthIcon = new ImageIcon("buttonIcon.png");
+    ImageIcon buttonStopIcon = new ImageIcon("buttonIcon.png");
+    ImageIcon buttonExitIcon = new ImageIcon("buttonIcon.png");
 
     private JButton buttonYoutubeUpload = new JButton("YoutubeUpload", buttonYoutubeUploadIcon);
     private JButton buttonSetPreferenses = new JButton("Preferenses", buttonSetPreferensesIcon);
@@ -80,9 +94,15 @@ public class AppGui extends JFrame  {
 
     // buttonYoutubeUpload.setIcon(buttonYoutubeUploadIcon);
 
-    private JTextField profileNameField = new JTextField();
+    private JTextField profileNameField = new JTextField(null);
     private JTextField delayField = new JTextField();
     private JTextField referalField = new JTextField();
+
+    // profileNameField.(new JLabel();
+
+    // profileNameField.setHorizontalAlignment(JTextField.CENTER);
+
+    // profileNameField.setText("");
 
     private JLabel profileNameLabel = new JLabel("Profile Name (at videohive.net): ", profileNameLabelIcon, JLabel.CENTER);
     private JLabel delayFieldLabel = new JLabel("Delay beetwen uploads (of each parsed video, in minutes): ", delayFieldLabelIcon, JLabel.CENTER);
@@ -105,7 +125,39 @@ public class AppGui extends JFrame  {
 
         super("YouTubeUploader");
 
-        preferensesVisibleTrigger = false;
+        System.setProperty("awt.useSystemAAFontSettings","on");
+        System.setProperty("swing.aatext", "true");
+
+        int font_count = 0;
+
+        int buttonsFontSize = 15;
+        int labelsFontSize = 15;
+        int inputFieldsFontSize = 14;
+        int textAreaFontSize = 18;
+        
+        Font ttfBaseButtons = null;
+        Font ttfBaseLabels = null;
+        Font ttfBaseInputs = null;
+        Font ttfBaseText = null;
+
+        Font buttonYoutubeUploadFont = null;
+        Font buttonSetPreferensesFont = null;
+        Font buttonReauthFont = null;
+        Font buttonStopFont = null;
+        Font buttonExitFont = null;
+
+        Font profileNameLabelFont = null;
+        Font delayFieldLabelFont = null;
+        Font referalFieldLabelFont = null;
+        Font statusLabelFont = null;
+        Font publicUploadFont= null;
+
+        Font profileNameFieldFont = null;
+        Font delayFieldFont = null;
+        Font referalFieldFont = null;
+        Font textAreaFont = null;
+
+        preferensesVisibleTrigger = true;
         uploadAsPublic = false;
 
         if(!uploadAsPublic)    {
@@ -132,22 +184,88 @@ public class AppGui extends JFrame  {
 
         try {
 
-            buttonYoutubeUpload.setFont(new Font("Sans",Font.PLAIN,14));
+            // UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+            // UIManager.setLookAndFeel("com.alee.laf.WebLookAndFeel");
+
+        }   catch(Exception e) {
+
+            // e.printStackTrace();
+            // System.out.println("Не удалось установить тему");
+            System.out.println("Font not found -> use default");
+
+        }
+
+        try {
+
+            try {
+
+                InputStream buttonsFontStream = new BufferedInputStream(new FileInputStream("fonts/Dosis-Bold.otf"));
+                ttfBaseButtons = Font.createFont(Font.TRUETYPE_FONT, buttonsFontStream);
+
+                InputStream labelsFontStream = new BufferedInputStream(new FileInputStream("fonts/Dosis-Bold.otf"));
+                ttfBaseLabels = Font.createFont(Font.TRUETYPE_FONT, labelsFontStream);
+
+                InputStream inputsFontStream = new BufferedInputStream(new FileInputStream("fonts/Dosis-Bold.otf"));
+                ttfBaseInputs = Font.createFont(Font.TRUETYPE_FONT, inputsFontStream);
+
+                InputStream textFontStream = new BufferedInputStream(new FileInputStream("fonts/Dosis-Regular.otf"));
+                ttfBaseText = Font.createFont(Font.TRUETYPE_FONT, textFontStream);
+
+                buttonYoutubeUploadFont = ttfBaseButtons.deriveFont(Font.BOLD, buttonsFontSize);
+                buttonSetPreferensesFont = ttfBaseButtons.deriveFont(Font.PLAIN, buttonsFontSize);
+                buttonReauthFont = ttfBaseButtons.deriveFont(Font.PLAIN, buttonsFontSize);
+                buttonStopFont = ttfBaseButtons.deriveFont(Font.PLAIN, buttonsFontSize);
+                buttonExitFont = ttfBaseButtons.deriveFont(Font.PLAIN, buttonsFontSize);
+
+                profileNameLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
+                delayFieldLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
+                referalFieldLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
+                statusLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
+                publicUploadFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
+
+                profileNameFieldFont = ttfBaseInputs.deriveFont(Font.PLAIN, inputFieldsFontSize);
+                delayFieldFont = ttfBaseInputs.deriveFont(Font.PLAIN, inputFieldsFontSize);
+                referalFieldFont = ttfBaseInputs.deriveFont(Font.PLAIN, inputFieldsFontSize);
+
+                textAreaFont = ttfBaseText.deriveFont(Font.PLAIN, textAreaFontSize);
+
+                // File fontFile = new File("Amatic");
+                // GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+                // ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, fontFile));
+
+                for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels())   {
+
+                    font_count++;
+                    System.out.println(font_count + ":" + info);
+
+                }
+
+            }   catch(Exception e) {
+
+                System.out.println("Font Set Error");
+
+            }
+
+            // InputStream is = MyClass.class.getResourceAsStream("fonts/OpenSans-Regular.ttf");
+            // Font font = Font.createFont(Font.TRUETYPE_FONT, is);
+
+            // buttonYoutubeUpload.setFont(new Font("Sans", Font.PLAIN,14));
+            buttonYoutubeUpload.setFont(buttonYoutubeUploadFont);
             // buttonVimeoUpload.setFont(new Font("Sans",Font.PLAIN,12));
-            buttonSetPreferenses.setFont(new Font("Sans",Font.PLAIN,12));
-            buttonReauth.setFont(new Font("Sans",Font.PLAIN,12 ));
-            buttonStop.setFont(new Font("Serif",Font.PLAIN,12));
-            buttonExit.setFont(new Font("Serif",Font.PLAIN,12));
+            buttonSetPreferenses.setFont(buttonSetPreferensesFont);
+            buttonReauth.setFont(buttonReauthFont);
+            buttonStop.setFont(buttonStopFont);
+            buttonExit.setFont(buttonExitFont);
 
-            profileNameLabel.setFont(new Font("Serif",Font.PLAIN,11));
-            delayFieldLabel.setFont(new Font("Serif",Font.PLAIN,11));
-            referalFieldLabel.setFont(new Font("Serif",Font.PLAIN,11));
-            publicUpload.setFont(new Font("Serif",Font.PLAIN,11));
-            statusLabel.setFont(new Font("Serif",Font.PLAIN,11));
+            profileNameLabel.setFont(profileNameLabelFont);
+            delayFieldLabel.setFont(delayFieldLabelFont);
+            referalFieldLabel.setFont(referalFieldLabelFont);
+            publicUpload.setFont(statusLabelFont);
+            statusLabel.setFont(publicUploadFont);
 
-            profileNameField.setFont(new Font("Dialog",Font.BOLD,12));
-            delayField.setFont(new Font("Dialog",Font.BOLD,12));
-            referalField.setFont(new Font("Dialog",Font.BOLD,12));
+            profileNameField.setFont(profileNameFieldFont);
+            delayField.setFont(delayFieldFont);
+            referalField.setFont(referalFieldFont);
 
             Font font = UIManager.getFont("Button.font");
 
@@ -195,14 +313,16 @@ public class AppGui extends JFrame  {
 
         // SwingUtilities.updateComponentTreeUI(this);
 
-        System.setProperty("awt.useSystemAAFontSettings","on");
-        System.setProperty("swing.aatext", "true");
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         textArea = new JTextArea(100, 10);
+
+        textArea.setFont(textAreaFont);
         textArea.setEditable(false);
-        textArea.setText("Hi man! We are wrote this app to get you clone all your profile videos \nat videohive.net to YouTube account or channel. Firstly, you can click on \n\"Preferenses\" button and set dirrefent parametres like your videohive \nprofile name or referal link. Secondly - click on \"YouTubeUpload\" button and \nprogram begun to parse all your public profile videos and upload \nit to YouTube. To reauthorize on YouTube click \"RemoveCredentials\".\nTo stop parse your page or uploading to YouTube - click \"Stop\" button.\n");
+        textArea.setForeground(Color.BLACK);
+        textArea.setText("Hello! We are wrote this app to get you clone all your profile videos \nat videohive.net to YouTube account or channel. Firstly, you can click on \n\"Preferenses\" button and set dirrefent parametres like your videohive \nprofile name or referal link. Secondly - click on \"YouTubeUpload\" button and \nprogram begin to parse all your public profile videos and upload \nit to YouTube. To reauthorize on YouTube click \"RemoveCredentials\".\nTo stop parse your page or uploading to YouTube - click \"Stop\" button.\n");
+        // textArea.setText("-----------------------------------------------------------------------");
+        // textArea.setForeground(Color.GRAY);
         // textArea.setContentType("text/html;charset=UTF-8");
 
         // textComponent = new JTextPane(50, 10);
@@ -251,6 +371,14 @@ public class AppGui extends JFrame  {
         delayFieldLabel.setSize(new Dimension(450,20));
         profileNameField.setPreferredSize(new Dimension(10,20));
         delayField.setPreferredSize(new Dimension(10,20));
+
+        profileNameField.setBorder(new RoundedCornerBorder());
+        delayField.setBorder(new RoundedCornerBorder());
+        referalField.setBorder(new RoundedCornerBorder());
+
+        profileNameField.setHorizontalAlignment(JTextField.CENTER);
+        delayField.setHorizontalAlignment(JTextField.CENTER);
+        referalField.setHorizontalAlignment(JTextField.CENTER);
 
         Box labelFieldBox1 = Box.createHorizontalBox();
 
@@ -595,7 +723,7 @@ public class AppGui extends JFrame  {
                 try {
 
                     JFrame jfrm = new AppGui();
-                    jfrm.setSize(560,350);
+                    jfrm.setSize(720,550);
                     jfrm.setVisible(true);
 
                 }   catch(Exception e)  {
