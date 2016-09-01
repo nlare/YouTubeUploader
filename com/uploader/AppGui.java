@@ -35,6 +35,7 @@ import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Observable;
@@ -75,22 +76,25 @@ public class AppGui extends JFrame  {
     private JPanel textPanel;
     private JPanel checkBoxPanel;
 
-    ImageIcon profileNameLabelIcon = new ImageIcon("icon.png");
-    ImageIcon delayFieldLabelIcon = new ImageIcon("icon.png");
-    ImageIcon referalFieldLabelIcon = new ImageIcon("icon.png");
+    ImageIcon profileNameLabelIconSrc;
+    ImageIcon delayFieldLabelIconSrc;
+    ImageIcon referalFieldLabelIconSrc;
 
-    ImageIcon buttonYoutubeUploadIcon = new ImageIcon("buttonIcon.png");
-    ImageIcon buttonSetPreferensesIcon = new ImageIcon("buttonIcon.png");
-    ImageIcon buttonReauthIcon = new ImageIcon("buttonIcon.png");
-    ImageIcon buttonStopIcon = new ImageIcon("buttonIcon.png");
-    ImageIcon buttonExitIcon = new ImageIcon("buttonIcon.png");
+    ImageIcon profileNameLabelIcon;
+    ImageIcon delayFieldLabelIcon;
+    ImageIcon referalFieldLabelIcon;
 
-    private JButton buttonYoutubeUpload = new JButton("YoutubeUpload", buttonYoutubeUploadIcon);
-    private JButton buttonSetPreferenses = new JButton("Preferenses", buttonSetPreferensesIcon);
-    // private JButton buttonVimeoUpload = new JButton("VimeoUpload");
-    private JButton buttonReauth = new JButton("Remove Credentials", buttonReauthIcon);
-    private JButton buttonStop = new JButton("Stop", buttonStopIcon);
-    private JButton buttonExit = new JButton("Exit", buttonExitIcon);
+    ImageIcon buttonYoutubeUploadIconSrc;
+    ImageIcon buttonSetPreferensesIconSrc;
+    ImageIcon buttonReauthIconSrc;
+    ImageIcon buttonStopIconSrc;
+    ImageIcon buttonExitIconSrc;
+
+    ImageIcon buttonYoutubeUploadIcon;
+    ImageIcon buttonSetPreferensesIcon;
+    ImageIcon buttonReauthIcon;
+    ImageIcon buttonStopIcon;
+    ImageIcon buttonExitIcon;
 
     // buttonYoutubeUpload.setIcon(buttonYoutubeUploadIcon);
 
@@ -103,10 +107,6 @@ public class AppGui extends JFrame  {
     // profileNameField.setHorizontalAlignment(JTextField.CENTER);
 
     // profileNameField.setText("");
-
-    private JLabel profileNameLabel = new JLabel("Profile Name (at videohive.net): ", profileNameLabelIcon, JLabel.CENTER);
-    private JLabel delayFieldLabel = new JLabel("Delay beetwen uploads (of each parsed video, in minutes): ", delayFieldLabelIcon, JLabel.CENTER);
-    private JLabel referalFieldLabel = new JLabel("Referal Profile (only name of profile at videohive.net): ", referalFieldLabelIcon, JLabel.CENTER);
 
     private JLabel statusLabel;
 
@@ -133,7 +133,7 @@ public class AppGui extends JFrame  {
         int buttonsFontSize = 15;
         int labelsFontSize = 15;
         int inputFieldsFontSize = 14;
-        int textAreaFontSize = 18;
+        int textAreaFontSize = 20;
         
         Font ttfBaseButtons = null;
         Font ttfBaseLabels = null;
@@ -159,6 +159,20 @@ public class AppGui extends JFrame  {
 
         preferensesVisibleTrigger = true;
         uploadAsPublic = false;
+
+        Image imageSrc;
+        Image imageResized;
+
+        JButton buttonYoutubeUpload;
+        JButton buttonSetPreferenses;
+        // private JButton buttonVimeoUpload = new JButton("VimeoUpload");
+        JButton buttonReauth;
+        JButton buttonStop;
+        JButton buttonExit;
+
+        JLabel profileNameLabel;
+        JLabel delayFieldLabel;
+        JLabel referalFieldLabel;
 
         if(!uploadAsPublic)    {
 
@@ -197,6 +211,67 @@ public class AppGui extends JFrame  {
 
         try {
 
+            profileNameLabelIconSrc = new ImageIcon("icons/I_for.png");
+            delayFieldLabelIconSrc = new ImageIcon("icons/I_for.png");
+            referalFieldLabelIconSrc = new ImageIcon("icons/I_for.png");
+
+            buttonYoutubeUploadIconSrc = new ImageIcon("icons/I_Upload_64x64.png");
+            buttonSetPreferensesIconSrc = new ImageIcon("icons/I_Preferens_64x64.png");
+            buttonReauthIconSrc = new ImageIcon("icons/I_Remove_64x64.png");
+            buttonStopIconSrc = new ImageIcon("icons/I_Stop_64x64.png");
+            buttonExitIconSrc = new ImageIcon("icons/I_Exit_64x64.png");
+
+            imageSrc = profileNameLabelIconSrc.getImage();
+            imageResized = imageSrc.getScaledInstance(16, 16, java.awt.Image.SCALE_SMOOTH);
+            profileNameLabelIcon = new ImageIcon(imageResized);
+
+            imageSrc = delayFieldLabelIconSrc.getImage(); 
+            imageResized = imageSrc.getScaledInstance(16, 16, java.awt.Image.SCALE_SMOOTH);
+            delayFieldLabelIcon = new ImageIcon(imageResized);
+
+            imageSrc = referalFieldLabelIconSrc.getImage(); 
+            imageResized = imageSrc.getScaledInstance(16, 16, java.awt.Image.SCALE_SMOOTH);
+            referalFieldLabelIcon = new ImageIcon(imageResized);
+
+            imageSrc = buttonYoutubeUploadIconSrc.getImage(); 
+            imageResized = imageSrc.getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH);
+            buttonYoutubeUploadIcon = new ImageIcon(imageResized);
+
+            imageSrc = buttonSetPreferensesIconSrc.getImage(); 
+            imageResized = imageSrc.getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH);
+            buttonSetPreferensesIcon = new ImageIcon(imageResized);
+
+            imageSrc = buttonReauthIconSrc.getImage(); 
+            imageResized = imageSrc.getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH);
+            buttonReauthIcon = new ImageIcon(imageResized);
+
+            imageSrc = buttonStopIconSrc.getImage(); 
+            imageResized = imageSrc.getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH);
+            buttonStopIcon = new ImageIcon(imageResized);
+
+            imageSrc = buttonExitIconSrc.getImage(); 
+            imageResized = imageSrc.getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH);
+            buttonExitIcon = new ImageIcon(imageResized);
+
+        }   catch(Exception e) {
+
+            System.out.println("Cannot set icons!");
+
+        }
+
+        buttonYoutubeUpload = new JButton("YoutubeUpload", buttonYoutubeUploadIcon);
+        buttonSetPreferenses = new JButton("Preferenses", buttonSetPreferensesIcon);
+            // private JButton buttonVimeoUpload = new JButton("VimeoUpload");
+        buttonReauth = new JButton("Remove Credentials", buttonReauthIcon);
+        buttonStop = new JButton("Stop", buttonStopIcon);
+        buttonExit = new JButton("Exit", buttonExitIcon);
+
+        profileNameLabel = new JLabel("Profile Name ( at videohive.net ): ", profileNameLabelIcon, JLabel.CENTER);
+        delayFieldLabel = new JLabel("Delay beetwen uploads ( of each parsed video, in minutes ): ", delayFieldLabelIcon, JLabel.CENTER);
+        referalFieldLabel = new JLabel("Referal Profile ( only name of profile at videohive.net ): ", referalFieldLabelIcon, JLabel.CENTER);
+
+        try {
+
             try {
 
                 InputStream buttonsFontStream = new BufferedInputStream(new FileInputStream("fonts/Dosis-Bold.otf"));
@@ -208,7 +283,7 @@ public class AppGui extends JFrame  {
                 InputStream inputsFontStream = new BufferedInputStream(new FileInputStream("fonts/Dosis-Bold.otf"));
                 ttfBaseInputs = Font.createFont(Font.TRUETYPE_FONT, inputsFontStream);
 
-                InputStream textFontStream = new BufferedInputStream(new FileInputStream("fonts/Dosis-Regular.otf"));
+                InputStream textFontStream = new BufferedInputStream(new FileInputStream("fonts/Dosis-Medium.otf"));
                 ttfBaseText = Font.createFont(Font.TRUETYPE_FONT, textFontStream);
 
                 buttonYoutubeUploadFont = ttfBaseButtons.deriveFont(Font.BOLD, buttonsFontSize);
@@ -723,7 +798,7 @@ public class AppGui extends JFrame  {
                 try {
 
                     JFrame jfrm = new AppGui();
-                    jfrm.setSize(720,550);
+                    jfrm.setSize(640,550);
                     jfrm.setVisible(true);
 
                 }   catch(Exception e)  {
