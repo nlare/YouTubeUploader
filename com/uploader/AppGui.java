@@ -79,18 +79,22 @@ public class AppGui extends JFrame  {
     ImageIcon profileNameLabelIconSrc;
     ImageIcon delayFieldLabelIconSrc;
     ImageIcon referalFieldLabelIconSrc;
+    ImageIcon oneLinkUploadFieldLabelIconSrc;
 
     ImageIcon profileNameLabelIcon;
     ImageIcon delayFieldLabelIcon;
     ImageIcon referalFieldLabelIcon;
+    ImageIcon oneLinkUploadFieldLabelIcon;
 
     ImageIcon buttonYoutubeUploadIconSrc;
+    ImageIcon buttonOneLinkUploadIconSrc;
     ImageIcon buttonSetPreferensesIconSrc;
     ImageIcon buttonReauthIconSrc;
     ImageIcon buttonStopIconSrc;
     ImageIcon buttonExitIconSrc;
 
     ImageIcon buttonYoutubeUploadIcon;
+    ImageIcon buttonOneLinkUploadIcon;
     ImageIcon buttonSetPreferensesIcon;
     ImageIcon buttonReauthIcon;
     ImageIcon buttonStopIcon;
@@ -101,6 +105,7 @@ public class AppGui extends JFrame  {
     private JTextField profileNameField = new JTextField(null);
     private JTextField delayField = new JTextField();
     private JTextField referalField = new JTextField();
+    private JTextField oneLinkUploadField = new JTextField();
 
     // profileNameField.(new JLabel();
 
@@ -141,6 +146,7 @@ public class AppGui extends JFrame  {
         Font ttfBaseText = null;
 
         Font buttonYoutubeUploadFont = null;
+        Font buttonOneLinkUploadFont = null;
         Font buttonSetPreferensesFont = null;
         Font buttonReauthFont = null;
         Font buttonStopFont = null;
@@ -149,12 +155,14 @@ public class AppGui extends JFrame  {
         Font profileNameLabelFont = null;
         Font delayFieldLabelFont = null;
         Font referalFieldLabelFont = null;
+        Font oneLinkUploadFieldLabelFont = null;
         Font statusLabelFont = null;
         Font publicUploadFont= null;
 
         Font profileNameFieldFont = null;
         Font delayFieldFont = null;
         Font referalFieldFont = null;
+        Font oneLinkUploadFieldFont = null;
         Font textAreaFont = null;
 
         preferensesVisibleTrigger = true;
@@ -164,6 +172,7 @@ public class AppGui extends JFrame  {
         Image imageResized;
 
         JButton buttonYoutubeUpload;
+        JButton buttonOneLinkUpload;
         JButton buttonSetPreferenses;
         // private JButton buttonVimeoUpload = new JButton("VimeoUpload");
         JButton buttonReauth;
@@ -173,6 +182,7 @@ public class AppGui extends JFrame  {
         JLabel profileNameLabel;
         JLabel delayFieldLabel;
         JLabel referalFieldLabel;
+        JLabel oneLinkUploadFieldLabel;
 
         if(!uploadAsPublic)    {
 
@@ -214,8 +224,10 @@ public class AppGui extends JFrame  {
             profileNameLabelIconSrc = new ImageIcon("icons/I_for.png");
             delayFieldLabelIconSrc = new ImageIcon("icons/I_for.png");
             referalFieldLabelIconSrc = new ImageIcon("icons/I_for.png");
+            oneLinkUploadFieldLabelIconSrc = new ImageIcon("icons/I_for.png");
 
             buttonYoutubeUploadIconSrc = new ImageIcon("icons/I_Upload_64x64.png");
+            buttonOneLinkUploadIconSrc = new ImageIcon("icons/I_Upload_64x64.png");
             buttonSetPreferensesIconSrc = new ImageIcon("icons/I_Preferens_64x64.png");
             buttonReauthIconSrc = new ImageIcon("icons/I_Remove_64x64.png");
             buttonStopIconSrc = new ImageIcon("icons/I_Stop_64x64.png");
@@ -233,9 +245,17 @@ public class AppGui extends JFrame  {
             imageResized = imageSrc.getScaledInstance(16, 16, java.awt.Image.SCALE_SMOOTH);
             referalFieldLabelIcon = new ImageIcon(imageResized);
 
+            imageSrc = oneLinkUploadFieldLabelIconSrc.getImage(); 
+            imageResized = imageSrc.getScaledInstance(16, 16, java.awt.Image.SCALE_SMOOTH);
+            oneLinkUploadFieldLabelIcon = new ImageIcon(imageResized);
+
             imageSrc = buttonYoutubeUploadIconSrc.getImage(); 
             imageResized = imageSrc.getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH);
             buttonYoutubeUploadIcon = new ImageIcon(imageResized);
+
+            imageSrc = buttonOneLinkUploadIconSrc.getImage(); 
+            imageResized = imageSrc.getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH);
+            buttonOneLinkUploadIcon = new ImageIcon(imageResized);
 
             imageSrc = buttonSetPreferensesIconSrc.getImage(); 
             imageResized = imageSrc.getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH);
@@ -259,7 +279,8 @@ public class AppGui extends JFrame  {
 
         }
 
-        buttonYoutubeUpload = new JButton("YoutubeUpload", buttonYoutubeUploadIcon);
+        buttonYoutubeUpload = new JButton("UploadProfile", buttonYoutubeUploadIcon);
+        buttonOneLinkUpload = new JButton("UploadLink", buttonYoutubeUploadIcon);
         buttonSetPreferenses = new JButton("Preferenses", buttonSetPreferensesIcon);
             // private JButton buttonVimeoUpload = new JButton("VimeoUpload");
         buttonReauth = new JButton("Remove Credentials", buttonReauthIcon);
@@ -269,6 +290,7 @@ public class AppGui extends JFrame  {
         profileNameLabel = new JLabel("Profile Name ( at videohive.net ): ", profileNameLabelIcon, JLabel.CENTER);
         delayFieldLabel = new JLabel("Delay beetwen uploads ( of each parsed video, in minutes ): ", delayFieldLabelIcon, JLabel.CENTER);
         referalFieldLabel = new JLabel("Referal Profile ( only name of profile at videohive.net ): ", referalFieldLabelIcon, JLabel.CENTER);
+        oneLinkUploadFieldLabel = new JLabel("Link from videohive.net: ", oneLinkUploadFieldLabelIcon, JLabel.CENTER);
 
         try {
 
@@ -287,6 +309,7 @@ public class AppGui extends JFrame  {
                 ttfBaseText = Font.createFont(Font.TRUETYPE_FONT, textFontStream);
 
                 buttonYoutubeUploadFont = ttfBaseButtons.deriveFont(Font.BOLD, buttonsFontSize);
+                buttonOneLinkUploadFont = ttfBaseButtons.deriveFont(Font.BOLD, buttonsFontSize);
                 buttonSetPreferensesFont = ttfBaseButtons.deriveFont(Font.PLAIN, buttonsFontSize);
                 buttonReauthFont = ttfBaseButtons.deriveFont(Font.PLAIN, buttonsFontSize);
                 buttonStopFont = ttfBaseButtons.deriveFont(Font.PLAIN, buttonsFontSize);
@@ -295,12 +318,14 @@ public class AppGui extends JFrame  {
                 profileNameLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
                 delayFieldLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
                 referalFieldLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
+                oneLinkUploadFieldLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
                 statusLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
                 publicUploadFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
 
                 profileNameFieldFont = ttfBaseInputs.deriveFont(Font.PLAIN, inputFieldsFontSize);
                 delayFieldFont = ttfBaseInputs.deriveFont(Font.PLAIN, inputFieldsFontSize);
                 referalFieldFont = ttfBaseInputs.deriveFont(Font.PLAIN, inputFieldsFontSize);
+                oneLinkUploadFieldFont = ttfBaseInputs.deriveFont(Font.PLAIN, inputFieldsFontSize);
 
                 textAreaFont = ttfBaseText.deriveFont(Font.PLAIN, textAreaFontSize);
 
@@ -326,6 +351,7 @@ public class AppGui extends JFrame  {
 
             // buttonYoutubeUpload.setFont(new Font("Sans", Font.PLAIN,14));
             buttonYoutubeUpload.setFont(buttonYoutubeUploadFont);
+            buttonOneLinkUpload.setFont(buttonOneLinkUploadFont);
             // buttonVimeoUpload.setFont(new Font("Sans",Font.PLAIN,12));
             buttonSetPreferenses.setFont(buttonSetPreferensesFont);
             buttonReauth.setFont(buttonReauthFont);
@@ -335,12 +361,14 @@ public class AppGui extends JFrame  {
             profileNameLabel.setFont(profileNameLabelFont);
             delayFieldLabel.setFont(delayFieldLabelFont);
             referalFieldLabel.setFont(referalFieldLabelFont);
+            oneLinkUploadFieldLabel.setFont(oneLinkUploadFieldLabelFont);
             publicUpload.setFont(statusLabelFont);
             statusLabel.setFont(publicUploadFont);
 
             profileNameField.setFont(profileNameFieldFont);
             delayField.setFont(delayFieldFont);
             referalField.setFont(referalFieldFont);
+            oneLinkUploadField.setFont(oneLinkUploadFieldFont);
 
             Font font = UIManager.getFont("Button.font");
 
@@ -395,7 +423,7 @@ public class AppGui extends JFrame  {
         textArea.setFont(textAreaFont);
         textArea.setEditable(false);
         textArea.setForeground(Color.BLACK);
-        textArea.setText("Hello! We are wrote this app to get you clone all your profile videos \nat videohive.net to YouTube account or channel. Firstly, you can click on \n\"Preferenses\" button and set dirrefent parametres like your videohive \nprofile name or referal link. Secondly - click on \"YouTubeUpload\" button and \nprogram begin to parse all your public profile videos and upload \nit to YouTube. To reauthorize on YouTube click \"RemoveCredentials\".\nTo stop parse your page or uploading to YouTube - click \"Stop\" button.\n");
+        // textArea.setText("Hello! We are wrote this app to get you clone all your profile videos \nat videohive.net to YouTube account or channel. Firstly, you can click on \n\"Preferenses\" button and set dirrefent parametres like your videohive \nprofile name or referal link. Secondly - click on \"YouTubeUpload\" button and \nprogram begin to parse all your public profile videos and upload \nit to YouTube. To reauthorize on YouTube click \"RemoveCredentials\".\nTo stop parse your page or uploading to YouTube - click \"Stop\" button.\n");
         // textArea.setText("-----------------------------------------------------------------------");
         // textArea.setForeground(Color.GRAY);
         // textArea.setContentType("text/html;charset=UTF-8");
@@ -450,10 +478,11 @@ public class AppGui extends JFrame  {
         profileNameField.setBorder(new RoundedCornerBorder());
         delayField.setBorder(new RoundedCornerBorder());
         referalField.setBorder(new RoundedCornerBorder());
+        oneLinkUploadField.setBorder(new RoundedCornerBorder());
 
-        profileNameField.setHorizontalAlignment(JTextField.CENTER);
-        delayField.setHorizontalAlignment(JTextField.CENTER);
-        referalField.setHorizontalAlignment(JTextField.CENTER);
+        // profileNameField.setHorizontalAlignment(JTextField.CENTER);
+        // delayField.setHorizontalAlignment(JTextField.CENTER);
+        // referalField.setHorizontalAlignment(JTextField.CENTER);
 
         Box labelFieldBox1 = Box.createHorizontalBox();
 
@@ -483,6 +512,14 @@ public class AppGui extends JFrame  {
 
         labelFieldBox3.setVisible(preferensesVisibleTrigger);
 
+        Box labelFieldBox4 = Box.createHorizontalBox();
+
+        labelFieldBox4.add(oneLinkUploadFieldLabel,constraints);
+        labelFieldBox4.add(oneLinkUploadField,constraints);
+        labelFieldBox4.add(Box.createHorizontalGlue());
+
+        labelFieldBox4.setVisible(preferensesVisibleTrigger);
+
         // checkBoxPanel.add(publicUpload);
 
         Box checkBoxField4 = Box.createHorizontalBox();
@@ -498,6 +535,7 @@ public class AppGui extends JFrame  {
         Box buttonsBox = Box.createHorizontalBox();
 
         buttonsBox.add(buttonYoutubeUpload);
+        buttonsBox.add(buttonOneLinkUpload);
         // buttonsBox.add(buttonVimeoUpload);
         buttonsBox.add(buttonSetPreferenses);
         buttonsBox.add(buttonReauth);
@@ -559,6 +597,10 @@ public class AppGui extends JFrame  {
         mainBox.add(Box.createHorizontalStrut(15));
         mainBox.add(Box.createVerticalStrut(10));
 
+        mainBox.add(labelFieldBox4,constraints);
+        mainBox.add(Box.createHorizontalStrut(15));
+        mainBox.add(Box.createVerticalStrut(10));
+
         mainBox.add(checkBoxField4,constraints);
         mainBox.add(Box.createHorizontalStrut(15));
         mainBox.add(Box.createVerticalStrut(10));
@@ -588,6 +630,7 @@ public class AppGui extends JFrame  {
                 String textInNameField = "";
                 String textInDelayField = "";
                 String textInReferalField = "";
+                String textInOneLinkUploadField = "";
 
                 double textInDelayFieldInDouble = 0.0;
 
@@ -798,7 +841,7 @@ public class AppGui extends JFrame  {
                 try {
 
                     JFrame jfrm = new AppGui();
-                    jfrm.setSize(640,550);
+                    jfrm.setSize(760,550);
                     jfrm.setVisible(true);
 
                 }   catch(Exception e)  {

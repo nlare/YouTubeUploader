@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"butt",
+				"buttonYoutubeUpload"
+			],
+			[
+				"bu",
+				"buttonYoutubeUpload"
+			],
+			[
 				"n",
 				"n"
 			],
@@ -90,10 +98,6 @@
 			[
 				"p",
 				"profileNameLabel"
-			],
-			[
-				"bu",
-				"buttonSetPreferenses"
 			],
 			[
 				"Sans",
@@ -186,10 +190,6 @@
 			[
 				"Vide",
 				"VideoToVimeo"
-			],
-			[
-				"butt",
-				"buttonVimeoUpload"
 			],
 			[
 				"a",
@@ -534,7 +534,7 @@
 			"file": "com/uploader/AppGui.java",
 			"settings":
 			{
-				"buffer_size": 21344,
+				"buffer_size": 30233,
 				"line_ending": "Unix"
 			}
 		},
@@ -1079,15 +1079,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 21344,
+						"buffer_size": 30233,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2015,
-								2015
+								3958,
+								3958
 							]
 						],
 						"settings":
@@ -1097,7 +1097,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 559.0,
+						"translation.y": 715.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
