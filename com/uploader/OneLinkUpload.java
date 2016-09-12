@@ -31,6 +31,7 @@ public class OneLinkUpload  {
     private static String REF_PART_OF_LINK = "?ref=";
     private static boolean DELAY_FOR_UPLOAD = true;
     
+    private static String name_of_profile;    
     private static String link_to_project;
     private static String referal_name;
     private static boolean public_upload;
@@ -42,21 +43,22 @@ public class OneLinkUpload  {
 
     public OneLinkUpload(String _link_to_project, String _referal_name, String _upload_resource, boolean _public_upload)  {
 
-        name_of_profile = new String();
+        // name_of_profile = new String();
 
-        name_of_profile = _name_of_profile;
-        delay_in_min = _delay_in_min;
+        // name_of_profile = _name_of_profile;
+        // delay_in_min = _delay_in_min;
+        link_to_project = _link_to_project;
         referal_name = _referal_name;
         public_upload = _public_upload;
 
-        if(!(Objects.equals(_name_of_profile, "")) || (!Objects.equals(_name_of_profile, null)))    {
+        if(!(Objects.equals(_link_to_project, "")) || (!Objects.equals(_link_to_project, null)))    {
 
             if(_upload_resource == "vimeo") VIMEO_UPLOAD = true;
             if(_upload_resource == "youtube") YOUTUBE_UPLOAD = true;
 
         }   else    {
 
-            System.out.println("Set Profile Name!");
+            System.out.println("Set Link to project!");
 
         }
 
@@ -100,7 +102,7 @@ public class OneLinkUpload  {
         // Element imgElement;
         // Elements links;
 
-        current_page = 0;
+        // current_page = 0;
 
         try {
 
@@ -139,7 +141,7 @@ public class OneLinkUpload  {
         }
 
         // for(int i = 1; i < number_of_pages; i++)    {
-        do {
+        // do {
 
         // current_page++;
 
@@ -152,8 +154,6 @@ public class OneLinkUpload  {
             // StringBuilder sb = new StringBuilder();
 
             // sb.append("http://videohive.net/user/").append(name_of_profile).append("/portfolio?page=").append(current_page);
-
-            link_to_project = _link_to_project;
 
             // link_to_profile += "/portfolio";
 
