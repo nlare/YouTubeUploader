@@ -138,7 +138,7 @@ public class AppGui extends JFrame  {
         int buttonsFontSize = 15;
         int labelsFontSize = 15;
         int inputFieldsFontSize = 14;
-        int textAreaFontSize = 20;
+        int textAreaFontSize = 14;
         
         Font ttfBaseButtons = null;
         Font ttfBaseLabels = null;

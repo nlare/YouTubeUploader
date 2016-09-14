@@ -45,7 +45,7 @@ public class OneLinkUpload  {
 
         // name_of_profile = new String();
 
-        // name_of_profile = _name_of_profile;
+        name_of_profile = "Test_String";
         // delay_in_min = _delay_in_min;
         link_to_project = _link_to_project;
         referal_name = _referal_name;
@@ -106,56 +106,18 @@ public class OneLinkUpload  {
 
         try {
 
-            // name_of_profile = "karasyamba";
-            // System.in.read();
-            // System.out.print("Enter name of videohive.net profile (press Enter) (Введи имя профиля): ");
-
             name_of_profile = name_of_profile.toLowerCase();
 
             System.out.println("Link to upload: " + GREEN_COLOR + link_to_project + WHITE_COLOR);
             System.out.println("Referal Link: " + GREEN_COLOR + referal_name + WHITE_COLOR);
             
-            // Scanner in_str = new Scanner(System.in);
-
-            // name_of_profile = new String();
-            // name_of_profile = in_str.nextLine();
-
-            // System.out.print("Enter number_of_pages (Введи количество страниц профиля на videohive): ");
-
-            // Scanner in_number_of_pages = new Scanner(System.in);
-
-            // number_of_pages = in_number_of_pages.nextInt();
-
-            // System.out.print("Enter delay_in_min (Введи задержку в минутах ): ");
-
-            // Scanner in_delay_in_min = new Scanner(System.in);
-
-            // delay_in_min = in_delay_in_min.nextInt();
-            
-            // System.in.read(data);
-
         } catch(Exception e)    {
 
             e.printStackTrace();
 
         }
 
-        // for(int i = 1; i < number_of_pages; i++)    {
-        // do {
-
-        // current_page++;
-
         try {
-
-            // name_of_profile = "karasyamba";
-
-            // String link_to_profile = "http://videohive.net/user/" + name_of_profile + "/portfolio\n";
-
-            // StringBuilder sb = new StringBuilder();
-
-            // sb.append("http://videohive.net/user/").append(name_of_profile).append("/portfolio?page=").append(current_page);
-
-            // link_to_profile += "/portfolio";
 
             System.out.println("Your link: " + link_to_project);
 
@@ -166,89 +128,50 @@ public class OneLinkUpload  {
 
             }   
 
-            // else {
-
-            //     // System.out.println(link_to_profile);
-            //     if(Objects.equals(link_to_profile, "http://videohive.net/user/karasyamba/portfolio"))    {
-
-            //         System.out.println("cool!");
-            //         System.exit(0);
-
-            //     }
-
-            // }
-            
             html = Jsoup.connect(link_to_project).timeout(0).get();
-
-            // int count = 0;
 
             /* Хитрый ход. Каждый раз обновляем сколько всего страниц, ибо иначе делать не удобно. */
 
         }   catch(Exception e) {
 
-            // e.printStackTrace();
             System.out.println("Cannot connect! Link is not correct or internet connection is lost.");
 
         }
 
         try {
 
-            int count = 0;
-
             imgElements = html.select("img[data-video-file-url$=.mp4]");
 
-            String imgAttrAuthor[] = new String[imgElements.size()+1];
-            String imgAttrName[] = new String[imgElements.size()+1];
-            String imgAttrTags[] = new String[imgElements.size()+1];
-            String imgAttrVideo[] = new String[imgElements.size()+1];
-            String imgAttrPreview[] = new String[imgElements.size()+1];
+            String imgAttrAuthor = new String();
+            String imgAttrName = new String();
+            String imgAttrTags = new String();
+            String imgAttrVideo = new String();
+            String imgAttrPreview = new String();
 
             String buffer[] = new String[2];
 
-            try {
-
-                Thread.sleep(1000);
-
-            }   catch(InterruptedException e) {   
-
-                System.out.println("Interrapted Thread. Error in \"sleep\" function. ");
-                Thread.currentThread().interrupt();
-
-            }
-
             aElements = html.select("a[class=js-google-analytics__list-event-trigger");
 
-            String aAttrLink[] = new String[aElements.size()+1];
-            String aTagsAttrNames[] = new String[100];
-            String aItemDescription[] = new String[100];
+            String aAttrLink = new String();
+            String aTagsAttrNames = new String();
+            String aItemDescription = new String();
 
             // String buffer[] = new String[2];
             // for(int i = 0; i < imgElement.size())
 
-            for(Element el: aElements)  {
+            // for(Element el: aElements)  {
 
-                if(STOP) {
-
-                    System.out.println("Stop Parsing Pages.");
-                    break;
-
-                }
-
-                count++;
-
-                aAttrLink[count] = "http://videohive.net" + el.attr("href");
-
-                buffer = aAttrLink[count].split("\\?", 2);
+                buffer = link_to_project.split("\\?", 2);
 
                 if((Objects.equals(referal_name, "")) || (Objects.equals(referal_name, null))) {
 
-                    aAttrLink[count] = buffer[0];
+                    link_to_project = buffer[0];
 
-                }   else aAttrLink[count] = buffer[0] + REF_PART_OF_LINK + referal_name;
+                }   else link_to_project = buffer[0] + REF_PART_OF_LINK + referal_name;
 
-                System.out.println(RED_COLOR + count + ":" + WHITE_COLOR + aAttrLink[count]);
+                System.out.println(RED_COLOR + "1" + ":" + WHITE_COLOR + link_to_project);
 
-                project_page = Jsoup.connect(aAttrLink[count]).timeout(0).get();
+                project_page = Jsoup.connect(link_to_project).timeout(0).get();
                 aTagsElements = project_page.select("a[href^=/tags/]");
 
                 try {
@@ -270,84 +193,65 @@ public class OneLinkUpload  {
                 for(Element descrel: userTextElements)    {
 
                     // descrel.removeAttr("a");
-                    aItemDescription[count] = descrel.text();
+                    aItemDescription = descrel.text();
 
                     // String buffer[] = new String[2];
 
-                    if(aItemDescription[count].toLowerCase().contains("Project features".toLowerCase()))    {
+                    if(aItemDescription.toLowerCase().contains("Project features".toLowerCase()))    {
 
-                        buffer = aItemDescription[count].split("Project features", 2);
-                        aItemDescription[count] = buffer[0];
+                        buffer = aItemDescription.split("Project features", 2);
+                        aItemDescription = buffer[0];
 
                     }
 
-                    if(aItemDescription[count].toLowerCase().contains("Projects features".toLowerCase()))    {
+                    if(aItemDescription.toLowerCase().contains("Projects features".toLowerCase()))    {
 
-                        buffer = aItemDescription[count].split("Projects features", 2);
-                        aItemDescription[count] = buffer[0];
+                        buffer = aItemDescription.split("Projects features", 2);
+                        aItemDescription = buffer[0];
                     }
 
                     
-                    aItemDescription[count] = aItemDescription[count].replace(">"," ");
+                    aItemDescription = aItemDescription.replace(">"," ");
                     // aItemDescription[count].replace(">>>"," ");
 
-                    System.out.println(aItemDescription[count]);
+                    System.out.println(aItemDescription);
                         
                 }
 
-                aTagsAttrNames[count] = "";
+                aTagsAttrNames = "";
 
                 for(Element subel: aTagsElements)   {
 
-                    aTagsAttrNames[count] += subel.attr("title") + " ";
+                    aTagsAttrNames += subel.attr("title") + " ";
                     // System.out.println(aTagsAttrNames[count]);
 
                 }
 
-            }
+                Element el = new Element("","");
 
-            // for(int i = 1; i < count; i++)  System.out.println(aTagsAttrNames[count]);
-
-            // System.exit(0);
-
-            count = 0;
-
-            for(Element el: imgElements)  {
-
-                if(STOP) {
-
-                    System.out.println("Stop Uploading to Resource.");
-                    break;
-
-                }
-
-                count++;
-                imgAttrAuthor[count] = el.attr("data-item-author");
-                imgAttrName[count] = el.attr("data-item-name");
-                // imgAttrTags[count] = el.attr("data-item-category");
-                imgAttrVideo[count] = el.attr("data-video-file-url");
-                imgAttrPreview[count] = el.attr("data-preview-url");
+                imgAttrAuthor = el.attr("data-item-author");
+                imgAttrName = el.attr("data-item-name");
+                imgAttrVideo = el.attr("data-video-file-url");
+                imgAttrPreview = el.attr("data-preview-url");
 
                 String title = html.title();
 
                 System.out.println(GREEN_COLOR + "\nTitle: " + WHITE_COLOR + title);
 
-                System.out.println(GREEN_COLOR + "Author: " + WHITE_COLOR + imgAttrAuthor[count]);
-                System.out.println(GREEN_COLOR + "Name: " + WHITE_COLOR + imgAttrName[count]);
-                // System.out.println("\u001b[32mTags: " + imgAttrTags[count]);
-                System.out.println(GREEN_COLOR + "Tags: " + WHITE_COLOR + aTagsAttrNames[count]);
-                System.out.println(GREEN_COLOR + "Video: " + WHITE_COLOR + imgAttrVideo[count]);
-                System.out.println(GREEN_COLOR + "Preview: " + WHITE_COLOR + imgAttrPreview[count]);
-                // System.out.println(GREEN_COLOR + "Preview: " + WHITE_COLOR + imgAttrPreview[count]);
-                System.out.println(GREEN_COLOR + "RefLink: " + WHITE_COLOR + aAttrLink[count]);
-                System.out.println(GREEN_COLOR + "Description: " + WHITE_COLOR + aItemDescription[count]);
+                System.out.println(GREEN_COLOR + "Author: " + WHITE_COLOR + imgAttrAuthor);
+                System.out.println(GREEN_COLOR + "Name: " + WHITE_COLOR + imgAttrName);
+                System.out.println(GREEN_COLOR + "Tags: " + WHITE_COLOR + aTagsAttrNames);
+                System.out.println(GREEN_COLOR + "Video: " + WHITE_COLOR + imgAttrVideo);
+                System.out.println(GREEN_COLOR + "Preview: " + WHITE_COLOR + imgAttrPreview);
+                System.out.println(GREEN_COLOR + "RefLink: " + WHITE_COLOR + aAttrLink);
+                System.out.println(GREEN_COLOR + "Description: " + WHITE_COLOR + aItemDescription);
                 System.out.print("\n");
 
                 try {
 
-                    System.out.println("Downloading video: " + imgAttrVideo[count] + " -> ./tmp/" + imgAttrAuthor[count] + "/" + imgAttrName[count].replace(" ", "_") + ".mp4");
+                    System.out.println("Downloading video: " + imgAttrVideo + " -> ./tmp/" + imgAttrAuthor + "/" + imgAttrName.replace(" ", "_") + ".mp4");
                     VideoFromURL video_url = new VideoFromURL();
-                    video_url.getVideoFromURL(imgAttrVideo[count], imgAttrName[count], imgAttrAuthor[count]);
+                    video_url.getVideoFromURL(imgAttrVideo, imgAttrName, imgAttrAuthor);
 
                 }   catch(Exception e)  {
 
@@ -355,28 +259,23 @@ public class OneLinkUpload  {
 
                 }
 
-                if(DELAY_FOR_UPLOAD)    {
-
-                    System.out.println("Delay (in minutes) = " + delay_in_min);
-
-                }
-
                 try {
 
-                    String local_filename = ("/tmp/" + imgAttrAuthor[count] + "/" + imgAttrName[count].replace(" ", "_") + ".mp4");
+                    String local_filename = ("/tmp/" + imgAttrAuthor + "/" + imgAttrName.replace(" ", "_") + ".mp4");
 
                     if(YOUTUBE_UPLOAD)  {
 
                         VideoToYoutube video_to_upload  = new VideoToYoutube();
-                        video_to_upload.AuthAndUpload(local_filename, imgAttrName[count], imgAttrAuthor[count], link_to_profile, aTagsAttrNames[count], aAttrLink[count], aItemDescription[count], public_upload);
+                        video_to_upload.AuthAndUpload(local_filename, imgAttrName, imgAttrAuthor, link_to_project, aTagsAttrNames, aAttrLink, aItemDescription, public_upload);
 
                     }
+
                     if(VIMEO_UPLOAD)    {
 
                         System.out.println("Start Vimeo Uploading");
 
                         VideoToVimeo video_to_upload = new VideoToVimeo();
-                        video_to_upload.AuthAndUpload(local_filename, imgAttrName[count], imgAttrAuthor[count], link_to_profile, aTagsAttrNames[count], aAttrLink[count], aItemDescription[count]);
+                        video_to_upload.AuthAndUpload(local_filename, imgAttrName, imgAttrAuthor, link_to_project, aTagsAttrNames, aAttrLink, aItemDescription);
 
                     }
 
@@ -386,28 +285,28 @@ public class OneLinkUpload  {
 
                 }
 
-                if(DELAY_FOR_UPLOAD)    {
+                // if(DELAY_FOR_UPLOAD)    {
 
-                    System.out.println("Waiting " + delay_in_min + " min (" + delay_in_min*60 + " sec) for upload.");
+                //     System.out.println("Waiting " + delay_in_min + " min (" + delay_in_min*60 + " sec) for upload.");
 
-                    try {
+                //     try {
 
-                    int delay_in_milliseconds = (int)(delay_in_min*1000*60);
-                    Thread.sleep(delay_in_milliseconds);
+                //     int delay_in_milliseconds = (int)(delay_in_min*1000*60);
+                //     Thread.sleep(delay_in_milliseconds);
 
-                    }   catch(InterruptedException e) {   
+                //     }   catch(InterruptedException e) {   
 
-                        System.out.println("Interrapted Thread. Error in \"sleep\" function (Parse elements section).");
-                        Thread.currentThread().interrupt();
+                //         System.out.println("Interrapted Thread. Error in \"sleep\" function (Parse elements section).");
+                //         Thread.currentThread().interrupt();
 
-                    }
+                //     }
 
-                }
+                // }
 
                 // String imgAttr = imgElement1.text();
             
                 // break;
-            }
+            // }
 
         }   catch(Exception e)   {
 
