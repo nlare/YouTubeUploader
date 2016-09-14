@@ -227,7 +227,7 @@ public class OneLinkUpload  {
 
                 }
 
-                Element el = new Element("","");
+                Element el = new Element(null,"");
 
                 imgAttrAuthor = el.attr("data-item-author");
                 imgAttrName = el.attr("data-item-name");
