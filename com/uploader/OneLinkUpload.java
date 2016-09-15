@@ -98,11 +98,6 @@ public class OneLinkUpload  {
         Elements aTagsElements;
 
         Elements spanNumOfPagesElement;
-        
-        // Element imgElement;
-        // Elements links;
-
-        // current_page = 0;
 
         try {
 
@@ -156,8 +151,7 @@ public class OneLinkUpload  {
             String aTagsAttrNames = new String();
             String aItemDescription = new String();
 
-            // String buffer[] = new String[2];
-            // for(int i = 0; i < imgElement.size())
+            Element el = imgElements.last();
 
             // for(Element el: aElements)  {
 
@@ -187,7 +181,7 @@ public class OneLinkUpload  {
 
                 userTextElements = project_page.select("[class=user-html]");
 
-                // System.out.println("Size: " + aTagsElements.size() + ":" + userTextElements.size());
+                System.out.println("Size: " + aTagsElements.size() + ":" + userTextElements.size());
                 System.out.println(GREEN_COLOR + "item-description:" + WHITE_COLOR);
 
                 for(Element descrel: userTextElements)    {
@@ -226,8 +220,6 @@ public class OneLinkUpload  {
                     // System.out.println(aTagsAttrNames[count]);
 
                 }
-
-                Element el = new Element(null,"");
 
                 imgAttrAuthor = el.attr("data-item-author");
                 imgAttrName = el.attr("data-item-name");

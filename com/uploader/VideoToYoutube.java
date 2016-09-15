@@ -119,7 +119,7 @@ public class VideoToYoutube {
             tags.add("video");
             tags.add("dynamic");
 
-            // 3d, animation, flash, tutorial, particular, element, flat, explainer, business, flares,
+            // 3d, animation, flash, tutorial, particular, element, flat, explainer, business, flares
 
             tags.add("3d");
             tags.add("animation");
