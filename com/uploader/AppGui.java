@@ -623,6 +623,50 @@ public class AppGui extends JFrame  {
 
         setResizable(true);
 
+        buttonOneLinkUpload.addActionListener(new ActionListener()  {
+
+            public void actionPerformed(ActionEvent evt)    {
+
+                String textInNameField = "";
+                String textInDelayField = "";
+                String textInReferalField = "";
+                String textInOneLinkUploadField = "";
+
+                double textInDelayFieldInDouble = 0.0;
+
+                textInNameField = "Test";
+
+                textInDelayFieldInDouble = 0.0;
+
+                if(oneLinkUploadField.getText() != null && !oneLinkUploadField.getText().isEmpty()) {
+
+                    textInOneLinkUploadField = oneLinkUploadField.getText();
+
+                }   else    {
+
+                    textArea.append("Set videohive's URL to upload.\n");
+
+                }
+
+                if(referalField.getText() != null && !referalField.getText().isEmpty()) {
+
+                    textInReferalField = referalField.getText();
+
+                }   else    {
+
+                    textArea.append("Referal is not set.\n");
+
+                }
+
+                if(oneLinkUploadField != null && !oneLinkUploadField.isEmpty())  {
+
+                    upload_onelink_to_tube(oneLinkUploadField, textInDelayFieldInDouble, textInReferalField);
+
+                }
+
+            }
+        });
+
         buttonYoutubeUpload.addActionListener(new ActionListener()  {
 
             public void actionPerformed(ActionEvent evt)    {
@@ -817,7 +861,22 @@ public class AppGui extends JFrame  {
         thread.start();
     }
 
-    private void upload_hive_to_vimeo(String _name_of_profile, double _delay_in_min, String _referal_name)    {
+    private void upload_onelink_to_tube(String _link_to_project, double _delay_in_min, String _referal_name)    {
+
+        thread = new Thread(new Runnable()   {
+
+            public void run()   {
+                // System.out.println("I like that!");
+
+                OneLinkUpload h2t = new OneLinkUpload(_link_to_project, _delay_in_min, _referal_name, "youtube", uploadAsPublic);
+                h2t.GrabAndLoad();
+            }
+
+        });
+        thread.start();
+   }
+
+   private void upload_hive_to_vimeo(String _name_of_profile, double _delay_in_min, String _referal_name)    {
 
         thread = new Thread(new Runnable()   {
 
