@@ -105,7 +105,7 @@ public class AppGui extends JFrame  {
     private JTextField profileNameField = new JTextField(null);
     private JTextField delayField = new JTextField();
     private JTextField referalField = new JTextField();
-    private JTextField oneLinkUploadField = new JTextField();
+    private JTextField oneLinkUploadField = new JTextField(null);
 
     // profileNameField.(new JLabel();
 
@@ -658,9 +658,9 @@ public class AppGui extends JFrame  {
 
                 }
 
-                if(oneLinkUploadField != null && !oneLinkUploadField.isEmpty())  {
+                if(textInOneLinkUploadField != null && !textInOneLinkUploadField.isEmpty())  {
 
-                    upload_onelink_to_tube(oneLinkUploadField, textInDelayFieldInDouble, textInReferalField);
+                    upload_onelink_to_tube(textInOneLinkUploadField, textInDelayFieldInDouble, textInReferalField);
 
                 }
 
@@ -868,7 +868,7 @@ public class AppGui extends JFrame  {
             public void run()   {
                 // System.out.println("I like that!");
 
-                OneLinkUpload h2t = new OneLinkUpload(_link_to_project, _delay_in_min, _referal_name, "youtube", uploadAsPublic);
+                OneLinkUpload h2t = new OneLinkUpload(_link_to_project, _referal_name, "youtube", uploadAsPublic);
                 h2t.GrabAndLoad();
             }
 
