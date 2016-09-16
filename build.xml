@@ -29,13 +29,18 @@
 	<path id="main">
 		<fileset dir="lib">
 			<include name="*.jar"/>
-			<include name="lib/weblaf-complete-1.29.jar"/>
 		</fileset>
+	</path>
+
+	<path id="manifest.classpath">
+	    <fileset dir="lib" includes="**/*.jar"/>
 	</path>
 
 	<target name="compile" description="compile JAVA code with javac" depends="mkdirs">
 		
 		<echo>Time to compile!</echo>
+
+		<delete file="Application.jar"/>
 	
 		<javac destdir=".build/class">
 			<src path="src/java"/>
@@ -46,6 +51,20 @@
 		</javac>
 
 		<echo>Compile sucesfull!</echo>
+
+	   <manifestclasspath property="manifest-cp" jarfile="Application.jar">
+           <classpath refid="manifest.classpath" />
+       </manifestclasspath>
+
+		<jar destfile="Application.jar" >
+			<fileset dir=".build/class"/>
+			<manifest>
+				<attribute name="Main-Class" value="com.uploader.AppGui"/>
+				<attribute name="Class-Path" value="${manifest-cp}"/>
+			</manifest>
+		</jar>
+
+		<echo message="Classpath: ${manifest-cp}"/>
 
 	</target>
 

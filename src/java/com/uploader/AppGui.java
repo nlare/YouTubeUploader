@@ -901,8 +901,10 @@ public class AppGui extends JFrame  {
                 try {
 
                     JFrame jfrm = new AppGui();
-                    jfrm.setSize(760,550);
+                    // jfrm.setPreferredSize(new Dimension(1200,1000));
+                    jfrm.setSize(770,550);
                     jfrm.setVisible(true);
+                    System.out.println(jfrm.getSize());
 
                 }   catch(Exception e)  {
 
