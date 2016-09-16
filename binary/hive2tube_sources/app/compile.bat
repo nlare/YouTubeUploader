@@ -1,1 +1,0 @@
-javac -cp .;lib/*;com/HTMLParser/* com/HTMLParser/HTMLParser.java com/HTMLParser/VideoFromURL.java com/HTMLParser/VideoToYoutube.java com/HTMLParser/Auth.java

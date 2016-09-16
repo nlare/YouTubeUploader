@@ -1,0 +1,59 @@
+<project name="YouTubeUploader" default="all">
+
+	<description>
+
+		Project to upload videohive videos to YouTube via that API
+
+	</description>
+
+	<target name="all" description="Simple make's a project" depends="compile">
+
+		<echo>I'm simple make's a project</echo>
+
+	</target>
+
+	<target name="mkdirs" description="Simple make's a project">
+
+		<echo>I'm simple make's a project</echo>
+
+		<echo>Making dirs for build project ..</echo>
+		<mkdir dir=".build"></mkdir>
+
+		<echo>.build directory created</echo>
+		<mkdir dir=".build/class"></mkdir>
+
+		<echo>.build/class directory created</echo>
+
+	</target>
+	
+	<path id="main">
+		<fileset dir="lib">
+			<include name="*.jar"/>
+			<include name="lib/weblaf-complete-1.29.jar"/>
+		</fileset>
+	</path>
+
+	<target name="compile" description="compile JAVA code with javac" depends="mkdirs">
+		
+		<echo>Time to compile!</echo>
+	
+		<javac destdir=".build/class">
+			<src path="src/java"/>
+			<classpath>
+				<path refid="main"/>
+			</classpath>
+			<compilerarg value="-Xlint"/>	
+		</javac>
+
+		<echo>Compile sucesfull!</echo>
+
+	</target>
+
+	<target name="clean" description="Delete .build directory">
+
+		<echo>Delete .build directory</echo>
+		<delete dir=".build"></delete>
+
+	</target>
+	
+</project>
