@@ -44,6 +44,8 @@ public class VideoToYoutube {
     private static final String VIDEO_FILE_FORMAT = "video/*";
 
     private int video_count = 0;
+
+    // InputStreamContent mediaContent = null;
     // private static final String SAMPLE_VIDEO_FILENAME = "Flash Giant FX.mp4";
 
     public int AuthAndUpload(String parsed_filename, String parsed_name_of_video, String parsed_name_of_author, String link_to_videohive, String parsed_tags, String parsed_ref_link, String parsed_description, boolean public_upload)   {
@@ -95,42 +97,42 @@ public class VideoToYoutube {
 
             }
 
-            tags.add("after effects");
-            tags.add("after");
-            tags.add("effects");
-            tags.add("template");
-            tags.add("project");
-            tags.add("adobe");
-            tags.add("free");
-            tags.add("videohive");
-            tags.add("download");
-            tags.add("clean");
-            tags.add("corparate");
-            tags.add("wedding");
-            tags.add("logo");
-            tags.add("opener");
-            tags.add("titles");
-            tags.add("slideshow");
-            tags.add("xmas");
-            tags.add("Christmas");
-            tags.add("epic");
-            tags.add("cinematic");
-            tags.add("tv");
-            tags.add("video");
-            tags.add("dynamic");
+            // tags.add("after effects");
+            // tags.add("after");
+            // tags.add("effects");
+            // tags.add("template");
+            // tags.add("project");
+            // tags.add("adobe");
+            // tags.add("free");
+            // tags.add("videohive");
+            // tags.add("download");
+            // tags.add("clean");
+            // tags.add("corparate");
+            // tags.add("wedding");
+            // tags.add("logo");
+            // tags.add("opener");
+            // tags.add("titles");
+            // tags.add("slideshow");
+            // tags.add("xmas");
+            // tags.add("Christmas");
+            // tags.add("epic");
+            // tags.add("cinematic");
+            // tags.add("tv");
+            // tags.add("video");
+            // tags.add("dynamic");
 
             // 3d, animation, flash, tutorial, particular, element, flat, explainer, business, flares
 
-            tags.add("3d");
-            tags.add("animation");
-            tags.add("flash");
-            tags.add("tutorial");
-            tags.add("particular");
-            tags.add("element");
-            tags.add("flat");
-            tags.add("explainer");
-            tags.add("business");
-            tags.add("flares");
+            // tags.add("3d");
+            // tags.add("animation");
+            // tags.add("flash");
+            // tags.add("tutorial");
+            // tags.add("particular");
+            // tags.add("element");
+            // tags.add("flat");
+            // tags.add("explainer");
+            // tags.add("business");
+            // tags.add("flares");
 
             video_count++;
 
@@ -140,19 +142,53 @@ public class VideoToYoutube {
             System.out.println("NameOfVideo: " + parsed_name_of_video);
             System.out.println("NameOfAuthor: " + parsed_name_of_author);
             System.out.println("Tags Count: " + RED_COLOR + tag_count + WHITE_COLOR);
-            // System.out.println("Video Count: " + RED_COLOR + video_count + WHITE_COLOR);
+            System.out.println("Video Count: " + RED_COLOR + video_count + WHITE_COLOR);
 
             snippet.setTags(tags);
 
+            System.out.println("Test1");
+
             videoObjectDefiningMetadata.setSnippet(snippet);
 
-            InputStreamContent mediaContent = new InputStreamContent(VIDEO_FILE_FORMAT, VideoToYoutube.class.getResourceAsStream(parsed_filename));
+            System.out.println("Test2");
+
+            // InputStream content = .getContentAsStream();
+
+            // try {
+
+            // System.out.println("Filename: " + parsed_filename);
+
+            Thread.sleep(1000);
+
+            InputStreamContent mediaContent = new InputStreamContent("video/*", VideoToYoutube.class.getResourceAsStream("32k3j3h2j3h"));
+
+            // }   catch(Exception e) {
+
+                // e.printStackTrace();
+
+            // }
+
+            System.out.println("Test3");
+
+            // try {
 
             YouTube.Videos.Insert videoInsert = youtube.videos().insert("snippet,statistics,status", videoObjectDefiningMetadata, mediaContent);
 
+            // }   catch(Exception e) {
+
+                // e.printStackTrace();
+
+            // }
+
+            System.out.println("Test4");
+
             MediaHttpUploader uploader = videoInsert.getMediaHttpUploader();
 
+            System.out.println("Test5");
+
             uploader.setDirectUploadEnabled(false);
+
+            System.out.println("Test6");
 
             MediaHttpUploaderProgressListener progressListener = new MediaHttpUploaderProgressListener() {
                 public void progressChanged(MediaHttpUploader uploader) throws IOException {

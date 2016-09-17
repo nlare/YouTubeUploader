@@ -58,6 +58,8 @@
 
 		<jar destfile="Application.jar" >
 			<fileset dir=".build/class"/>
+			<fileset dir="misc"/>
+			<fileset file="client_secrets.json"/>
 			<manifest>
 				<attribute name="Main-Class" value="com.uploader.AppGui"/>
 				<attribute name="Class-Path" value="${manifest-cp}"/>
@@ -72,6 +74,7 @@
 
 		<echo>Delete .build directory</echo>
 		<delete dir=".build"></delete>
+		<delete dir="tmp"></delete>
 
 	</target>
 	
