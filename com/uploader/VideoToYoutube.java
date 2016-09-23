@@ -95,42 +95,32 @@ public class VideoToYoutube {
 
             }
 
-            // tags.add("after effects");
-            // tags.add("after");
-            // tags.add("effects");
-            // tags.add("template");
-            // tags.add("project");
-            // tags.add("adobe");
-            // tags.add("free");
-            // tags.add("videohive");
-            // tags.add("download");
-            // tags.add("clean");
-            // tags.add("corparate");
-            // tags.add("wedding");
-            // tags.add("logo");
-            // tags.add("opener");
-            // tags.add("titles");
-            // tags.add("slideshow");
-            // tags.add("xmas");
-            // tags.add("Christmas");
-            // tags.add("epic");
-            // tags.add("cinematic");
-            // tags.add("tv");
-            // tags.add("video");
-            // tags.add("dynamic");
-
-            // 3d, animation, flash, tutorial, particular, element, flat, explainer, business, flares
-
-            // tags.add("3d");
-            // tags.add("animation");
-            // tags.add("flash");
-            // tags.add("tutorial");
-            // tags.add("particular");
-            // tags.add("element");
-            // tags.add("flat");
-            // tags.add("explainer");
-            // tags.add("business");
-            // tags.add("flares");
+            tags.add("after effects");
+            tags.add("after");
+            tags.add("effects");
+            tags.add("liquid");
+            tags.add("cinema4d");
+            tags.add("2d");
+            tags.add("2dFX");
+            tags.add("3d");
+            tags.add("FX");
+            tags.add("blender project");
+            tags.add("footage");
+            tags.add("video");
+            tags.add("videohive");
+            tags.add("free");
+            tags.add("slideshow");
+            tags.add("logo");
+            tags.add("logo reveal");
+            tags.add("reveal");
+            tags.add("houdini");
+            tags.add("motion");
+            tags.add("graphics");
+            tags.add("motion graphics");
+            tags.add("tutorial");
+            tags.add("training");
+            tags.add("trend");
+            tags.add("trending");
 
             video_count++;
 
