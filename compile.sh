@@ -1,2 +1,3 @@
 #!/bin/bash
-javac -classpath .:./lib/* com/uploader/*.java -Xlint:deprecation
+#javac -classpath .:./lib/* com/uploader/*.java -Xlint:deprecation
+ant

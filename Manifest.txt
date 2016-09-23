@@ -1,0 +1,2 @@
+Main-Class: com.uploader.AppGui
+Class-Path: lib/weblaf-complete-1.29.jar
