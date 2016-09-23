@@ -94,6 +94,9 @@ public class OneLinkUpload  {
         // Element imgElement[] = new Element [10];
         Elements imgElements;
         Elements aElements;
+        Elements metaElementWithLink;
+        Elements metaElementWithName;
+        Elements linkElementWithOriginalLink;
         Elements userTextElements;
         Elements aTagsElements;
 
@@ -129,7 +132,8 @@ public class OneLinkUpload  {
 
         }   catch(Exception e) {
 
-            System.out.println("Cannot connect! Link is not correct or internet connection is lost.");
+            // System.out.println("Cannot connect! Link is not correct or internet connection is lost.");
+            e.printStackTrace();
 
         }
 
@@ -140,18 +144,35 @@ public class OneLinkUpload  {
             String imgAttrAuthor = new String();
             String imgAttrName = new String();
             String imgAttrTags = new String();
-            String imgAttrVideo = new String();
             String imgAttrPreview = new String();
+
+            String metaLinkToVideo = new String();
+            String metaNameOfVideo = new String();
+
+            String linkOriginalLink = new String();
 
             String buffer[] = new String[2];
 
             aElements = html.select("a[class=js-google-analytics__list-event-trigger");
 
-            String aAttrLink = new String();
+            String linkAttrLink = new String();
+
             String aTagsAttrNames = new String();
             String aItemDescription = new String();
 
             Element el = imgElements.last();
+
+            metaElementWithLink = html.select("meta[itemprop=contentURL]");
+
+            Element elLink = metaElementWithLink.last();
+
+            metaElementWithName = html.select("meta[itemprop=name]");
+
+            Element elName = metaElementWithName.last();
+
+            linkElementWithOriginalLink = html.select("link[rel$=canonical]");
+
+            Element elOriginalLink = linkElementWithOriginalLink.last();
 
             // for(Element el: aElements)  {
 
@@ -222,28 +243,59 @@ public class OneLinkUpload  {
                 }
 
                 imgAttrAuthor = el.attr("data-item-author");
-                imgAttrName = el.attr("data-item-name");
-                imgAttrVideo = el.attr("data-video-file-url");
                 imgAttrPreview = el.attr("data-preview-url");
+
+                try {
+
+                    metaLinkToVideo = elLink.attr("content");
+
+                } catch (Exception e)   {
+
+                    e.printStackTrace();
+
+                }
+
+                try {
+
+                    metaNameOfVideo = elName.attr("content");
+
+                } catch (Exception e)  {
+
+                    e.printStackTrace();
+
+                }
+
+                try {
+
+                    linkOriginalLink = elOriginalLink.attr("href");
+
+                } catch (Exception e)  {
+
+                    e.printStackTrace();
+
+                }
+
+                linkOriginalLink += ("?ref=" + referal_name); 
+                link_to_project += ("?ref=" + referal_name); 
 
                 String title = html.title();
 
                 System.out.println(GREEN_COLOR + "\nTitle: " + WHITE_COLOR + title);
 
                 System.out.println(GREEN_COLOR + "Author: " + WHITE_COLOR + imgAttrAuthor);
-                System.out.println(GREEN_COLOR + "Name: " + WHITE_COLOR + imgAttrName);
+                System.out.println(GREEN_COLOR + "Name: " + WHITE_COLOR + metaNameOfVideo);
                 System.out.println(GREEN_COLOR + "Tags: " + WHITE_COLOR + aTagsAttrNames);
-                System.out.println(GREEN_COLOR + "Video: " + WHITE_COLOR + imgAttrVideo);
+                System.out.println(GREEN_COLOR + "Video: " + WHITE_COLOR + metaLinkToVideo);
                 System.out.println(GREEN_COLOR + "Preview: " + WHITE_COLOR + imgAttrPreview);
-                System.out.println(GREEN_COLOR + "RefLink: " + WHITE_COLOR + aAttrLink);
+                System.out.println(GREEN_COLOR + "RefLink: " + WHITE_COLOR + linkOriginalLink);
                 System.out.println(GREEN_COLOR + "Description: " + WHITE_COLOR + aItemDescription);
                 System.out.print("\n");
 
                 try {
 
-                    System.out.println("Downloading video: " + imgAttrVideo + " -> ./tmp/" + imgAttrAuthor + "/" + imgAttrName.replace(" ", "_") + ".mp4");
+                    System.out.println("Downloading video: " + metaLinkToVideo + " -> ./tmp/" + imgAttrAuthor + "/" + metaNameOfVideo.replace(" ", "_") + ".mp4");
                     VideoFromURL video_url = new VideoFromURL();
-                    video_url.getVideoFromURL(imgAttrVideo, imgAttrName, imgAttrAuthor);
+                    video_url.getVideoFromURL(metaLinkToVideo, metaNameOfVideo, imgAttrAuthor);
 
                 }   catch(Exception e)  {
 
@@ -253,12 +305,12 @@ public class OneLinkUpload  {
 
                 try {
 
-                    String local_filename = ("/tmp/" + imgAttrAuthor + "/" + imgAttrName.replace(" ", "_") + ".mp4");
+                    String local_filename = ("/tmp/" + imgAttrAuthor + "/" + metaNameOfVideo.replace(" ", "_") + ".mp4");
 
                     if(YOUTUBE_UPLOAD)  {
 
                         VideoToYoutube video_to_upload  = new VideoToYoutube();
-                        video_to_upload.AuthAndUpload(local_filename, imgAttrName, imgAttrAuthor, link_to_project, aTagsAttrNames, aAttrLink, aItemDescription, public_upload);
+                        video_to_upload.AuthAndUpload(local_filename, metaNameOfVideo, imgAttrAuthor, link_to_project, aTagsAttrNames, linkOriginalLink, aItemDescription, public_upload);
 
                     }
 
@@ -267,7 +319,8 @@ public class OneLinkUpload  {
                         System.out.println("Start Vimeo Uploading");
 
                         VideoToVimeo video_to_upload = new VideoToVimeo();
-                        video_to_upload.AuthAndUpload(local_filename, imgAttrName, imgAttrAuthor, link_to_project, aTagsAttrNames, aAttrLink, aItemDescription);
+                        video_to_upload.AuthAndUpload(local_filename, metaNameOfVideo
+                            , imgAttrAuthor, link_to_project, aTagsAttrNames, linkOriginalLink, aItemDescription);
 
                     }
 

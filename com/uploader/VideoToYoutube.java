@@ -77,7 +77,7 @@ public class VideoToYoutube {
 
             snippet.setTitle(parsed_name_of_video);
             // snippet.setDescription("Author: " + parsed_name_of_author + "\nLink: " + link_to_videohive);
-            snippet.setDescription(parsed_ref_link + "\nAuthor: " + parsed_name_of_author + " " + link_to_videohive + "\n" + parsed_description + "\nTo see all project features go to this link:\n" + parsed_ref_link);
+            snippet.setDescription(parsed_ref_link + "\nAuthor: " + parsed_name_of_author + "\n" + parsed_description + "\nTo see all project features go to this link:\n" + parsed_ref_link);
 
             List<String> tags = new ArrayList<String>();
 
@@ -95,42 +95,42 @@ public class VideoToYoutube {
 
             }
 
-            tags.add("after effects");
-            tags.add("after");
-            tags.add("effects");
-            tags.add("template");
-            tags.add("project");
-            tags.add("adobe");
-            tags.add("free");
-            tags.add("videohive");
-            tags.add("download");
-            tags.add("clean");
-            tags.add("corparate");
-            tags.add("wedding");
-            tags.add("logo");
-            tags.add("opener");
-            tags.add("titles");
-            tags.add("slideshow");
-            tags.add("xmas");
-            tags.add("Christmas");
-            tags.add("epic");
-            tags.add("cinematic");
-            tags.add("tv");
-            tags.add("video");
-            tags.add("dynamic");
+            // tags.add("after effects");
+            // tags.add("after");
+            // tags.add("effects");
+            // tags.add("template");
+            // tags.add("project");
+            // tags.add("adobe");
+            // tags.add("free");
+            // tags.add("videohive");
+            // tags.add("download");
+            // tags.add("clean");
+            // tags.add("corparate");
+            // tags.add("wedding");
+            // tags.add("logo");
+            // tags.add("opener");
+            // tags.add("titles");
+            // tags.add("slideshow");
+            // tags.add("xmas");
+            // tags.add("Christmas");
+            // tags.add("epic");
+            // tags.add("cinematic");
+            // tags.add("tv");
+            // tags.add("video");
+            // tags.add("dynamic");
 
             // 3d, animation, flash, tutorial, particular, element, flat, explainer, business, flares
 
-            tags.add("3d");
-            tags.add("animation");
-            tags.add("flash");
-            tags.add("tutorial");
-            tags.add("particular");
-            tags.add("element");
-            tags.add("flat");
-            tags.add("explainer");
-            tags.add("business");
-            tags.add("flares");
+            // tags.add("3d");
+            // tags.add("animation");
+            // tags.add("flash");
+            // tags.add("tutorial");
+            // tags.add("particular");
+            // tags.add("element");
+            // tags.add("flat");
+            // tags.add("explainer");
+            // tags.add("business");
+            // tags.add("flares");
 
             video_count++;
 
