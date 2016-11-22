@@ -751,6 +751,7 @@ public class AppGui extends JFrame  {
                     labelFieldBox1.setVisible(preferensesVisibleTrigger);
                     labelFieldBox2.setVisible(preferensesVisibleTrigger);
                     labelFieldBox3.setVisible(preferensesVisibleTrigger);
+                    labelFieldBox4.setVisible(preferensesVisibleTrigger);
                     checkBoxField4.setVisible(preferensesVisibleTrigger);
 
                 }   else    {
@@ -760,6 +761,7 @@ public class AppGui extends JFrame  {
                     labelFieldBox1.setVisible(preferensesVisibleTrigger);
                     labelFieldBox2.setVisible(preferensesVisibleTrigger);
                     labelFieldBox3.setVisible(preferensesVisibleTrigger);
+                    labelFieldBox4.setVisible(preferensesVisibleTrigger);
                     checkBoxField4.setVisible(preferensesVisibleTrigger);
 
                 }
