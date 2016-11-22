@@ -75,7 +75,8 @@ public class VideoToYoutube {
 
             VideoSnippet snippet = new VideoSnippet();
 
-            snippet.setTitle(parsed_name_of_video);
+            String result_name_of_video = parsed_name_of_video + " After Effects";
+            snippet.setTitle(result_name_of_video);
             // snippet.setDescription("Author: " + parsed_name_of_author + "\nLink: " + link_to_videohive);
             snippet.setDescription(parsed_ref_link + "\nAuthor: " + parsed_name_of_author + "\n" + parsed_description + "\nTo see all project features go to this link:\n" + parsed_ref_link);
 
@@ -127,10 +128,11 @@ public class VideoToYoutube {
             System.out.println("-------------------------------");
 
             System.out.println("Filename: " + parsed_filename);
-            System.out.println("NameOfVideo: " + parsed_name_of_video);
+            System.out.println("NameOfVideo: " + result_name_of_video);
             System.out.println("NameOfAuthor: " + parsed_name_of_author);
             System.out.println("Tags Count: " + RED_COLOR + tag_count + WHITE_COLOR);
-            // System.out.println("Video Count: " + RED_COLOR + video_count + WHITE_COLOR);
+            
+            //System.out.println("-------------------------------");            
 
             snippet.setTags(tags);
 
