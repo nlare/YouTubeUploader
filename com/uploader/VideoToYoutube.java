@@ -46,7 +46,7 @@ public class VideoToYoutube {
     private int video_count = 0;
     // private static final String SAMPLE_VIDEO_FILENAME = "Flash Giant FX.mp4";
 
-    public int AuthAndUpload(String parsed_filename, String parsed_name_of_video, String parsed_name_of_author, String link_to_videohive, String parsed_tags, String parsed_ref_link, String parsed_description, boolean public_upload)   {
+    public int AuthAndUpload(String parsed_filename, String parsed_name_of_video, String parsed_name_of_author, String link_to_stock_profile, String parsed_tags, String parsed_ref_link, String parsed_description, boolean public_upload)   {
         List<String> scopes = Lists.newArrayList("https://www.googleapis.com/auth/youtube.upload");
 
         try {
@@ -85,7 +85,7 @@ public class VideoToYoutube {
             String result_name_of_video = parsed_name_of_video;
             snippet.setTitle(result_name_of_video);
             // snippet.setDescription("Author: " + parsed_name_of_author + "\nLink: " + link_to_videohive);
-            snippet.setDescription(parsed_ref_link + "\nAuthor: " + parsed_name_of_author + "\n" + parsed_description + "\nTo see all project features go to this link:\n" + parsed_ref_link);
+            snippet.setDescription("\nAuthor: " + parsed_name_of_author + "\nProfile: " + link_to_stock_profile + "\n" + parsed_description + "\nTo see all project features go to this link:\n" + parsed_ref_link);
 
             List<String> tags = new ArrayList<String>();
             int tag_count = 0;

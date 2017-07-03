@@ -28,7 +28,8 @@ public class ShutterToResource  {
     public static String GREEN_COLOR = "";
     public static String RED_COLOR = "";
 
-    private static String REF_PART_OF_LINK = "?ref=";
+    private static String  REF_PART_OF_LINK1 = "?rid=";
+    private static String  REF_PART_OF_LINK2 = "&rid=";
     private static boolean DELAY_FOR_UPLOAD = true;
     
     private static String link_to_profile;
@@ -55,10 +56,11 @@ public class ShutterToResource  {
         name_of_profile = _name_of_profile;
         delay_min_in_min = _delay_min_in_min;
         delay_max_in_min = _delay_max_in_min;
-        referal_name = _referal_name;
         public_upload = _public_upload;
-        clips_per_page = 100;
 
+        referal_name = REF_PART_OF_LINK2 + _referal_name;
+
+        clips_per_page = 100;
         all_clips_count = 0;
 
         if(!(Objects.equals(_name_of_profile, "")) || (!Objects.equals(_name_of_profile, null)))    {
@@ -306,7 +308,7 @@ public class ShutterToResource  {
                         // System.out.println("Uploading video to YouTube: " + fullPathToDownloadedVideo);
 
                         VideoToYoutube video_to_upload = new VideoToYoutube();
-                        video_to_upload.AuthAndUpload(fullPathToDownloadedVideo, itemName, itemContributorName, "", itemTags, hrefToCurrentClipOnPage[clips_per_page_count], itemDescription, public_upload);
+                        video_to_upload.AuthAndUpload(fullPathToDownloadedVideo, itemName, itemContributorName, (link_to_profile + referal_name), itemTags, (hrefToCurrentClipOnPage[clips_per_page_count] + referal_name), itemDescription, public_upload);
 
                     }
 
