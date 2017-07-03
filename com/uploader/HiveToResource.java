@@ -35,23 +35,29 @@ public class HiveToResource  {
     private static String name_of_profile;
     private static int number_of_pages;
     private static int current_page;
-    private static double delay_in_min;
+    private static double delay_min_in_min;
+    private static double delay_max_in_min;
     private static String referal_name;
     private static boolean public_upload;
+
+    private static int all_video_count;
 
     private static boolean YOUTUBE_UPLOAD = false;
     private static boolean VIMEO_UPLOAD = false;
 
     public static boolean STOP = false;
 
-    public HiveToResource(String _name_of_profile, double _delay_in_min, String _referal_name, String _upload_resource, boolean _public_upload)  {
+    public HiveToResource(String _name_of_profile, double _delay_min_in_min, double _delay_max_in_min, String _referal_name, String _upload_resource, boolean _public_upload)  {
 
         name_of_profile = new String();
 
         name_of_profile = _name_of_profile;
-        delay_in_min = _delay_in_min;
+        delay_min_in_min = _delay_min_in_min;
+        delay_max_in_min = _delay_max_in_min;
         referal_name = _referal_name;
         public_upload = _public_upload;
+
+        all_video_count = 0;
 
         if(!(Objects.equals(_name_of_profile, "")) || (!Objects.equals(_name_of_profile, null)))    {
 
@@ -115,8 +121,10 @@ public class HiveToResource  {
             name_of_profile = name_of_profile.toLowerCase();
 
             System.out.println("Name of videohive.net profile: " + GREEN_COLOR + name_of_profile + WHITE_COLOR);
-            System.out.println("Delay in minutes: " + GREEN_COLOR + delay_in_min + WHITE_COLOR);
+            System.out.println("DelayMin in minutes: " + GREEN_COLOR + delay_min_in_min + WHITE_COLOR);
+            System.out.println("DelayMax in minutes: " + GREEN_COLOR + delay_max_in_min + WHITE_COLOR);
             System.out.println("Referal Link: " + GREEN_COLOR + referal_name + WHITE_COLOR);
+            System.out.println("Upload from video #: " + GREEN_COLOR + AppGui.uploadFromVideoNumber + WHITE_COLOR);
             
             // Scanner in_str = new Scanner(System.in);
 
@@ -364,6 +372,13 @@ public class HiveToResource  {
                 }
 
                 count++;
+
+                all_video_count++;
+
+                System.out.println("Video #" + all_video_count + ", uploadFromVideoNumber = " + AppGui.uploadFromVideoNumber);
+
+                if(all_video_count >= AppGui.uploadFromVideoNumber) {
+
                 imgAttrAuthor[count] = el.attr("data-item-author");
                 imgAttrName[count] = el.attr("data-item-name");
                 // imgAttrTags[count] = el.attr("data-item-category");
@@ -399,7 +414,8 @@ public class HiveToResource  {
 
                 if(DELAY_FOR_UPLOAD)    {
 
-                    System.out.println("Delay (in minutes) = " + delay_in_min);
+                    System.out.println("DelayMin (in minutes) = " + delay_min_in_min);
+                    System.out.println("DelayMax (in minutes) = " + delay_max_in_min);
 
                 }
 
@@ -430,12 +446,32 @@ public class HiveToResource  {
 
                 if(DELAY_FOR_UPLOAD)    {
 
-                    System.out.println("Waiting " + delay_in_min + " min (" + delay_in_min*60 + " sec) for upload.");
+                    //System.out.println("Waiting " + delay_in_min + " min (" + delay_in_min*60 + " sec) for upload.");
 
                     try {
 
-                    int delay_in_milliseconds = (int)(delay_in_min*1000*60);
-                    Thread.sleep(delay_in_milliseconds);
+                        int random_delay_in_min;
+
+                        Random rand = new Random();
+                        // delay [from,to] [delay_min, delay_max]
+                        // rand.nextInt(int _arg) generates begun of 0 to _arg
+
+                        random_delay_in_min = rand.nextInt((int)delay_max_in_min - (int)delay_min_in_min + 1) + (int)delay_min_in_min;
+
+                        if(delay_max_in_min >= delay_min_in_min) {
+
+                            int delay_in_milliseconds = (int)(random_delay_in_min*1000*60);
+
+                            System.out.println("You're set delay, then wait a " + random_delay_in_min + " minute please ...");
+
+                            Thread.sleep(delay_in_milliseconds);
+
+                        }   else    {
+
+                            System.out.println("delayMax MUST be higher than delayMin! Set no delay.");
+
+                        }
+
 
                     }   catch(InterruptedException e) {   
 
@@ -449,6 +485,9 @@ public class HiveToResource  {
                 // String imgAttr = imgElement1.text();
             
                 // break;
+
+                }
+
             }
 
         }   catch(Exception e)   {

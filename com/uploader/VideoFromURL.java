@@ -32,7 +32,9 @@ public class VideoFromURL    {
         try {
 
             name_of_video_with_extension = "./tmp/" + name_of_profile + "/" + name_of_video.replace(" ", "_") + ".mp4";
+
             f_out = new File(name_of_video_with_extension);
+
             weblink = new URL(link_buffer);
             
         }   catch(Exception e) {

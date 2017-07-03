@@ -21,8 +21,8 @@ import com.google.common.collect.Lists;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.io.InputStreamReader
+;import java.util.ArrayList;
 import java.util.List;
 import java.lang.*;
 import java.net.*;
@@ -50,10 +50,16 @@ public class VideoToYoutube {
         List<String> scopes = Lists.newArrayList("https://www.googleapis.com/auth/youtube.upload");
 
         try {
-
+            
+            // For client_secrets_va.json
             Credential credential = Auth.authorize(scopes, "uploadvideo");
+            // For client_secrets_vu.json
+            // Credential credential = Auth.authorize(scopes, "videoupload");
 
+            // For client_secrets_va.json
             youtube = new YouTube.Builder(Auth.HTTP_TRANSPORT, Auth.JSON_FACTORY, credential).setApplicationName("YoutubeUploaderApp").build();
+            // For client_secrets_vu.json
+            // youtube = new YouTube.Builder(Auth.HTTP_TRANSPORT, Auth.JSON_FACTORY, credential).setApplicationName("YoutubeUploader").build();
 
             System.out.println("Uploading: " + parsed_filename);
 
@@ -75,66 +81,72 @@ public class VideoToYoutube {
 
             VideoSnippet snippet = new VideoSnippet();
 
-            String result_name_of_video = parsed_name_of_video + " After Effects";
+            // String result_name_of_video = parsed_name_of_video + " After Effects";
+            String result_name_of_video = parsed_name_of_video;
             snippet.setTitle(result_name_of_video);
             // snippet.setDescription("Author: " + parsed_name_of_author + "\nLink: " + link_to_videohive);
             snippet.setDescription(parsed_ref_link + "\nAuthor: " + parsed_name_of_author + "\n" + parsed_description + "\nTo see all project features go to this link:\n" + parsed_ref_link);
 
             List<String> tags = new ArrayList<String>();
-
             int tag_count = 0;
-            String[] devidedTagString = parsed_tags.split(" ");
 
-            System.out.println("Tags:");
-            System.out.println("-------------------------------");
+            if(parsed_tags != "")    {
+                
+                String[] devidedTagString = parsed_tags.split(" ");
 
-            for(String el: devidedTagString)    {
+                System.out.println("Tags:");
+                System.out.println("-------------------------------");
 
-                tag_count++;
-                System.out.println(tag_count + ": " + el);
-                tags.add(el);
+                for(String el: devidedTagString)    {
+
+                    tag_count++;
+                    System.out.println(tag_count + ": " + el);
+                    tags.add(el);
+
+                }
+
+                System.out.println("Tags Count: " + RED_COLOR + tag_count + WHITE_COLOR);
+
+                snippet.setTags(tags);
 
             }
 
-            tags.add("after effects");
-            tags.add("after");
-            tags.add("effects");
-            tags.add("liquid");
-            tags.add("cinema4d");
-            tags.add("2d");
-            tags.add("2dFX");
-            tags.add("3d");
-            tags.add("FX");
-            tags.add("blender project");
-            tags.add("footage");
-            tags.add("video");
-            tags.add("videohive");
-            tags.add("free");
-            tags.add("slideshow");
-            tags.add("logo");
-            tags.add("logo reveal");
-            tags.add("reveal");
-            tags.add("houdini");
-            tags.add("motion");
-            tags.add("graphics");
-            tags.add("motion graphics");
-            tags.add("tutorial");
-            tags.add("training");
-            tags.add("trend");
-            tags.add("trending");
+            // tags.add("after effects");
+            // tags.add("after");
+            // tags.add("effects");
+            // tags.add("liquid");
+            // tags.add("cinema4d");
+            // tags.add("2d");
+            // tags.add("2dFX");
+            // tags.add("3d");
+            // tags.add("FX");
+            // tags.add("blender project");
+            // tags.add("footage");
+            // tags.add("video");
+            // tags.add("videohive");
+            // tags.add("free");
+            // tags.add("slideshow");
+            // tags.add("logo");
+            // tags.add("logo reveal");
+            // tags.add("reveal");
+            // tags.add("houdini");
+            // tags.add("motion");
+            // tags.add("graphics");
+            // tags.add("motion graphics");
+            // tags.add("tutorial");
+            // tags.add("training");
+            // tags.add("trend");
+            // tags.add("trending");
 
             video_count++;
 
             System.out.println("-------------------------------");
 
-            System.out.println("Filename: " + parsed_filename);
-            System.out.println("NameOfVideo: " + result_name_of_video);
+            System.out.println("Filename: "     + parsed_filename);
+            System.out.println("NameOfVideo: "  + result_name_of_video);
             System.out.println("NameOfAuthor: " + parsed_name_of_author);
-            System.out.println("Tags Count: " + RED_COLOR + tag_count + WHITE_COLOR);
             
-            //System.out.println("-------------------------------");            
-
-            snippet.setTags(tags);
+            //System.out.println("-------------------------------");       
 
             videoObjectDefiningMetadata.setSnippet(snippet);
 

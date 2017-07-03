@@ -7,8 +7,7 @@ import java.io.IOException;
 import java.lang.*;
 import java.net.*;
 
-// import org.jsoup.Jsoup;
-import org.jsoup.*;
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -85,8 +84,7 @@ public class OneLinkUpload  {
 
         // ----------------------GUI----------------------
 
-
-        System.out.println("Begin...");
+        System.out.println("Begin load from Hive To Tube ...");
         System.out.println("Vimeo-Trigger:" + VIMEO_UPLOAD);
 
         Document html = null;
@@ -107,7 +105,7 @@ public class OneLinkUpload  {
             name_of_profile = name_of_profile.toLowerCase();
 
             System.out.println("Link to upload: " + GREEN_COLOR + link_to_project + WHITE_COLOR);
-            System.out.println("Referal Link: " + GREEN_COLOR + referal_name + WHITE_COLOR);
+            System.out.println("Referal Link: "   + GREEN_COLOR + referal_name + WHITE_COLOR);
             
         } catch(Exception e)    {
 
@@ -205,6 +203,8 @@ public class OneLinkUpload  {
                 System.out.println("Size: " + aTagsElements.size() + ":" + userTextElements.size());
                 System.out.println(GREEN_COLOR + "item-description:" + WHITE_COLOR);
 
+
+
                 for(Element descrel: userTextElements)    {
 
                     // descrel.removeAttr("a");
@@ -228,6 +228,7 @@ public class OneLinkUpload  {
                     
                     aItemDescription = aItemDescription.replace(">"," ");
                     // aItemDescription[count].replace(">>>"," ");
+                    // aItemDescription[count].replace(">>>"," ");
 
                     System.out.println(aItemDescription);
                         
@@ -238,7 +239,7 @@ public class OneLinkUpload  {
                 for(Element subel: aTagsElements)   {
 
                     aTagsAttrNames += subel.attr("title") + " ";
-                    // System.out.println(aTagsAttrNames[count]);
+                    // System.out.println(subel);
 
                 }
 
@@ -274,6 +275,8 @@ public class OneLinkUpload  {
                     e.printStackTrace();
 
                 }
+
+                System.out.println("!");
 
                 linkOriginalLink += ("?ref=" + referal_name); 
                 link_to_project += ("?ref=" + referal_name); 

@@ -68,7 +68,7 @@ public class AppGui extends JFrame  {
 
     public static String nameData;
     public static String numPagesData;
-    public static String delayData;
+    public static String delayMinFinData;
 
     private JTextArea textArea;
     private JTextPane textComponent;
@@ -76,36 +76,46 @@ public class AppGui extends JFrame  {
     private JPanel textPanel;
     private JPanel checkBoxPanel;
 
+    public static int uploadFromVideoNumber;
+
     ImageIcon profileNameLabelIconSrc;
     ImageIcon delayFieldLabelIconSrc;
     ImageIcon referalFieldLabelIconSrc;
     ImageIcon oneLinkUploadFieldLabelIconSrc;
+    ImageIcon uploadFromVideoNumberLabelIconSrc;
 
     ImageIcon profileNameLabelIcon;
     ImageIcon delayFieldLabelIcon;
     ImageIcon referalFieldLabelIcon;
     ImageIcon oneLinkUploadFieldLabelIcon;
+    ImageIcon uploadFromVideoNumberLabelIcon;
 
-    ImageIcon buttonYoutubeUploadIconSrc;
-    ImageIcon buttonOneLinkUploadIconSrc;
+    ImageIcon buttonHiveToYoutubeUploadIconSrc;
+    ImageIcon buttonShutterToYoutubeUploadIconSrc;
+    ImageIcon buttonOneLinkFromHiveUploadIconSrc;
+    ImageIcon buttonOneLinkFromShutterUploadIconSrc;
     ImageIcon buttonSetPreferensesIconSrc;
     ImageIcon buttonReauthIconSrc;
     ImageIcon buttonStopIconSrc;
     ImageIcon buttonExitIconSrc;
 
-    ImageIcon buttonYoutubeUploadIcon;
-    ImageIcon buttonOneLinkUploadIcon;
+    ImageIcon buttonHiveToYoutubeUploadIcon;
+    ImageIcon buttonShutterToYoutubeUploadIcon;
+    ImageIcon buttonOneLinkFromHiveUploadIcon;
+    ImageIcon buttonOneLinkFromShutterUploadIcon;
     ImageIcon buttonSetPreferensesIcon;
     ImageIcon buttonReauthIcon;
     ImageIcon buttonStopIcon;
     ImageIcon buttonExitIcon;
 
-    // buttonYoutubeUpload.setIcon(buttonYoutubeUploadIcon);
+    // buttonHiveToYoutubeUpload.setIcon(buttonHiveToYoutubeUploadIcon);
 
-    private JTextField profileNameField = new JTextField(null);
-    private JTextField delayField = new JTextField();
-    private JTextField referalField = new JTextField();
-    private JTextField oneLinkUploadField = new JTextField(null);
+    private JTextField profileNameField           = new JTextField(null);
+    private JTextField delayMinField              = new JTextField();
+    private JTextField delayMaxField              = new JTextField();
+    private JTextField referalField               = new JTextField();
+    private JTextField oneLinkUploadField         = new JTextField(null);
+    private JTextField uploadFromVideoNumberField = new JTextField(null);
 
     // profileNameField.(new JLabel();
 
@@ -145,8 +155,10 @@ public class AppGui extends JFrame  {
         Font ttfBaseInputs = null;
         Font ttfBaseText = null;
 
-        Font buttonYoutubeUploadFont = null;
-        Font buttonOneLinkUploadFont = null;
+        Font buttonHiveToYoutubeUploadFont = null;
+        Font buttonShutterToYoutubeUploadFont = null;
+        Font buttonOneLinkFromHiveUploadFont = null;
+        Font buttonOneLinkFromShutterUploadFont = null;
         Font buttonSetPreferensesFont = null;
         Font buttonReauthFont = null;
         Font buttonStopFont = null;
@@ -156,6 +168,7 @@ public class AppGui extends JFrame  {
         Font delayFieldLabelFont = null;
         Font referalFieldLabelFont = null;
         Font oneLinkUploadFieldLabelFont = null;
+        Font uploadFromVideoNumberLabelFont = null;
         Font statusLabelFont = null;
         Font publicUploadFont= null;
 
@@ -163,16 +176,21 @@ public class AppGui extends JFrame  {
         Font delayFieldFont = null;
         Font referalFieldFont = null;
         Font oneLinkUploadFieldFont = null;
+        Font uploadFromVideoNumberFont = null;
         Font textAreaFont = null;
 
         preferensesVisibleTrigger = true;
         uploadAsPublic = false;
 
+        uploadFromVideoNumber = 0;
+
         Image imageSrc;
         Image imageResized;
 
-        JButton buttonYoutubeUpload;
-        JButton buttonOneLinkUpload;
+        JButton buttonHiveToYoutubeUpload;
+        JButton buttonShutterToYoutubeUpload;
+        JButton buttonOneLinkFromHiveUpload;
+        JButton buttonOneLinkFromShutterUpload;
         JButton buttonSetPreferenses;
         // private JButton buttonVimeoUpload = new JButton("VimeoUpload");
         JButton buttonReauth;
@@ -180,9 +198,11 @@ public class AppGui extends JFrame  {
         JButton buttonExit;
 
         JLabel profileNameLabel;
-        JLabel delayFieldLabel;
+        JLabel delayMinFieldLabel;
+        JLabel delayMaxFieldLabel;
         JLabel referalFieldLabel;
         JLabel oneLinkUploadFieldLabel;
+        JLabel uploadFromVideoNumberLabel;
 
         if(!uploadAsPublic)    {
 
@@ -225,9 +245,12 @@ public class AppGui extends JFrame  {
             delayFieldLabelIconSrc = new ImageIcon("icons/I_for.png");
             referalFieldLabelIconSrc = new ImageIcon("icons/I_for.png");
             oneLinkUploadFieldLabelIconSrc = new ImageIcon("icons/I_for.png");
+            uploadFromVideoNumberLabelIconSrc = new ImageIcon("icons/I_for.png");
 
-            buttonYoutubeUploadIconSrc = new ImageIcon("icons/I_Upload_64x64.png");
-            buttonOneLinkUploadIconSrc = new ImageIcon("icons/I_Upload_64x64.png");
+            buttonHiveToYoutubeUploadIconSrc = new ImageIcon("icons/I_Upload_64x64.png");
+            buttonShutterToYoutubeUploadIconSrc = new ImageIcon("icons/I_Upload_64x64.png");
+            buttonOneLinkFromHiveUploadIconSrc = new ImageIcon("icons/I_Upload_64x64.png");
+            buttonOneLinkFromShutterUploadIconSrc = new ImageIcon("icons/I_Upload_64x64.png");
             buttonSetPreferensesIconSrc = new ImageIcon("icons/I_Preferens_64x64.png");
             buttonReauthIconSrc = new ImageIcon("icons/I_Remove_64x64.png");
             buttonStopIconSrc = new ImageIcon("icons/I_Stop_64x64.png");
@@ -249,13 +272,25 @@ public class AppGui extends JFrame  {
             imageResized = imageSrc.getScaledInstance(16, 16, java.awt.Image.SCALE_SMOOTH);
             oneLinkUploadFieldLabelIcon = new ImageIcon(imageResized);
 
-            imageSrc = buttonYoutubeUploadIconSrc.getImage(); 
-            imageResized = imageSrc.getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH);
-            buttonYoutubeUploadIcon = new ImageIcon(imageResized);
+            imageSrc = uploadFromVideoNumberLabelIconSrc.getImage(); 
+            imageResized = imageSrc.getScaledInstance(16, 16, java.awt.Image.SCALE_SMOOTH);
+            uploadFromVideoNumberLabelIcon = new ImageIcon(imageResized);
 
-            imageSrc = buttonOneLinkUploadIconSrc.getImage(); 
+            imageSrc = buttonHiveToYoutubeUploadIconSrc.getImage(); 
             imageResized = imageSrc.getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH);
-            buttonOneLinkUploadIcon = new ImageIcon(imageResized);
+            buttonHiveToYoutubeUploadIcon = new ImageIcon(imageResized);
+
+            imageSrc = buttonShutterToYoutubeUploadIconSrc.getImage(); 
+            imageResized = imageSrc.getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH);
+            buttonShutterToYoutubeUploadIcon = new ImageIcon(imageResized);
+
+            imageSrc = buttonOneLinkFromHiveUploadIconSrc.getImage(); 
+            imageResized = imageSrc.getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH);
+            buttonOneLinkFromHiveUploadIcon = new ImageIcon(imageResized);
+
+            imageSrc = buttonOneLinkFromShutterUploadIconSrc.getImage(); 
+            imageResized = imageSrc.getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH);
+            buttonOneLinkFromShutterUploadIcon = new ImageIcon(imageResized);
 
             imageSrc = buttonSetPreferensesIconSrc.getImage(); 
             imageResized = imageSrc.getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH);
@@ -279,18 +314,22 @@ public class AppGui extends JFrame  {
 
         }
 
-        buttonYoutubeUpload = new JButton("UploadProfile", buttonYoutubeUploadIcon);
-        buttonOneLinkUpload = new JButton("UploadLink", buttonYoutubeUploadIcon);
+        buttonHiveToYoutubeUpload = new JButton("Upload Hive Profile", buttonHiveToYoutubeUploadIcon);
+        buttonShutterToYoutubeUpload = new JButton("Upload Shutter Profile", buttonShutterToYoutubeUploadIcon);
+        buttonOneLinkFromHiveUpload = new JButton("Upload Hive Link", buttonHiveToYoutubeUploadIcon);
+        buttonOneLinkFromShutterUpload = new JButton("Upload Shutter Link", buttonShutterToYoutubeUploadIcon);
         buttonSetPreferenses = new JButton("Preferenses", buttonSetPreferensesIcon);
             // private JButton buttonVimeoUpload = new JButton("VimeoUpload");
         buttonReauth = new JButton("Remove Credentials", buttonReauthIcon);
         buttonStop = new JButton("Stop", buttonStopIcon);
         buttonExit = new JButton("Exit", buttonExitIcon);
 
-        profileNameLabel = new JLabel("Profile Name ( at videohive.net ): ", profileNameLabelIcon, JLabel.CENTER);
-        delayFieldLabel = new JLabel("Delay beetwen uploads ( of each parsed video, in minutes ): ", delayFieldLabelIcon, JLabel.CENTER);
-        referalFieldLabel = new JLabel("Referal Profile ( only name of profile at videohive.net ): ", referalFieldLabelIcon, JLabel.CENTER);
-        oneLinkUploadFieldLabel = new JLabel("Link from videohive.net: ", oneLinkUploadFieldLabelIcon, JLabel.CENTER);
+        profileNameLabel = new JLabel("Profile Name ( at videohive.net/shutterstock.com ): ", profileNameLabelIcon, JLabel.CENTER);
+        delayMinFieldLabel = new JLabel("Min Delay beetwen uploads ( of each parsed video, in minutes ): ", delayFieldLabelIcon, JLabel.CENTER);
+        delayMaxFieldLabel = new JLabel("Max Delay beetwen uploads ( of each parsed video, in minutes ): ", delayFieldLabelIcon, JLabel.CENTER);
+        referalFieldLabel = new JLabel("Referal Profile ( only name of profile at videohive.net/shutterstock.com ): ", referalFieldLabelIcon, JLabel.CENTER);
+        oneLinkUploadFieldLabel = new JLabel("Direct Project Link from videohive.net/shutterstock.com: ", oneLinkUploadFieldLabelIcon, JLabel.CENTER);
+        uploadFromVideoNumberLabel = new JLabel("Upload Profile From Video # ", uploadFromVideoNumberLabelIcon, JLabel.CENTER);
 
         try {
 
@@ -308,8 +347,10 @@ public class AppGui extends JFrame  {
                 InputStream textFontStream = new BufferedInputStream(new FileInputStream("fonts/Dosis-Medium.otf"));
                 ttfBaseText = Font.createFont(Font.TRUETYPE_FONT, textFontStream);
 
-                buttonYoutubeUploadFont = ttfBaseButtons.deriveFont(Font.BOLD, buttonsFontSize);
-                buttonOneLinkUploadFont = ttfBaseButtons.deriveFont(Font.BOLD, buttonsFontSize);
+                buttonHiveToYoutubeUploadFont = ttfBaseButtons.deriveFont(Font.BOLD, buttonsFontSize);
+                buttonShutterToYoutubeUploadFont = ttfBaseButtons.deriveFont(Font.BOLD, buttonsFontSize);
+                buttonOneLinkFromHiveUploadFont = ttfBaseButtons.deriveFont(Font.BOLD, buttonsFontSize);
+                buttonOneLinkFromShutterUploadFont = ttfBaseButtons.deriveFont(Font.BOLD, buttonsFontSize);
                 buttonSetPreferensesFont = ttfBaseButtons.deriveFont(Font.PLAIN, buttonsFontSize);
                 buttonReauthFont = ttfBaseButtons.deriveFont(Font.PLAIN, buttonsFontSize);
                 buttonStopFont = ttfBaseButtons.deriveFont(Font.PLAIN, buttonsFontSize);
@@ -319,6 +360,7 @@ public class AppGui extends JFrame  {
                 delayFieldLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
                 referalFieldLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
                 oneLinkUploadFieldLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
+                uploadFromVideoNumberLabelFont = ttfBaseInputs.deriveFont(Font.PLAIN, labelsFontSize);
                 statusLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
                 publicUploadFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
 
@@ -326,6 +368,7 @@ public class AppGui extends JFrame  {
                 delayFieldFont = ttfBaseInputs.deriveFont(Font.PLAIN, inputFieldsFontSize);
                 referalFieldFont = ttfBaseInputs.deriveFont(Font.PLAIN, inputFieldsFontSize);
                 oneLinkUploadFieldFont = ttfBaseInputs.deriveFont(Font.PLAIN, inputFieldsFontSize);
+                uploadFromVideoNumberFont = ttfBaseInputs.deriveFont(Font.PLAIN, inputFieldsFontSize);
 
                 textAreaFont = ttfBaseText.deriveFont(Font.PLAIN, textAreaFontSize);
 
@@ -349,9 +392,11 @@ public class AppGui extends JFrame  {
             // InputStream is = MyClass.class.getResourceAsStream("fonts/OpenSans-Regular.ttf");
             // Font font = Font.createFont(Font.TRUETYPE_FONT, is);
 
-            // buttonYoutubeUpload.setFont(new Font("Sans", Font.PLAIN,14));
-            buttonYoutubeUpload.setFont(buttonYoutubeUploadFont);
-            buttonOneLinkUpload.setFont(buttonOneLinkUploadFont);
+            // buttonHiveToYoutubeUpload.setFont(new Font("Sans", Font.PLAIN,14));
+            buttonHiveToYoutubeUpload.setFont(buttonHiveToYoutubeUploadFont);
+            buttonShutterToYoutubeUpload.setFont(buttonShutterToYoutubeUploadFont);
+            buttonOneLinkFromHiveUpload.setFont(buttonOneLinkFromHiveUploadFont);
+            buttonOneLinkFromShutterUpload.setFont(buttonOneLinkFromHiveUploadFont);
             // buttonVimeoUpload.setFont(new Font("Sans",Font.PLAIN,12));
             buttonSetPreferenses.setFont(buttonSetPreferensesFont);
             buttonReauth.setFont(buttonReauthFont);
@@ -359,16 +404,20 @@ public class AppGui extends JFrame  {
             buttonExit.setFont(buttonExitFont);
 
             profileNameLabel.setFont(profileNameLabelFont);
-            delayFieldLabel.setFont(delayFieldLabelFont);
+            delayMinFieldLabel.setFont(delayFieldLabelFont);
+            delayMaxFieldLabel.setFont(delayFieldLabelFont);
             referalFieldLabel.setFont(referalFieldLabelFont);
             oneLinkUploadFieldLabel.setFont(oneLinkUploadFieldLabelFont);
+            uploadFromVideoNumberLabel.setFont(uploadFromVideoNumberLabelFont);
             publicUpload.setFont(statusLabelFont);
             statusLabel.setFont(publicUploadFont);
 
             profileNameField.setFont(profileNameFieldFont);
-            delayField.setFont(delayFieldFont);
+            delayMinField.setFont(delayFieldFont);
+            delayMaxField.setFont(delayFieldFont);
             referalField.setFont(referalFieldFont);
             oneLinkUploadField.setFont(oneLinkUploadFieldFont);
+            uploadFromVideoNumberField.setFont(uploadFromVideoNumberFont);
 
             Font font = UIManager.getFont("Button.font");
 
@@ -459,7 +508,7 @@ public class AppGui extends JFrame  {
         // constraints.insets = new Insets(5,5,5,5);
         constraints.anchor = GridBagConstraints.WEST;
 
-        // add(buttonYoutubeUpload,constraints);
+        // add(buttonHiveToYoutubeUpload,constraints);
 
         // constraints.gridx = 1;
         // constraints.gridy = 0;
@@ -471,38 +520,60 @@ public class AppGui extends JFrame  {
 
         // Задаем размеры элементов
         profileNameLabel.setSize(new Dimension(450,20));
-        delayFieldLabel.setSize(new Dimension(450,20));
+        delayMinFieldLabel.setSize(new Dimension(450,20));
+        delayMaxFieldLabel.setSize(new Dimension(450,20));
         profileNameField.setPreferredSize(new Dimension(10,20));
-        delayField.setPreferredSize(new Dimension(10,20));
+        delayMinField.setPreferredSize(new Dimension(10,20));
+        delayMaxField.setPreferredSize(new Dimension(10,20));
 
         profileNameField.setBorder(new RoundedCornerBorder());
-        delayField.setBorder(new RoundedCornerBorder());
+        delayMinField.setBorder(new RoundedCornerBorder());
+        delayMaxField.setBorder(new RoundedCornerBorder());
         referalField.setBorder(new RoundedCornerBorder());
         oneLinkUploadField.setBorder(new RoundedCornerBorder());
+        uploadFromVideoNumberField.setBorder(new RoundedCornerBorder());
 
         // profileNameField.setHorizontalAlignment(JTextField.CENTER);
         // delayField.setHorizontalAlignment(JTextField.CENTER);
         // referalField.setHorizontalAlignment(JTextField.CENTER);
 
-        Box labelFieldBox1 = Box.createHorizontalBox();
+        Box labelFieldBox1_1 = Box.createHorizontalBox();
 
-        labelFieldBox1.add(profileNameLabel,constraints);
-        labelFieldBox1.add(profileNameField,constraints);
-        labelFieldBox1.setFont(new Font("DejaVu Serif",Font.BOLD,12));
+        labelFieldBox1_1.add(profileNameLabel,constraints);
+        labelFieldBox1_1.add(profileNameField,constraints);
+        labelFieldBox1_1.setFont(new Font("DejaVu Serif",Font.BOLD,12));
         // labelFieldBox1.add(Box.createHorizontalGlue());
 
         // labelFieldBox1.setSize(new Dimension(1000,20));
-        labelFieldBox1.setVisible(preferensesVisibleTrigger);
+        labelFieldBox1_1.setVisible(preferensesVisibleTrigger);
         // constraints.gridx = 2;
         // constraints.gridy = 0;
 
-        Box labelFieldBox2 = Box.createHorizontalBox();
+        Box labelFieldBox1_2 = Box.createHorizontalBox();
 
-        labelFieldBox2.add(delayFieldLabel,constraints);
-        labelFieldBox2.add(delayField,constraints);
-        labelFieldBox2.add(Box.createHorizontalGlue());
+        labelFieldBox1_2.add(uploadFromVideoNumberLabel,constraints);
+        labelFieldBox1_2.add(uploadFromVideoNumberField,constraints);
+        labelFieldBox1_2.add(Box.createHorizontalGlue());
 
-        labelFieldBox2.setVisible(preferensesVisibleTrigger);
+        labelFieldBox1_2.setVisible(preferensesVisibleTrigger);
+
+        Box labelFieldBox2_1 = Box.createHorizontalBox();
+
+        labelFieldBox2_1.add(delayMinFieldLabel,constraints);
+        labelFieldBox2_1.add(delayMinField,constraints);
+
+        labelFieldBox2_1.add(Box.createHorizontalGlue());
+
+        labelFieldBox2_1.setVisible(preferensesVisibleTrigger);
+
+        Box labelFieldBox2_2 = Box.createHorizontalBox();
+
+        labelFieldBox2_2.add(delayMaxFieldLabel,constraints);
+        labelFieldBox2_2.add(delayMaxField,constraints);
+
+        labelFieldBox2_2.add(Box.createHorizontalGlue());
+
+        labelFieldBox2_2.setVisible(preferensesVisibleTrigger);
 
         Box labelFieldBox3 = Box.createHorizontalBox();
 
@@ -532,16 +603,23 @@ public class AppGui extends JFrame  {
 
         checkBoxField4.setVisible(preferensesVisibleTrigger);
 
-        Box buttonsBox = Box.createHorizontalBox();
+        Box topButtonsBox = Box.createHorizontalBox();
 
-        buttonsBox.add(buttonYoutubeUpload);
-        buttonsBox.add(buttonOneLinkUpload);
-        // buttonsBox.add(buttonVimeoUpload);
-        buttonsBox.add(buttonSetPreferenses);
-        buttonsBox.add(buttonReauth);
-        buttonsBox.add(buttonStop);
-        buttonsBox.add(buttonExit);
-        buttonsBox.add(Box.createHorizontalGlue());
+        topButtonsBox.add(buttonHiveToYoutubeUpload);
+        topButtonsBox.add(buttonOneLinkFromHiveUpload);
+        // topButtonsBox.add(buttonVimeoUpload);
+        // topButtonsBox.add(buttonSetPreferenses);
+        topButtonsBox.add(buttonReauth);
+        topButtonsBox.add(buttonStop);
+        topButtonsBox.add(buttonExit);
+        topButtonsBox.add(Box.createHorizontalGlue());
+
+        Box midButtonsBox = Box.createHorizontalBox();        
+
+        midButtonsBox.add(buttonShutterToYoutubeUpload);
+        midButtonsBox.add(buttonOneLinkFromShutterUpload);
+        midButtonsBox.add(Box.createHorizontalGlue());
+
 
         // constraints.gridx = 1;
         // constraints.gridy = 0;
@@ -580,16 +658,29 @@ public class AppGui extends JFrame  {
 
         // mainBox.add(Box.createHorizontalGlue());
 
-        mainBox.add(buttonsBox,constraints);
+        mainBox.add(topButtonsBox,constraints);
         mainBox.add(Box.createHorizontalStrut(15));
         mainBox.add(Box.createVerticalStrut(10));
         mainBox.add(Box.createHorizontalGlue());
 
-        mainBox.add(labelFieldBox1,constraints);
+        mainBox.add(midButtonsBox,constraints);
+        mainBox.add(Box.createHorizontalStrut(15));
+        mainBox.add(Box.createVerticalStrut(10));
+        mainBox.add(Box.createHorizontalGlue());
+
+        mainBox.add(labelFieldBox1_1,constraints);
+        mainBox.add(Box.createHorizontalStrut(15));
+        mainBox.add(Box.createVerticalStrut(10));
+
+        mainBox.add(labelFieldBox1_2,constraints);
         mainBox.add(Box.createHorizontalStrut(15));
         mainBox.add(Box.createVerticalStrut(10));
         
-        mainBox.add(labelFieldBox2,constraints);
+        mainBox.add(labelFieldBox2_1,constraints);
+        mainBox.add(Box.createHorizontalStrut(15));
+        mainBox.add(Box.createVerticalStrut(10));
+
+        mainBox.add(labelFieldBox2_2,constraints);
         mainBox.add(Box.createHorizontalStrut(15));
         mainBox.add(Box.createVerticalStrut(10));
 
@@ -623,7 +714,7 @@ public class AppGui extends JFrame  {
 
         setResizable(true);
 
-        buttonOneLinkUpload.addActionListener(new ActionListener()  {
+        buttonOneLinkFromHiveUpload.addActionListener(new ActionListener()  {
 
             public void actionPerformed(ActionEvent evt)    {
 
@@ -658,6 +749,8 @@ public class AppGui extends JFrame  {
 
                 }
 
+                // textInReferalField = "aslik";
+
                 if(textInOneLinkUploadField != null && !textInOneLinkUploadField.isEmpty())  {
 
                     upload_onelink_to_tube(textInOneLinkUploadField, textInDelayFieldInDouble, textInReferalField);
@@ -667,7 +760,7 @@ public class AppGui extends JFrame  {
             }
         });
 
-        buttonYoutubeUpload.addActionListener(new ActionListener()  {
+        buttonOneLinkFromShutterUpload.addActionListener(new ActionListener()  {
 
             public void actionPerformed(ActionEvent evt)    {
 
@@ -678,25 +771,17 @@ public class AppGui extends JFrame  {
 
                 double textInDelayFieldInDouble = 0.0;
 
-                if(profileNameField.getText() != null && !profileNameField.getText().isEmpty()) {
+                textInNameField = "Test";
 
-                    textInNameField = profileNameField.getText();
+                textInDelayFieldInDouble = 0.0;
 
-                }   else    {
+                if(oneLinkUploadField.getText() != null && !oneLinkUploadField.getText().isEmpty()) {
 
-                    textArea.append("Set Profile Name Please.\n");
-
-                }
-
-                if(delayField.getText() != null && !delayField.getText().isEmpty()) {
-
-                    textInDelayField = delayField.getText();
-                    textInDelayFieldInDouble = Double.parseDouble(textInDelayField);
-
+                    textInOneLinkUploadField = oneLinkUploadField.getText();
 
                 }   else    {
 
-                    textArea.append("Delay is set to default value.\n");
+                    textArea.append("Set videohive's URL to upload.\n");
 
                 }
 
@@ -710,9 +795,177 @@ public class AppGui extends JFrame  {
 
                 }
 
-                if(textInNameField != null && !textInNameField.isEmpty())  {
+                // textInReferalField = "aslik";
 
-                    upload_hive_to_tube(textInNameField, textInDelayFieldInDouble, textInReferalField);
+                if(textInOneLinkUploadField != null && !textInOneLinkUploadField.isEmpty())  {
+
+                    upload_project_from_shutter_to_tube(textInOneLinkUploadField, textInDelayFieldInDouble, textInReferalField);
+
+                }
+
+            }
+        });
+
+        buttonHiveToYoutubeUpload.addActionListener(new ActionListener()  {
+
+            public void actionPerformed(ActionEvent evt)    {
+
+                if(uploadFromVideoNumberField.getText() != "")  {
+
+                    uploadFromVideoNumber = Integer.parseInt(uploadFromVideoNumberField.getText());
+
+                }
+
+                String textInNameField = "";
+                String textInDelayMinField = "";
+                String textInDelayMaxField = "";
+                String textInReferalField = "";
+                String textInOneLinkUploadField = "";
+
+                double textInDelayMinFieldInDouble = 0.0;
+                double textInDelayMaxFieldInDouble = 0.0;
+
+                if(profileNameField.getText() != null && !profileNameField.getText().isEmpty()) {
+
+                    textInNameField = profileNameField.getText();
+
+                }   else    {
+
+                    textArea.append("Set Profile Name Please.\n");
+
+                }
+
+                if(delayMinField.getText() != null && !delayMinField.getText().isEmpty()) {
+
+                    textInDelayMinField = delayMinField.getText();
+                    textInDelayMinFieldInDouble = Double.parseDouble(textInDelayMinField);
+
+
+                }   else    {
+
+                    textArea.append("DelayMin is set to default value.\n");
+
+                }
+
+                if(delayMaxField.getText() != null && !delayMaxField.getText().isEmpty()) {
+
+                    textInDelayMaxField = delayMaxField.getText();
+                    textInDelayMaxFieldInDouble = Double.parseDouble(textInDelayMaxField);
+
+
+                }   else    {
+
+                    textArea.append("DelayMax is set to default value.\n");
+
+                }
+
+                if(textInDelayMaxFieldInDouble < textInDelayMinFieldInDouble)  {
+
+                    textArea.append("Min Delay = " + textInDelayMinFieldInDouble + " must be lower than Max = " + textInDelayMaxFieldInDouble + "!");
+
+                }   else    {
+
+                    textArea.append("Min Delay = " + textInDelayMinFieldInDouble + ", Max Delay = " + textInDelayMaxFieldInDouble);
+
+                }
+
+                if(referalField.getText() != null && !referalField.getText().isEmpty()) {
+
+                    textInReferalField = referalField.getText();
+
+                }   else    {
+
+                    textArea.append("Referal is not set.\n");
+                    // textInReferalField = "envato_ref";
+
+                }
+
+                if(textInNameField != null && !textInNameField.isEmpty() && (textInDelayMaxFieldInDouble >= textInDelayMinFieldInDouble))  {
+
+                    upload_hive_to_tube(textInNameField, textInDelayMinFieldInDouble, textInDelayMaxFieldInDouble, textInReferalField);
+
+                }
+
+            }
+        });
+
+        buttonShutterToYoutubeUpload.addActionListener(new ActionListener()  {
+
+            public void actionPerformed(ActionEvent evt)    {
+
+                if(uploadFromVideoNumberField.getText() != "")  {
+
+                    uploadFromVideoNumber = Integer.parseInt(uploadFromVideoNumberField.getText());
+
+                }
+
+                String textInNameField = "";
+                String textInDelayMinField = "";
+                String textInDelayMaxField = "";
+                String textInReferalField = "";
+                String textInOneLinkUploadField = "";
+
+                double textInDelayMinFieldInDouble = 0.0;
+                double textInDelayMaxFieldInDouble = 0.0;
+
+                if(profileNameField.getText() != null && !profileNameField.getText().isEmpty()) {
+
+                    textInNameField = profileNameField.getText();
+
+                }   else    {
+
+                    textArea.append("Set Profile Name Please.\n");
+
+                }
+
+                if(delayMinField.getText() != null && !delayMinField.getText().isEmpty()) {
+
+                    textInDelayMinField = delayMinField.getText();
+                    textInDelayMinFieldInDouble = Double.parseDouble(textInDelayMinField);
+
+
+                }   else    {
+
+                    textArea.append("DelayMin is set to default value.\n");
+
+                }
+
+                if(delayMaxField.getText() != null && !delayMaxField.getText().isEmpty()) {
+
+                    textInDelayMaxField = delayMaxField.getText();
+                    textInDelayMaxFieldInDouble = Double.parseDouble(textInDelayMaxField);
+
+
+                }   else    {
+
+                    textArea.append("DelayMax is set to default value.\n");
+
+                }
+
+                if(textInDelayMaxFieldInDouble < textInDelayMinFieldInDouble)  {
+
+                    textArea.append("Min Delay = " + textInDelayMinFieldInDouble + " must be lower than Max = " + textInDelayMaxFieldInDouble + "!");
+
+                }   else    {
+
+                    textArea.append("Min Delay = " + textInDelayMinFieldInDouble + ", Max Delay = " + textInDelayMaxFieldInDouble);
+
+                }
+
+                if(referalField.getText() != null && !referalField.getText().isEmpty()) {
+
+                    textInReferalField = referalField.getText();
+
+                }   else    {
+
+                    textArea.append("Referal is not set.\n");
+                    // textInReferalField = "envato_ref";
+
+                }
+
+                if(textInNameField != null && !textInNameField.isEmpty() && (textInDelayMaxFieldInDouble >= textInDelayMinFieldInDouble))  {
+
+                    upload_shutter_to_tube(textInNameField, textInDelayMinFieldInDouble, textInDelayMaxFieldInDouble, textInReferalField);
 
                 }
 
@@ -748,9 +1001,11 @@ public class AppGui extends JFrame  {
 
                     preferensesVisibleTrigger = true;
 
-                    labelFieldBox1.setVisible(preferensesVisibleTrigger);
-                    labelFieldBox2.setVisible(preferensesVisibleTrigger);
-                    labelFieldBox3.setVisible(preferensesVisibleTrigger);
+                    labelFieldBox1_1.setVisible(preferensesVisibleTrigger);
+                    labelFieldBox1_2.setVisible(preferensesVisibleTrigger);
+                    labelFieldBox2_1.setVisible(preferensesVisibleTrigger);
+                    labelFieldBox2_2.setVisible(preferensesVisibleTrigger);
+                    // labelFieldBox3.setVisible(preferensesVisibleTrigger);
                     labelFieldBox4.setVisible(preferensesVisibleTrigger);
                     checkBoxField4.setVisible(preferensesVisibleTrigger);
 
@@ -758,9 +1013,11 @@ public class AppGui extends JFrame  {
 
                     preferensesVisibleTrigger = false;
 
-                    labelFieldBox1.setVisible(preferensesVisibleTrigger);
-                    labelFieldBox2.setVisible(preferensesVisibleTrigger);
-                    labelFieldBox3.setVisible(preferensesVisibleTrigger);
+                    labelFieldBox1_1.setVisible(preferensesVisibleTrigger);
+                    labelFieldBox1_2.setVisible(preferensesVisibleTrigger);
+                    labelFieldBox2_1.setVisible(preferensesVisibleTrigger);
+                    labelFieldBox2_2.setVisible(preferensesVisibleTrigger);
+                    // labelFieldBox3.setVisible(preferensesVisibleTrigger);
                     labelFieldBox4.setVisible(preferensesVisibleTrigger);
                     checkBoxField4.setVisible(preferensesVisibleTrigger);
 
@@ -822,7 +1079,8 @@ public class AppGui extends JFrame  {
 
                     // thread.interrupt();
                     // System.exit(0);
-                    HiveToResource.STOP = true;
+                    HiveToResource.STOP    = true;
+                    ShutterToResource.STOP = true;
 
                 }   catch(Exception e)  {
 
@@ -848,20 +1106,52 @@ public class AppGui extends JFrame  {
         });
     }
 
-    private void upload_hive_to_tube(String _name_of_profile, double _delay_in_min, String _referal_name)    {
+    private void upload_hive_to_tube(String _name_of_profile, double _delay_min_in_min, double _delay_max_in_min, String _referal_name)    {
 
         thread = new Thread(new Runnable()   {
 
             public void run()   {
                 // System.out.println("I like that!");
 
-                HiveToResource h2t = new HiveToResource(_name_of_profile, _delay_in_min, _referal_name, "youtube", uploadAsPublic);
+                HiveToResource h2t = new HiveToResource(_name_of_profile, _delay_min_in_min, _delay_max_in_min, _referal_name, "youtube", uploadAsPublic);
                 h2t.GrabAndLoad();
+
             }
 
         });
         thread.start();
     }
+
+    private void upload_shutter_to_tube(String _name_of_profile, double _delay_min_in_min, double _delay_max_in_min, String _referal_name)    {
+
+        thread = new Thread(new Runnable()   {
+
+            public void run()   {
+
+                ShutterToResource h2t = new ShutterToResource(_name_of_profile, _delay_min_in_min, _delay_max_in_min, _referal_name, "youtube", uploadAsPublic);
+                h2t.GrabAndLoad();
+
+            }
+
+        });
+        thread.start();
+    }
+
+    private void upload_project_from_shutter_to_tube(String _link_to_project, double _delay_in_min, String _referal_name)    {
+
+        thread = new Thread(new Runnable()   {
+
+            public void run()   {
+                // System.out.println("I like that!");
+
+                OneShutterLinkUpload h2t = new OneShutterLinkUpload(_link_to_project, _referal_name, "youtube", uploadAsPublic);
+                h2t.GrabAndLoad();
+
+            }
+
+        });
+        thread.start();
+   }
 
     private void upload_onelink_to_tube(String _link_to_project, double _delay_in_min, String _referal_name)    {
 
@@ -872,21 +1162,23 @@ public class AppGui extends JFrame  {
 
                 OneLinkUpload h2t = new OneLinkUpload(_link_to_project, _referal_name, "youtube", uploadAsPublic);
                 h2t.GrabAndLoad();
+
             }
 
         });
         thread.start();
    }
 
-   private void upload_hive_to_vimeo(String _name_of_profile, double _delay_in_min, String _referal_name)    {
+   private void upload_hive_to_vimeo(String _name_of_profile, double _delay_min_in_min, double _delay_max_in_min, String _referal_name)    {
 
         thread = new Thread(new Runnable()   {
 
             public void run()   {
                 // System.out.println("I like that!");
 
-                HiveToResource h2t = new HiveToResource(_name_of_profile, _delay_in_min, _referal_name , "vimeo", uploadAsPublic);
+                HiveToResource h2t = new HiveToResource(_name_of_profile, _delay_min_in_min, _delay_max_in_min, _referal_name , "vimeo", uploadAsPublic);
                 h2t.GrabAndLoad();
+
             }
 
         });
@@ -906,7 +1198,6 @@ public class AppGui extends JFrame  {
                     jfrm.setVisible(true);
 
                 }   catch(Exception e)  {
-
 
                     e.printStackTrace();
                     // System.out.println("-----------------------------------------------------");
