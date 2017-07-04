@@ -92,6 +92,7 @@ public class AppGui extends JFrame  {
 
     ImageIcon buttonHiveToYoutubeUploadIconSrc;
     ImageIcon buttonShutterToYoutubeUploadIconSrc;
+    ImageIcon buttonPondToYoutubeUploadIconSrc;
     ImageIcon buttonOneLinkFromHiveUploadIconSrc;
     ImageIcon buttonOneLinkFromShutterUploadIconSrc;
     ImageIcon buttonSetPreferensesIconSrc;
@@ -101,6 +102,7 @@ public class AppGui extends JFrame  {
 
     ImageIcon buttonHiveToYoutubeUploadIcon;
     ImageIcon buttonShutterToYoutubeUploadIcon;
+    ImageIcon buttonPondToYoutubeUploadIcon;
     ImageIcon buttonOneLinkFromHiveUploadIcon;
     ImageIcon buttonOneLinkFromShutterUploadIcon;
     ImageIcon buttonSetPreferensesIcon;
@@ -157,6 +159,7 @@ public class AppGui extends JFrame  {
 
         Font buttonHiveToYoutubeUploadFont = null;
         Font buttonShutterToYoutubeUploadFont = null;
+        Font buttonPondToYoutubeUploadFont = null;
         Font buttonOneLinkFromHiveUploadFont = null;
         Font buttonOneLinkFromShutterUploadFont = null;
         Font buttonSetPreferensesFont = null;
@@ -189,6 +192,7 @@ public class AppGui extends JFrame  {
 
         JButton buttonHiveToYoutubeUpload;
         JButton buttonShutterToYoutubeUpload;
+        JButton buttonPondToYoutubeUpload;
         JButton buttonOneLinkFromHiveUpload;
         JButton buttonOneLinkFromShutterUpload;
         JButton buttonSetPreferenses;
@@ -249,6 +253,7 @@ public class AppGui extends JFrame  {
 
             buttonHiveToYoutubeUploadIconSrc = new ImageIcon("icons/I_Upload_64x64.png");
             buttonShutterToYoutubeUploadIconSrc = new ImageIcon("icons/I_Upload_64x64.png");
+            buttonPondToYoutubeUploadIconSrc = new ImageIcon("icons/I_Upload_64x64.png");
             buttonOneLinkFromHiveUploadIconSrc = new ImageIcon("icons/I_Upload_64x64.png");
             buttonOneLinkFromShutterUploadIconSrc = new ImageIcon("icons/I_Upload_64x64.png");
             buttonSetPreferensesIconSrc = new ImageIcon("icons/I_Preferens_64x64.png");
@@ -284,6 +289,10 @@ public class AppGui extends JFrame  {
             imageResized = imageSrc.getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH);
             buttonShutterToYoutubeUploadIcon = new ImageIcon(imageResized);
 
+            imageSrc = buttonPondToYoutubeUploadIconSrc.getImage(); 
+            imageResized = imageSrc.getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH);
+            buttonPondToYoutubeUploadIcon = new ImageIcon(imageResized);
+
             imageSrc = buttonOneLinkFromHiveUploadIconSrc.getImage(); 
             imageResized = imageSrc.getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH);
             buttonOneLinkFromHiveUploadIcon = new ImageIcon(imageResized);
@@ -316,6 +325,7 @@ public class AppGui extends JFrame  {
 
         buttonHiveToYoutubeUpload = new JButton("Upload Hive Profile", buttonHiveToYoutubeUploadIcon);
         buttonShutterToYoutubeUpload = new JButton("Upload Shutter Profile", buttonShutterToYoutubeUploadIcon);
+        buttonPondToYoutubeUpload = new JButton("Upload Pond Profile", buttonPondToYoutubeUploadIcon);
         buttonOneLinkFromHiveUpload = new JButton("Upload Hive Link", buttonHiveToYoutubeUploadIcon);
         buttonOneLinkFromShutterUpload = new JButton("Upload Shutter Link", buttonShutterToYoutubeUploadIcon);
         buttonSetPreferenses = new JButton("Preferenses", buttonSetPreferensesIcon);
@@ -324,7 +334,7 @@ public class AppGui extends JFrame  {
         buttonStop = new JButton("Stop", buttonStopIcon);
         buttonExit = new JButton("Exit", buttonExitIcon);
 
-        profileNameLabel = new JLabel("Profile Name ( at videohive.net/shutterstock.com ): ", profileNameLabelIcon, JLabel.CENTER);
+        profileNameLabel = new JLabel("Profile Name ( at videohive.net/shutterstock.com/pond5.com ): ", profileNameLabelIcon, JLabel.CENTER);
         delayMinFieldLabel = new JLabel("Min Delay beetwen uploads ( of each parsed video, in minutes ): ", delayFieldLabelIcon, JLabel.CENTER);
         delayMaxFieldLabel = new JLabel("Max Delay beetwen uploads ( of each parsed video, in minutes ): ", delayFieldLabelIcon, JLabel.CENTER);
         referalFieldLabel = new JLabel("Referal Profile ( only name of profile at videohive.net/shutterstock.com ): ", referalFieldLabelIcon, JLabel.CENTER);
@@ -349,6 +359,7 @@ public class AppGui extends JFrame  {
 
                 buttonHiveToYoutubeUploadFont = ttfBaseButtons.deriveFont(Font.BOLD, buttonsFontSize);
                 buttonShutterToYoutubeUploadFont = ttfBaseButtons.deriveFont(Font.BOLD, buttonsFontSize);
+                buttonPondToYoutubeUploadFont = ttfBaseButtons.deriveFont(Font.BOLD, buttonsFontSize);
                 buttonOneLinkFromHiveUploadFont = ttfBaseButtons.deriveFont(Font.BOLD, buttonsFontSize);
                 buttonOneLinkFromShutterUploadFont = ttfBaseButtons.deriveFont(Font.BOLD, buttonsFontSize);
                 buttonSetPreferensesFont = ttfBaseButtons.deriveFont(Font.PLAIN, buttonsFontSize);
@@ -395,6 +406,7 @@ public class AppGui extends JFrame  {
             // buttonHiveToYoutubeUpload.setFont(new Font("Sans", Font.PLAIN,14));
             buttonHiveToYoutubeUpload.setFont(buttonHiveToYoutubeUploadFont);
             buttonShutterToYoutubeUpload.setFont(buttonShutterToYoutubeUploadFont);
+            buttonPondToYoutubeUpload.setFont(buttonPondToYoutubeUploadFont);
             buttonOneLinkFromHiveUpload.setFont(buttonOneLinkFromHiveUploadFont);
             buttonOneLinkFromShutterUpload.setFont(buttonOneLinkFromHiveUploadFont);
             // buttonVimeoUpload.setFont(new Font("Sans",Font.PLAIN,12));
@@ -618,6 +630,7 @@ public class AppGui extends JFrame  {
 
         midButtonsBox.add(buttonShutterToYoutubeUpload);
         midButtonsBox.add(buttonOneLinkFromShutterUpload);
+        midButtonsBox.add(buttonPondToYoutubeUpload);
         midButtonsBox.add(Box.createHorizontalGlue());
 
 
@@ -810,7 +823,7 @@ public class AppGui extends JFrame  {
 
             public void actionPerformed(ActionEvent evt)    {
 
-                if(uploadFromVideoNumberField.getText() != "")  {
+                if((uploadFromVideoNumberField.getText() != "") && (!uploadFromVideoNumberField.getText().equals("")))  {
 
                     uploadFromVideoNumber = Integer.parseInt(uploadFromVideoNumberField.getText());
 
@@ -893,7 +906,7 @@ public class AppGui extends JFrame  {
 
             public void actionPerformed(ActionEvent evt)    {
 
-                if(uploadFromVideoNumberField.getText() != "")  {
+                if((uploadFromVideoNumberField.getText() != "") && (!uploadFromVideoNumberField.getText().equals("")))  {
 
                     uploadFromVideoNumber = Integer.parseInt(uploadFromVideoNumberField.getText());
 
@@ -966,6 +979,89 @@ public class AppGui extends JFrame  {
                 if(textInNameField != null && !textInNameField.isEmpty() && (textInDelayMaxFieldInDouble >= textInDelayMinFieldInDouble))  {
 
                     upload_shutter_to_tube(textInNameField, textInDelayMinFieldInDouble, textInDelayMaxFieldInDouble, textInReferalField);
+
+                }
+
+            }
+        });
+
+        buttonPondToYoutubeUpload.addActionListener(new ActionListener()  {
+
+            public void actionPerformed(ActionEvent evt)    {
+
+                if((uploadFromVideoNumberField.getText() != "") && (!uploadFromVideoNumberField.getText().equals("")))  {
+
+                    uploadFromVideoNumber = Integer.parseInt(uploadFromVideoNumberField.getText());
+
+                }
+
+                String textInNameField = "";
+                String textInDelayMinField = "";
+                String textInDelayMaxField = "";
+                String textInReferalField = "";
+                String textInOneLinkUploadField = "";
+
+                double textInDelayMinFieldInDouble = 0.0;
+                double textInDelayMaxFieldInDouble = 0.0;
+
+                if(profileNameField.getText() != null && !profileNameField.getText().isEmpty()) {
+
+                    textInNameField = profileNameField.getText();
+
+                }   else    {
+
+                    textArea.append("Set Profile Name Please.\n");
+
+                }
+
+                if(delayMinField.getText() != null && !delayMinField.getText().isEmpty()) {
+
+                    textInDelayMinField = delayMinField.getText();
+                    textInDelayMinFieldInDouble = Double.parseDouble(textInDelayMinField);
+
+
+                }   else    {
+
+                    textArea.append("DelayMin is set to default value.\n");
+
+                }
+
+                if(delayMaxField.getText() != null && !delayMaxField.getText().isEmpty()) {
+
+                    textInDelayMaxField = delayMaxField.getText();
+                    textInDelayMaxFieldInDouble = Double.parseDouble(textInDelayMaxField);
+
+
+                }   else    {
+
+                    textArea.append("DelayMax is set to default value.\n");
+
+                }
+
+                if(textInDelayMaxFieldInDouble < textInDelayMinFieldInDouble)  {
+
+                    textArea.append("Min Delay = " + textInDelayMinFieldInDouble + " must be lower than Max = " + textInDelayMaxFieldInDouble + "!");
+
+                }   else    {
+
+                    textArea.append("Min Delay = " + textInDelayMinFieldInDouble + ", Max Delay = " + textInDelayMaxFieldInDouble);
+
+                }
+
+                if(referalField.getText() != null && !referalField.getText().isEmpty()) {
+
+                    textInReferalField = referalField.getText();
+
+                }   else    {
+
+                    textArea.append("Referal is not set.\n");
+                    // textInReferalField = "envato_ref";
+
+                }
+
+                if(textInNameField != null && !textInNameField.isEmpty() && (textInDelayMaxFieldInDouble >= textInDelayMinFieldInDouble))  {
+
+                    upload_pond_to_tube(textInNameField, textInDelayMinFieldInDouble, textInDelayMaxFieldInDouble, textInReferalField);
 
                 }
 
@@ -1129,6 +1225,21 @@ public class AppGui extends JFrame  {
             public void run()   {
 
                 ShutterToResource h2t = new ShutterToResource(_name_of_profile, _delay_min_in_min, _delay_max_in_min, _referal_name, "youtube", uploadAsPublic);
+                h2t.GrabAndLoad();
+
+            }
+
+        });
+        thread.start();
+    }
+
+    private void upload_pond_to_tube(String _name_of_profile, double _delay_min_in_min, double _delay_max_in_min, String _referal_name)    {
+
+        thread = new Thread(new Runnable()   {
+
+            public void run()   {
+
+                PondToResource h2t = new PondToResource(_name_of_profile, _delay_min_in_min, _delay_max_in_min, _referal_name, "youtube", uploadAsPublic);
                 h2t.GrabAndLoad();
 
             }
