@@ -35,6 +35,7 @@ public class PondToResource  {
     private static String link_to_profile;
     private static String name_of_profile;
     private static int number_of_pages;
+    private static int number_of_projects;
     private static int current_page;
     private static int clips_per_page;
     private static int all_clips_count;
@@ -193,7 +194,7 @@ public class PondToResource  {
 
             StringBuilder sb = new StringBuilder();
             // About "/2063" at the end - all links of profile at pond have this ending.
-            sb.append("https://pond5.com/artist/").append(name_of_profile).append("#").append(current_page).append("/2063");
+            sb.append("http://pond5.com/artist/").append(name_of_profile).append("#").append(current_page).append("/2063");
 
             link_to_profile = sb.toString();
 
@@ -201,21 +202,36 @@ public class PondToResource  {
             
             html = Jsoup.connect(link_to_profile).timeout(0).get();
 
+            // String htmlString = html.toString();
+
             /* Хитрый ход. Каждый раз обновляем сколько всего страниц, ибо иначе делать не удобно. */
             //a class="SearchResultV3 p5_video js-searchResult js-searchResultWithPreviewPanel"
-            footageClipsInProfileElements = html.select("span[class=\"js-searchResultsNum\"]");
+            // footageClipsInProfileElements = html.select("span[class=\"js-searchResultsNum\"]");
 
-            int spanCount = 0;
+            // footageClipsInProfile = footageClipsInProfileElements.first().text().replace(",", "");
+            // footageClipsInProfile = footageClipsInProfileElements.first().text();
+
+            // number_of_pages = Integer.parseInt(footageClipsInProfile);
+
+                // System.out.println(htmlString);
+
+            // }
+
+            // int spanCount = 0;
 
             // if(footageClipsInProfileElements != null)   {
 
-                for(Element footageClipsInProfileElement: footageClipsInProfileElements)    {
+                // for(Element footageClipsInProfileElement: footageClipsInProfileElements)    {
 
-                    spanCount++;
-                    footageClipsInProfile = footageClipsInProfileElement.text();
-                    System.out.println("Span with num of videos: " + footageClipsInProfile);
+                    // spanCount++;
+                    // footageClipsInProfile = footageClipsInProfileElement.text().replace(",", "");
+                    // System.out.println("Span with num of videos: " + footageClipsInProfile);
 
-                }
+                    // System.out.println(footageClipsInProfileElement);
+
+                    // number_of_pages = Integer.parseInt(footageClipsInProfile);
+
+                // }
 
             // }   else    {
 
@@ -223,7 +239,9 @@ public class PondToResource  {
 
             // }
 
-            System.out.println("Span Count: " + spanCount);
+
+
+            // System.out.println("Span Count: " + spanCount);
 
             // if(footageClipsInProfile != null)   {
 
@@ -234,6 +252,7 @@ public class PondToResource  {
             // }
 
             System.out.println("Formatted string (from Span): " + footageClipsInProfile);
+            // System.out.println("Number Of Projects: " + number_of_projects);
             System.out.println("Number Of Pages: " + number_of_pages);
 
             // html.select("a[class=\"SearchResultV3 p5_video js-searchResult js-searchResultWithPreviewPanel\"]");
@@ -258,13 +277,13 @@ public class PondToResource  {
 
                     hrefToCurrentClipOnPage[clips_per_page_count] = hrefToCurrentClipOnPageElement.attr("abs:href");
 
+                    System.out.println("\n---------------------------------------------------------");
+
                     System.out.println("Href To Clip #" + (all_clips_count) + ":" + hrefToCurrentClipOnPage[clips_per_page_count]);
 
                     threadSleepMillisec(1000);
 
-                    clip_page = Jsoup.connect(hrefToCurrentClipOnPage[clips_per_page_count]).timeout(0).get();
-
-                    System.out.println("\n---------------------------------------------------------");
+                    clip_page = Jsoup.connect(hrefToCurrentClipOnPage[clips_per_page_count]).userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6").timeout(0).maxBodySize(0).get();
 
                     Elements elementsWithItemInside = clip_page.select("div[class=\"u-paddingT10px u-paddingB10px u-colorDustyGray\"]");
 
@@ -277,20 +296,23 @@ public class PondToResource  {
 
                     System.out.println("Contributor Name: " + itemContributorName);
 
-                    // itemNameElement        = clip_page.select("meta[itemprop=name]").first();
-                    // itemName               = itemNameElement.attr("content");
+                    itemNameElement        = clip_page.select("span[class=\"u-paddingR10px u-padding0:35px\"]").first();
+                    itemName               = itemNameElement.text();
 
-                    // System.out.println("Name: " + itemName);
+                    System.out.println("Name: " + itemName);
 
-                    // itemDescriptionElement = clip_page.select("meta[itemprop=description]").first();
-                    // itemDescription        = itemDescriptionElement.attr("content");
+                    itemDescriptionElement = clip_page.select("span[class=\"u-paddingR10px u-padding0:35px\"]").first();
+                    itemDescription        = itemDescriptionElement.text();
 
-                    // System.out.println("Description: " + itemDescription);
+                    System.out.println("Description: " + itemDescription);
 
-                    // itemContentUrlElement  = clip_page.select("meta[itemprop=contentUrl]").first();
-                    // itemContentUrl         = "http:" + itemContentUrlElement.attr("content");
+                    itemContentUrlElement  = clip_page.select("video[id=jp5player_video_0]").first();
+                    // itemContentUrlElement  = clip_page.select("div[class=\"ItemDetailV3-section u-size9of10 u-paddingT40px u-paddingT60px:60em\"]").first();
+                    // itemContentUrl         = itemContentUrlElement.attr("src");
 
-                    // System.out.println("Content Link: " + itemContentUrl);
+                    // if(!itemContentUrl.equals(""))  {
+                        System.out.println("Content Link: " + itemContentUrlElement);
+                    // }
 
                     // itemTagsElements       = clip_page.select("a[href$=ref_context=keyword]");
 
@@ -304,7 +326,7 @@ public class PondToResource  {
 
                     // System.out.println("Tags: " + itemTags);
 
-                    // System.out.println("---------------------------------------------------------\n");
+                    System.out.println("---------------------------------------------------------\n");
 
                     // String fullPathToDownloadedVideo = "/tmp/" + itemContributorName + "/" + itemName.replace(" ", "_") + ".mp4";
 
@@ -327,8 +349,13 @@ public class PondToResource  {
 
                     // Thread.currentThread().interrupt();
 
-                    // break;
                     }
+
+                    // if(STOP)    {
+
+                        break;
+
+                    // }
 
                 }
 
@@ -340,8 +367,8 @@ public class PondToResource  {
 
         }   catch(Exception e) {
 
-            // e.printStackTrace();
-            System.out.println("Connection or tag parsing problem.");
+            e.printStackTrace();
+            // System.out.println("Connection or tag parsing problem.");
 
         }
 
