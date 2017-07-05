@@ -200,7 +200,7 @@ public class PondToResource  {
 
             System.out.println("Your link: " + link_to_profile);
             
-            html = Jsoup.connect(link_to_profile).userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36").timeout(0).maxBodySize(0).get();
+            html = Jsoup.connect(link_to_profile).userAgent("Mozilla").timeout(0).maxBodySize(0).get();
 
             // String htmlString = html.toString();
 
@@ -258,7 +258,7 @@ public class PondToResource  {
             // html.select("a[class=\"SearchResultV3 p5_video js-searchResult js-searchResultWithPreviewPanel\"]");
             hrefToCurrentClipOnPageElements = html.select("a[class=\"SearchResultV3 p5_video js-searchResult js-searchResultWithPreviewPanel\"]");
 
-            System.out.println(html.toString());
+            // System.out.println(html.toString());
 
             int clips_per_page_count = 0; 
 
@@ -285,7 +285,7 @@ public class PondToResource  {
 
                     threadSleepMillisec(1000);
                     // userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6").
-                    clip_page = Jsoup.connect(hrefToCurrentClipOnPage[clips_per_page_count]).userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36").timeout(0).maxBodySize(0).get();
+                    clip_page = Jsoup.connect(hrefToCurrentClipOnPage[clips_per_page_count]).userAgent("Mozilla").timeout(0).maxBodySize(0).get();
 
                     Elements elementsWithItemInside = clip_page.select("div[class=\"u-paddingT10px u-paddingB10px u-colorDustyGray\"]");
 
@@ -308,12 +308,12 @@ public class PondToResource  {
 
                     System.out.println("Description: " + itemDescription);
 
-                    // itemContentUrlElement  = clip_page.select("video[id=jp5player_video_0]").first();
+                    itemContentUrlElement  = clip_page.select("video[id=jp5player_video_0]").first();
                     // itemContentUrlElement  = clip_page.select("div[class=\"ItemDetailV3-section u-size9of10 u-paddingT40px u-paddingT60px:60em\"]").first();
                     // itemContentUrl         = itemContentUrlElement.attr("src");
 
                     // if(!itemContentUrl.equals(""))  {
-                        // System.out.println("Content Link: " + itemContentUrlElement);
+                        System.out.println("Content Link: " + itemContentUrlElement);
                     // }
 
                     // itemTagsElements       = clip_page.select("a[href$=ref_context=keyword]");
