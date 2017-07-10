@@ -181,7 +181,7 @@ public class ShutterToResource  {
 
             System.out.println("Your link: " + link_to_profile);
             
-            html = Jsoup.connect(link_to_profile).timeout(0).get();
+            html = Jsoup.connect(link_to_profile).userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko").timeout(0).get();
 
             /* Хитрый ход. Каждый раз обновляем сколько всего страниц, ибо иначе делать не удобно. */
 
@@ -222,13 +222,6 @@ public class ShutterToResource  {
 
                 for(Element hrefToCurrentClipOnPageElement: hrefToCurrentClipOnPageElements) {
 
-                    if(STOP) {
-
-                        System.out.println("Stop Parsing Pages.");
-                        break;
-
-                    }
-
                     all_clips_count++;
 
                     if(all_clips_count >= AppGui.uploadFromVideoNumber)     {
@@ -239,7 +232,7 @@ public class ShutterToResource  {
 
                     threadSleepMillisec(1000);
 
-                    clip_page = Jsoup.connect(hrefToCurrentClipOnPage[clips_per_page_count]).timeout(0).get();
+                    clip_page = Jsoup.connect(hrefToCurrentClipOnPage[clips_per_page_count]).userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko").timeout(0).get();
 
                     System.out.println("\n---------------------------------------------------------");
 
@@ -299,6 +292,52 @@ public class ShutterToResource  {
                     // Thread.currentThread().interrupt();
 
                     // break;
+
+                    if(DELAY_FOR_UPLOAD)    {
+
+                    //System.out.println("Waiting " + delay_in_min + " min (" + delay_in_min*60 + " sec) for upload.");
+
+                        try {
+
+                            int random_delay_in_min;
+
+                            Random rand = new Random();
+                        // delay [from,to] [delay_min, delay_max]
+                        // rand.nextInt(int _arg) generates begun of 0 to _arg
+
+                            random_delay_in_min = rand.nextInt((int)delay_max_in_min - (int)delay_min_in_min + 1) + (int)delay_min_in_min;
+
+                            if(delay_max_in_min >= delay_min_in_min) {
+
+                                int delay_in_milliseconds = (int)(random_delay_in_min*1000*60);
+
+                                System.out.println("You're set delay, then wait a " + random_delay_in_min + " minute please ...");
+
+                                Thread.sleep(delay_in_milliseconds);
+
+                            }   else    {
+
+                                System.out.println("delayMax MUST be higher than delayMin!");
+
+                            }
+
+
+                        }   catch(InterruptedException e) {   
+
+                            System.out.println("Interrapted Thread. Error in \"sleep\" function (Parse elements section).");
+                            Thread.currentThread().interrupt();
+
+                        }
+
+                    }
+
+                    }
+
+                    if(STOP) {
+
+                        System.out.println("Stop Parsing Pages.");
+                        break;
+
                     }
 
                 }
@@ -313,6 +352,13 @@ public class ShutterToResource  {
 
             // e.printStackTrace();
             System.out.println("Connection or tag parsing problem.");
+
+        }
+
+        if(STOP) {
+
+            System.out.println("Stop Page Iterations.");
+            break;
 
         }
 

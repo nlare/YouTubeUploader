@@ -191,7 +191,7 @@ public class HiveToResource  {
 
             // }
             
-            html = Jsoup.connect(link_to_profile).timeout(0).get();
+            html = Jsoup.connect(link_to_profile).userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko").timeout(0).get();
 
             // int count = 0;
 
@@ -298,7 +298,7 @@ public class HiveToResource  {
 
                 System.out.println(RED_COLOR + count + ":" + WHITE_COLOR + aAttrLink[count]);
 
-                project_page = Jsoup.connect(aAttrLink[count]).timeout(0).get();
+                project_page = Jsoup.connect(aAttrLink[count]).userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko").timeout(0).get();
                 aTagsElements = project_page.select("a[href^=/tags/]");
 
                 try {
@@ -468,7 +468,7 @@ public class HiveToResource  {
 
                         }   else    {
 
-                            System.out.println("delayMax MUST be higher than delayMin! Set no delay.");
+                            System.out.println("delayMax MUST be higher than delayMin!");
 
                         }
 

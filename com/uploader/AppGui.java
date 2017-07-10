@@ -95,6 +95,7 @@ public class AppGui extends JFrame  {
     ImageIcon buttonPondToYoutubeUploadIconSrc;
     ImageIcon buttonOneLinkFromHiveUploadIconSrc;
     ImageIcon buttonOneLinkFromShutterUploadIconSrc;
+    ImageIcon buttonOneLinkFromPondUploadIconSrc;
     ImageIcon buttonSetPreferensesIconSrc;
     ImageIcon buttonReauthIconSrc;
     ImageIcon buttonStopIconSrc;
@@ -105,6 +106,7 @@ public class AppGui extends JFrame  {
     ImageIcon buttonPondToYoutubeUploadIcon;
     ImageIcon buttonOneLinkFromHiveUploadIcon;
     ImageIcon buttonOneLinkFromShutterUploadIcon;
+    ImageIcon buttonOneLinkFromPondUploadIcon;
     ImageIcon buttonSetPreferensesIcon;
     ImageIcon buttonReauthIcon;
     ImageIcon buttonStopIcon;
@@ -162,6 +164,7 @@ public class AppGui extends JFrame  {
         Font buttonPondToYoutubeUploadFont = null;
         Font buttonOneLinkFromHiveUploadFont = null;
         Font buttonOneLinkFromShutterUploadFont = null;
+        Font buttonOneLinkFromPondUploadFont = null;
         Font buttonSetPreferensesFont = null;
         Font buttonReauthFont = null;
         Font buttonStopFont = null;
@@ -195,6 +198,7 @@ public class AppGui extends JFrame  {
         JButton buttonPondToYoutubeUpload;
         JButton buttonOneLinkFromHiveUpload;
         JButton buttonOneLinkFromShutterUpload;
+        JButton buttonOneLinkFromPondUpload;
         JButton buttonSetPreferenses;
         // private JButton buttonVimeoUpload = new JButton("VimeoUpload");
         JButton buttonReauth;
@@ -256,6 +260,7 @@ public class AppGui extends JFrame  {
             buttonPondToYoutubeUploadIconSrc = new ImageIcon("icons/I_Upload_64x64.png");
             buttonOneLinkFromHiveUploadIconSrc = new ImageIcon("icons/I_Upload_64x64.png");
             buttonOneLinkFromShutterUploadIconSrc = new ImageIcon("icons/I_Upload_64x64.png");
+            buttonOneLinkFromPondUploadIconSrc = new ImageIcon("icons/I_Upload_64x64.png");
             buttonSetPreferensesIconSrc = new ImageIcon("icons/I_Preferens_64x64.png");
             buttonReauthIconSrc = new ImageIcon("icons/I_Remove_64x64.png");
             buttonStopIconSrc = new ImageIcon("icons/I_Stop_64x64.png");
@@ -301,6 +306,10 @@ public class AppGui extends JFrame  {
             imageResized = imageSrc.getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH);
             buttonOneLinkFromShutterUploadIcon = new ImageIcon(imageResized);
 
+            imageSrc = buttonOneLinkFromPondUploadIconSrc.getImage(); 
+            imageResized = imageSrc.getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH);
+            buttonOneLinkFromPondUploadIcon = new ImageIcon(imageResized);
+
             imageSrc = buttonSetPreferensesIconSrc.getImage(); 
             imageResized = imageSrc.getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH);
             buttonSetPreferensesIcon = new ImageIcon(imageResized);
@@ -328,6 +337,7 @@ public class AppGui extends JFrame  {
         buttonPondToYoutubeUpload = new JButton("Upload Pond Profile", buttonPondToYoutubeUploadIcon);
         buttonOneLinkFromHiveUpload = new JButton("Upload Hive Link", buttonHiveToYoutubeUploadIcon);
         buttonOneLinkFromShutterUpload = new JButton("Upload Shutter Link", buttonShutterToYoutubeUploadIcon);
+        buttonOneLinkFromPondUpload = new JButton("Upload Pond Link", buttonPondToYoutubeUploadIcon);
         buttonSetPreferenses = new JButton("Preferenses", buttonSetPreferensesIcon);
             // private JButton buttonVimeoUpload = new JButton("VimeoUpload");
         buttonReauth = new JButton("Remove Credentials", buttonReauthIcon);
@@ -338,7 +348,7 @@ public class AppGui extends JFrame  {
         delayMinFieldLabel = new JLabel("Min Delay beetwen uploads ( of each parsed video, in minutes ): ", delayFieldLabelIcon, JLabel.CENTER);
         delayMaxFieldLabel = new JLabel("Max Delay beetwen uploads ( of each parsed video, in minutes ): ", delayFieldLabelIcon, JLabel.CENTER);
         referalFieldLabel = new JLabel("Referal Profile ( only name of profile at videohive.net/shutterstock.com ): ", referalFieldLabelIcon, JLabel.CENTER);
-        oneLinkUploadFieldLabel = new JLabel("Direct Project Link from videohive.net/shutterstock.com: ", oneLinkUploadFieldLabelIcon, JLabel.CENTER);
+        oneLinkUploadFieldLabel = new JLabel("Direct Project Link ( from videohive.net/shutterstock.com/pond5.com ): ", oneLinkUploadFieldLabelIcon, JLabel.CENTER);
         uploadFromVideoNumberLabel = new JLabel("Upload Profile From Video # ", uploadFromVideoNumberLabelIcon, JLabel.CENTER);
 
         try {
@@ -362,6 +372,7 @@ public class AppGui extends JFrame  {
                 buttonPondToYoutubeUploadFont = ttfBaseButtons.deriveFont(Font.BOLD, buttonsFontSize);
                 buttonOneLinkFromHiveUploadFont = ttfBaseButtons.deriveFont(Font.BOLD, buttonsFontSize);
                 buttonOneLinkFromShutterUploadFont = ttfBaseButtons.deriveFont(Font.BOLD, buttonsFontSize);
+                buttonOneLinkFromPondUploadFont = ttfBaseButtons.deriveFont(Font.BOLD, buttonsFontSize);
                 buttonSetPreferensesFont = ttfBaseButtons.deriveFont(Font.PLAIN, buttonsFontSize);
                 buttonReauthFont = ttfBaseButtons.deriveFont(Font.PLAIN, buttonsFontSize);
                 buttonStopFont = ttfBaseButtons.deriveFont(Font.PLAIN, buttonsFontSize);
@@ -409,6 +420,7 @@ public class AppGui extends JFrame  {
             buttonPondToYoutubeUpload.setFont(buttonPondToYoutubeUploadFont);
             buttonOneLinkFromHiveUpload.setFont(buttonOneLinkFromHiveUploadFont);
             buttonOneLinkFromShutterUpload.setFont(buttonOneLinkFromHiveUploadFont);
+            buttonOneLinkFromPondUpload.setFont(buttonOneLinkFromHiveUploadFont);
             // buttonVimeoUpload.setFont(new Font("Sans",Font.PLAIN,12));
             buttonSetPreferenses.setFont(buttonSetPreferensesFont);
             buttonReauth.setFont(buttonReauthFont);
@@ -631,6 +643,7 @@ public class AppGui extends JFrame  {
         midButtonsBox.add(buttonShutterToYoutubeUpload);
         midButtonsBox.add(buttonOneLinkFromShutterUpload);
         midButtonsBox.add(buttonPondToYoutubeUpload);
+        midButtonsBox.add(buttonOneLinkFromPondUpload);
         midButtonsBox.add(Box.createHorizontalGlue());
 
 
@@ -813,6 +826,52 @@ public class AppGui extends JFrame  {
                 if(textInOneLinkUploadField != null && !textInOneLinkUploadField.isEmpty())  {
 
                     upload_project_from_shutter_to_tube(textInOneLinkUploadField, textInDelayFieldInDouble, textInReferalField);
+
+                }
+
+            }
+        });
+
+        buttonOneLinkFromPondUpload.addActionListener(new ActionListener()  {
+
+            public void actionPerformed(ActionEvent evt)    {
+
+                String textInNameField = "";
+                String textInDelayField = "";
+                String textInReferalField = "";
+                String textInOneLinkUploadField = "";
+
+                double textInDelayFieldInDouble = 0.0;
+
+                // textInNameField = "Test";
+
+                textInDelayFieldInDouble = 0.0;
+
+                if(oneLinkUploadField.getText() != null && !oneLinkUploadField.getText().isEmpty()) {
+
+                    textInOneLinkUploadField = oneLinkUploadField.getText();
+
+                }   else    {
+
+                    textArea.append("Set videohive's URL to upload.\n");
+
+                }
+
+                if(referalField.getText() != null && !referalField.getText().isEmpty()) {
+
+                    textInReferalField = referalField.getText();
+
+                }   else    {
+
+                    textArea.append("Referal is not set.\n");
+
+                }
+
+                // textInReferalField = "aslik";
+
+                if(textInOneLinkUploadField != null && !textInOneLinkUploadField.isEmpty())  {
+
+                    upload_project_from_pond_to_tube(textInOneLinkUploadField, textInDelayFieldInDouble, textInReferalField);
 
                 }
 
@@ -1155,8 +1214,12 @@ public class AppGui extends JFrame  {
                 try {
 
 
-                    HiveToResource.STOP = true;
+                    HiveToResource.STOP    = true;
+                    ShutterToResource.STOP = true;
+                    PondToResource.STOP    = true;
+
                     thread.sleep(800);
+
                     System.gc();
                     System.exit(0);
 
@@ -1177,6 +1240,7 @@ public class AppGui extends JFrame  {
                     // System.exit(0);
                     HiveToResource.STOP    = true;
                     ShutterToResource.STOP = true;
+                    PondToResource.STOP    = true;
 
                 }   catch(Exception e)  {
 
@@ -1262,7 +1326,23 @@ public class AppGui extends JFrame  {
 
         });
         thread.start();
-   }
+    }
+
+    private void upload_project_from_pond_to_tube(String _link_to_project, double _delay_in_min, String _referal_name)    {
+
+        thread = new Thread(new Runnable()   {
+
+            public void run()   {
+                // System.out.println("I like that!");
+
+                OnePondLinkUpload h2t = new OnePondLinkUpload(_link_to_project, _referal_name, "youtube", uploadAsPublic);
+                h2t.GrabAndLoad();
+
+            }
+
+        });
+        thread.start();
+    }
 
     private void upload_onelink_to_tube(String _link_to_project, double _delay_in_min, String _referal_name)    {
 
