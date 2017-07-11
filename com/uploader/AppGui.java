@@ -339,24 +339,24 @@ public class AppGui extends JFrame  {
 
         }
 
-        buttonHiveToYoutubeUpload = new JButton("Upload Hive Profile", buttonHiveToYoutubeUploadIcon);
-        buttonShutterToYoutubeUpload = new JButton("Upload Shutter Profile", buttonShutterToYoutubeUploadIcon);
-        buttonPondToYoutubeUpload = new JButton("Upload Pond Profile", buttonPondToYoutubeUploadIcon);
-        buttonOneLinkFromHiveUpload = new JButton("Upload Hive Link", buttonHiveToYoutubeUploadIcon);
+        buttonHiveToYoutubeUpload      = new JButton("Upload Hive Profile", buttonHiveToYoutubeUploadIcon);
+        buttonShutterToYoutubeUpload   = new JButton("Upload Shutter Profile", buttonShutterToYoutubeUploadIcon);
+        buttonPondToYoutubeUpload      = new JButton("Upload Pond Profile", buttonPondToYoutubeUploadIcon);
+        buttonOneLinkFromHiveUpload    = new JButton("Upload Hive Link", buttonHiveToYoutubeUploadIcon);
         buttonOneLinkFromShutterUpload = new JButton("Upload Shutter Link", buttonShutterToYoutubeUploadIcon);
-        buttonOneLinkFromPondUpload = new JButton("Upload Pond Link", buttonPondToYoutubeUploadIcon);
-        buttonSetPreferenses = new JButton("Preferenses", buttonSetPreferensesIcon);
+        buttonOneLinkFromPondUpload    = new JButton("Upload Pond Link", buttonPondToYoutubeUploadIcon);
+        buttonSetPreferenses           = new JButton("Preferenses", buttonSetPreferensesIcon);
             // private JButton buttonVimeoUpload = new JButton("VimeoUpload");
-        buttonReauth = new JButton("Remove Credentials", buttonReauthIcon);
-        buttonStop = new JButton("Stop", buttonStopIcon);
-        buttonExit = new JButton("Exit", buttonExitIcon);
+        buttonReauth                   = new JButton("Remove Credentials", buttonReauthIcon);
+        buttonStop                     = new JButton("Stop", buttonStopIcon);
+        buttonExit                     = new JButton("Exit", buttonExitIcon);
 
-        profileNameLabel = new JLabel("Profile Name ( at videohive.net/shutterstock.com/pond5.com ): ", profileNameLabelIcon, JLabel.CENTER);
-        delayMinFieldLabel = new JLabel("Min Delay beetwen uploads ( of each parsed video, in minutes ): ", delayFieldLabelIcon, JLabel.CENTER);
-        delayMaxFieldLabel = new JLabel("Max Delay beetwen uploads ( of each parsed video, in minutes ): ", delayFieldLabelIcon, JLabel.CENTER);
-        referalFieldLabel = new JLabel("Referal Profile ( only name of profile at videohive.net/shutterstock.com/pond5.com): ", referalFieldLabelIcon, JLabel.CENTER);
-        oneLinkUploadFieldLabel = new JLabel("Direct Project Link ( from videohive.net/shutterstock.com/pond5.com ): ", oneLinkUploadFieldLabelIcon, JLabel.CENTER);
-        additionalTagsFieldLabel = new JLabel("Additional Tags ( comma separated e.g. tag1, tag2, tag3 ): ");
+        profileNameLabel           = new JLabel("Profile Name ( at videohive.net/shutterstock.com/pond5.com ): ", profileNameLabelIcon, JLabel.CENTER);
+        delayMinFieldLabel         = new JLabel("Min Delay beetwen uploads ( of each parsed video, in minutes ): ", delayFieldLabelIcon, JLabel.CENTER);
+        delayMaxFieldLabel         = new JLabel("Max Delay beetwen uploads ( of each parsed video, in minutes ): ", delayFieldLabelIcon, JLabel.CENTER);
+        referalFieldLabel          = new JLabel("Referal Profile ( only name of profile at videohive.net/shutterstock.com/pond5.com): ", referalFieldLabelIcon, JLabel.CENTER);
+        oneLinkUploadFieldLabel    = new JLabel("Direct Project Link ( from videohive.net/shutterstock.com/pond5.com ): ", oneLinkUploadFieldLabelIcon, JLabel.CENTER);
+        additionalTagsFieldLabel   = new JLabel("Additional Tags ( comma separated e.g. tag1, tag2, tag3 ): ");
         uploadFromVideoNumberLabel = new JLabel("Upload Profile From Video # ( working only on videohive.net/shutterstock.com )", uploadFromVideoNumberLabelIcon, JLabel.CENTER);
 
         try {
@@ -375,7 +375,7 @@ public class AppGui extends JFrame  {
                 InputStream textFontStream = new BufferedInputStream(new FileInputStream("fonts/Dosis-Medium.otf"));
                 ttfBaseText = Font.createFont(Font.TRUETYPE_FONT, textFontStream);
 
-                InputStream tagsFontStream = new BufferedInputStream(new FileInputStream("fonts/OpenSans-Light.ttf"));
+                InputStream tagsFontStream = new BufferedInputStream(new FileInputStream("fonts/OpenSans-Regular.ttf"));
                 ttfTagsFont = Font.createFont(Font.TRUETYPE_FONT, tagsFontStream);
 
                 buttonHiveToYoutubeUploadFont = ttfBaseButtons.deriveFont(Font.BOLD, buttonsFontSize);
