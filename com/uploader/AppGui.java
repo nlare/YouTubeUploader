@@ -161,6 +161,7 @@ public class AppGui extends JFrame  {
         Font ttfBaseLabels = null;
         Font ttfBaseInputs = null;
         Font ttfBaseText = null;
+        Font ttfTagsFont = null;
 
         Font buttonHiveToYoutubeUploadFont = null;
         Font buttonShutterToYoutubeUploadFont = null;
@@ -186,6 +187,7 @@ public class AppGui extends JFrame  {
         Font delayFieldFont = null;
         Font referalFieldFont = null;
         Font oneLinkUploadFieldFont = null;
+        Font additionalTagsFieldFont = null;
         Font uploadFromVideoNumberFont = null;
         Font textAreaFont = null;
 
@@ -355,7 +357,7 @@ public class AppGui extends JFrame  {
         referalFieldLabel = new JLabel("Referal Profile ( only name of profile at videohive.net/shutterstock.com/pond5.com): ", referalFieldLabelIcon, JLabel.CENTER);
         oneLinkUploadFieldLabel = new JLabel("Direct Project Link ( from videohive.net/shutterstock.com/pond5.com ): ", oneLinkUploadFieldLabelIcon, JLabel.CENTER);
         additionalTagsFieldLabel = new JLabel("Additional Tags ( comma separated e.g. tag1, tag2, tag3 ): ");
-        uploadFromVideoNumberLabel = new JLabel("Upload Profile From Video # ", uploadFromVideoNumberLabelIcon, JLabel.CENTER);
+        uploadFromVideoNumberLabel = new JLabel("Upload Profile From Video # ( working only on videohive.net/shutterstock.com )", uploadFromVideoNumberLabelIcon, JLabel.CENTER);
 
         try {
 
@@ -373,6 +375,9 @@ public class AppGui extends JFrame  {
                 InputStream textFontStream = new BufferedInputStream(new FileInputStream("fonts/Dosis-Medium.otf"));
                 ttfBaseText = Font.createFont(Font.TRUETYPE_FONT, textFontStream);
 
+                InputStream tagsFontStream = new BufferedInputStream(new FileInputStream("fonts/OpenSans-Light.ttf"));
+                ttfTagsFont = Font.createFont(Font.TRUETYPE_FONT, tagsFontStream);
+
                 buttonHiveToYoutubeUploadFont = ttfBaseButtons.deriveFont(Font.BOLD, buttonsFontSize);
                 buttonShutterToYoutubeUploadFont = ttfBaseButtons.deriveFont(Font.BOLD, buttonsFontSize);
                 buttonPondToYoutubeUploadFont = ttfBaseButtons.deriveFont(Font.BOLD, buttonsFontSize);
@@ -388,7 +393,7 @@ public class AppGui extends JFrame  {
                 delayFieldLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
                 referalFieldLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
                 oneLinkUploadFieldLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
-                additionalTagsFieldLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
+                additionalTagsFieldLabelFont = ttfTagsFont.deriveFont(Font.PLAIN, labelsFontSize);
                 uploadFromVideoNumberLabelFont = ttfBaseInputs.deriveFont(Font.PLAIN, labelsFontSize);
                 statusLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
                 publicUploadFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
@@ -397,6 +402,7 @@ public class AppGui extends JFrame  {
                 delayFieldFont = ttfBaseInputs.deriveFont(Font.PLAIN, inputFieldsFontSize);
                 referalFieldFont = ttfBaseInputs.deriveFont(Font.PLAIN, inputFieldsFontSize);
                 oneLinkUploadFieldFont = ttfBaseInputs.deriveFont(Font.PLAIN, inputFieldsFontSize);
+                additionalTagsFieldFont = ttfTagsFont.deriveFont(Font.PLAIN, inputFieldsFontSize);
                 uploadFromVideoNumberFont = ttfBaseInputs.deriveFont(Font.PLAIN, inputFieldsFontSize);
 
                 textAreaFont = ttfBaseText.deriveFont(Font.PLAIN, textAreaFontSize);
@@ -449,8 +455,8 @@ public class AppGui extends JFrame  {
             delayMaxField.setFont(delayFieldFont);
             referalField.setFont(referalFieldFont);
             oneLinkUploadField.setFont(oneLinkUploadFieldFont);
+            additionalTagsField.setFont(additionalTagsFieldFont);
             uploadFromVideoNumberField.setFont(uploadFromVideoNumberFont);
-            additionalTagsField.setFont(uploadFromVideoNumberFont);
 
             Font font = UIManager.getFont("Button.font");
 
@@ -1385,7 +1391,7 @@ public class AppGui extends JFrame  {
             public void run()   {
                 // System.out.println("I like that!");
 
-                OneLinkUpload h2t = new OneLinkUpload(_link_to_project, _referal_name, "youtube", uploadAsPublic);
+                OneHiveLinkUpload h2t = new OneHiveLinkUpload(_link_to_project, _referal_name, "youtube", uploadAsPublic);
                 h2t.GrabAndLoad();
 
             }
