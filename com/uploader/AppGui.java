@@ -120,6 +120,9 @@ public class AppGui extends JFrame  {
     private JTextField referalField               = new JTextField();
     private JTextField oneLinkUploadField         = new JTextField(null);
     private JTextField uploadFromVideoNumberField = new JTextField(null);
+    private JTextField additionalTagsField        = new JTextField(null);
+
+    public static String additionalTags = new String("");
 
     // profileNameField.(new JLabel();
 
@@ -174,6 +177,7 @@ public class AppGui extends JFrame  {
         Font delayFieldLabelFont = null;
         Font referalFieldLabelFont = null;
         Font oneLinkUploadFieldLabelFont = null;
+        Font additionalTagsFieldLabelFont = null;
         Font uploadFromVideoNumberLabelFont = null;
         Font statusLabelFont = null;
         Font publicUploadFont= null;
@@ -211,6 +215,7 @@ public class AppGui extends JFrame  {
         JLabel referalFieldLabel;
         JLabel oneLinkUploadFieldLabel;
         JLabel uploadFromVideoNumberLabel;
+        JLabel additionalTagsFieldLabel;
 
         if(!uploadAsPublic)    {
 
@@ -347,8 +352,9 @@ public class AppGui extends JFrame  {
         profileNameLabel = new JLabel("Profile Name ( at videohive.net/shutterstock.com/pond5.com ): ", profileNameLabelIcon, JLabel.CENTER);
         delayMinFieldLabel = new JLabel("Min Delay beetwen uploads ( of each parsed video, in minutes ): ", delayFieldLabelIcon, JLabel.CENTER);
         delayMaxFieldLabel = new JLabel("Max Delay beetwen uploads ( of each parsed video, in minutes ): ", delayFieldLabelIcon, JLabel.CENTER);
-        referalFieldLabel = new JLabel("Referal Profile ( only name of profile at videohive.net/shutterstock.com ): ", referalFieldLabelIcon, JLabel.CENTER);
+        referalFieldLabel = new JLabel("Referal Profile ( only name of profile at videohive.net/shutterstock.com/pond5.com): ", referalFieldLabelIcon, JLabel.CENTER);
         oneLinkUploadFieldLabel = new JLabel("Direct Project Link ( from videohive.net/shutterstock.com/pond5.com ): ", oneLinkUploadFieldLabelIcon, JLabel.CENTER);
+        additionalTagsFieldLabel = new JLabel("Additional Tags ( comma separated e.g. tag1, tag2, tag3 ): ");
         uploadFromVideoNumberLabel = new JLabel("Upload Profile From Video # ", uploadFromVideoNumberLabelIcon, JLabel.CENTER);
 
         try {
@@ -382,6 +388,7 @@ public class AppGui extends JFrame  {
                 delayFieldLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
                 referalFieldLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
                 oneLinkUploadFieldLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
+                additionalTagsFieldLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
                 uploadFromVideoNumberLabelFont = ttfBaseInputs.deriveFont(Font.PLAIN, labelsFontSize);
                 statusLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
                 publicUploadFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
@@ -432,6 +439,7 @@ public class AppGui extends JFrame  {
             delayMaxFieldLabel.setFont(delayFieldLabelFont);
             referalFieldLabel.setFont(referalFieldLabelFont);
             oneLinkUploadFieldLabel.setFont(oneLinkUploadFieldLabelFont);
+            additionalTagsFieldLabel.setFont(additionalTagsFieldLabelFont);
             uploadFromVideoNumberLabel.setFont(uploadFromVideoNumberLabelFont);
             publicUpload.setFont(statusLabelFont);
             statusLabel.setFont(publicUploadFont);
@@ -442,6 +450,7 @@ public class AppGui extends JFrame  {
             referalField.setFont(referalFieldFont);
             oneLinkUploadField.setFont(oneLinkUploadFieldFont);
             uploadFromVideoNumberField.setFont(uploadFromVideoNumberFont);
+            additionalTagsField.setFont(uploadFromVideoNumberFont);
 
             Font font = UIManager.getFont("Button.font");
 
@@ -556,6 +565,7 @@ public class AppGui extends JFrame  {
         referalField.setBorder(new RoundedCornerBorder());
         oneLinkUploadField.setBorder(new RoundedCornerBorder());
         uploadFromVideoNumberField.setBorder(new RoundedCornerBorder());
+        additionalTagsField.setBorder(new RoundedCornerBorder());
 
         // profileNameField.setHorizontalAlignment(JTextField.CENTER);
         // delayField.setHorizontalAlignment(JTextField.CENTER);
@@ -614,6 +624,14 @@ public class AppGui extends JFrame  {
         labelFieldBox4.add(Box.createHorizontalGlue());
 
         labelFieldBox4.setVisible(preferensesVisibleTrigger);
+
+        Box labelFieldBox5 = Box.createHorizontalBox();
+
+        labelFieldBox5.add(additionalTagsFieldLabel,constraints);
+        labelFieldBox5.add(additionalTagsField,constraints);
+        labelFieldBox5.add(Box.createHorizontalGlue());
+
+        labelFieldBox5.setVisible(preferensesVisibleTrigger);
 
         // checkBoxPanel.add(publicUpload);
 
@@ -718,6 +736,10 @@ public class AppGui extends JFrame  {
         mainBox.add(Box.createHorizontalStrut(15));
         mainBox.add(Box.createVerticalStrut(10));
 
+        mainBox.add(labelFieldBox5,constraints);
+        mainBox.add(Box.createHorizontalStrut(15));
+        mainBox.add(Box.createVerticalStrut(10));
+
         mainBox.add(checkBoxField4,constraints);
         mainBox.add(Box.createHorizontalStrut(15));
         mainBox.add(Box.createVerticalStrut(10));
@@ -775,6 +797,8 @@ public class AppGui extends JFrame  {
 
                 }
 
+                additionalTags = additionalTagsField.getText();
+
                 // textInReferalField = "aslik";
 
                 if(textInOneLinkUploadField != null && !textInOneLinkUploadField.isEmpty())  {
@@ -821,6 +845,8 @@ public class AppGui extends JFrame  {
 
                 }
 
+                additionalTags = additionalTagsField.getText();
+
                 // textInReferalField = "aslik";
 
                 if(textInOneLinkUploadField != null && !textInOneLinkUploadField.isEmpty())  {
@@ -866,6 +892,8 @@ public class AppGui extends JFrame  {
                     textArea.append("Referal is not set.\n");
 
                 }
+
+                additionalTags = additionalTagsField.getText();
 
                 // textInReferalField = "aslik";
 
@@ -952,6 +980,8 @@ public class AppGui extends JFrame  {
 
                 }
 
+                additionalTags = additionalTagsField.getText();
+
                 if(textInNameField != null && !textInNameField.isEmpty() && (textInDelayMaxFieldInDouble >= textInDelayMinFieldInDouble))  {
 
                     upload_hive_to_tube(textInNameField, textInDelayMinFieldInDouble, textInDelayMaxFieldInDouble, textInReferalField);
@@ -1035,6 +1065,8 @@ public class AppGui extends JFrame  {
 
                 }
 
+                additionalTags = additionalTagsField.getText();
+
                 if(textInNameField != null && !textInNameField.isEmpty() && (textInDelayMaxFieldInDouble >= textInDelayMinFieldInDouble))  {
 
                     upload_shutter_to_tube(textInNameField, textInDelayMinFieldInDouble, textInDelayMaxFieldInDouble, textInReferalField);
@@ -1117,6 +1149,8 @@ public class AppGui extends JFrame  {
                     // textInReferalField = "envato_ref";
 
                 }
+
+                additionalTags = additionalTagsField.getText();
 
                 if(textInNameField != null && !textInNameField.isEmpty() && (textInDelayMaxFieldInDouble >= textInDelayMinFieldInDouble))  {
 

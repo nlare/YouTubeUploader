@@ -111,6 +111,18 @@ public class VideoToYoutube {
 
             }
 
+            if(!(AppGui.additionalTags.equals("")))    {
+
+                for(String tagsBuffer : AppGui.additionalTags.split(","))   {
+
+                    System.out.println("tagsBuffer: " + tagsBuffer);
+
+                    tags.add(tagsBuffer);
+
+                }
+
+            }
+
             // tags.add("after effects");
             // tags.add("after");
             // tags.add("effects");
