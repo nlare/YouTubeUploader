@@ -164,7 +164,7 @@ public class HiveToResource  {
 
             StringBuilder sb = new StringBuilder();
 
-            sb.append("http://videohive.net/user/").append(name_of_profile).append("/portfolio?page=").append(current_page);
+            sb.append("https://videohive.net/user/").append(name_of_profile).append("/portfolio?page=").append(current_page);
 
             link_to_profile = sb.toString();
 
@@ -191,7 +191,7 @@ public class HiveToResource  {
 
             // }
             
-            html = Jsoup.connect(link_to_profile).userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko").timeout(0).get();
+            html = Jsoup.connect(link_to_profile).userAgent("Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10136").timeout(0).get();
 
             // int count = 0;
 
@@ -266,7 +266,7 @@ public class HiveToResource  {
 
             }
 
-            aElements = html.select("a[class=js-google-analytics__list-event-trigger");
+            aElements = html.select("a[class=js-google-analytics__list-event-trigger]");
 
             String aAttrLink[] = new String[aElements.size()+1];
             String aTagsAttrNames[] = new String[100];
@@ -286,7 +286,7 @@ public class HiveToResource  {
 
                 count++;
 
-                aAttrLink[count] = "http://videohive.net" + el.attr("href");
+                aAttrLink[count] = "https://videohive.net" + el.attr("href");
 
                 buffer = aAttrLink[count].split("\\?", 2);
 
@@ -298,7 +298,7 @@ public class HiveToResource  {
 
                 System.out.println(RED_COLOR + count + ":" + WHITE_COLOR + aAttrLink[count]);
 
-                project_page = Jsoup.connect(aAttrLink[count]).userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko").timeout(0).get();
+                project_page = Jsoup.connect(aAttrLink[count]).userAgent("Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10136").timeout(0).get();
                 aTagsElements = project_page.select("a[href^=/tags/]");
 
                 try {
@@ -492,8 +492,8 @@ public class HiveToResource  {
 
         }   catch(Exception e)   {
 
-            // e.printStackTrace();
             System.out.println("Check Profile name please or internet connection.");
+            e.printStackTrace();
 
         }
 

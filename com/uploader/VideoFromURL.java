@@ -45,10 +45,10 @@ public class VideoFromURL    {
 
         try {
             
-            if(!f_out.exists())
+            // if(!f_out.exists())
                 file_utils.copyURLToFile(weblink, f_out);
-            else
-                System.out.println("File: " + name_of_video_with_extension + " is exist in filesystem.\n");
+            // else
+                // System.out.println("File: " + name_of_video_with_extension + " is exist in filesystem.\n");
 
         }   catch(Exception e)    {
 

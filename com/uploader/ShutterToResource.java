@@ -181,7 +181,7 @@ public class ShutterToResource  {
 
             System.out.println("Your link: " + link_to_profile);
             
-            html = Jsoup.connect(link_to_profile).userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko").timeout(0).get();
+            html = Jsoup.connect(link_to_profile).userAgent("Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10136").timeout(0).get();
 
             /* Хитрый ход. Каждый раз обновляем сколько всего страниц, ибо иначе делать не удобно. */
 
@@ -232,7 +232,7 @@ public class ShutterToResource  {
 
                     threadSleepMillisec(1000);
 
-                    clip_page = Jsoup.connect(hrefToCurrentClipOnPage[clips_per_page_count]).userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko").timeout(0).get();
+                    clip_page = Jsoup.connect(hrefToCurrentClipOnPage[clips_per_page_count]).userAgent("Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10136").timeout(0).get();
 
                     System.out.println("\n---------------------------------------------------------");
 

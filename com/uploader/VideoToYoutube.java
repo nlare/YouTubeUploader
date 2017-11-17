@@ -107,8 +107,6 @@ public class VideoToYoutube {
 
                 System.out.println("Tags Count: " + RED_COLOR + tag_count + WHITE_COLOR);
 
-                snippet.setTags(tags);
-
             }
 
             if(!(AppGui.additionalTags.equals("")))    {
@@ -122,6 +120,8 @@ public class VideoToYoutube {
                 }
 
             }
+
+            snippet.setTags(tags);
 
             // tags.add("after effects");
             // tags.add("after");

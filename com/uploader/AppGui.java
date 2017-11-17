@@ -117,6 +117,7 @@ public class AppGui extends JFrame  {
     private JTextField profileNameField           = new JTextField(null);
     private JTextField delayMinField              = new JTextField();
     private JTextField delayMaxField              = new JTextField();
+    private JTextField countOfVideosPerDayField   = new JTextField();
     private JTextField referalField               = new JTextField();
     private JTextField oneLinkUploadField         = new JTextField(null);
     private JTextField uploadFromVideoNumberField = new JTextField(null);
@@ -162,6 +163,8 @@ public class AppGui extends JFrame  {
         Font ttfBaseInputs = null;
         Font ttfBaseText = null;
         Font ttfTagsFont = null;
+
+        Font commonProgramFont = null;
 
         Font buttonHiveToYoutubeUploadFont = null;
         Font buttonShutterToYoutubeUploadFont = null;
@@ -214,6 +217,8 @@ public class AppGui extends JFrame  {
         JLabel profileNameLabel;
         JLabel delayMinFieldLabel;
         JLabel delayMaxFieldLabel;
+        JLabel countOfVideosPerDayFieldLabel;
+
         JLabel referalFieldLabel;
         JLabel oneLinkUploadFieldLabel;
         JLabel uploadFromVideoNumberLabel;
@@ -351,13 +356,14 @@ public class AppGui extends JFrame  {
         buttonStop                     = new JButton("Stop", buttonStopIcon);
         buttonExit                     = new JButton("Exit", buttonExitIcon);
 
-        profileNameLabel           = new JLabel("Profile Name ( at videohive.net/shutterstock.com/pond5.com ): ", profileNameLabelIcon, JLabel.CENTER);
-        delayMinFieldLabel         = new JLabel("Min Delay beetwen uploads ( of each parsed video, in minutes ): ", delayFieldLabelIcon, JLabel.CENTER);
-        delayMaxFieldLabel         = new JLabel("Max Delay beetwen uploads ( of each parsed video, in minutes ): ", delayFieldLabelIcon, JLabel.CENTER);
-        referalFieldLabel          = new JLabel("Referal Profile ( only name of profile at videohive.net/shutterstock.com/pond5.com): ", referalFieldLabelIcon, JLabel.CENTER);
-        oneLinkUploadFieldLabel    = new JLabel("Direct Project Link ( from videohive.net/shutterstock.com/pond5.com ): ", oneLinkUploadFieldLabelIcon, JLabel.CENTER);
-        additionalTagsFieldLabel   = new JLabel("Additional Tags ( comma separated e.g. tag1, tag2, tag3 ): ");
-        uploadFromVideoNumberLabel = new JLabel("Upload Profile From Video # ( working only on videohive.net/shutterstock.com )", uploadFromVideoNumberLabelIcon, JLabel.CENTER);
+        profileNameLabel                = new JLabel("Profile Name ( at videohive.net/shutterstock.com/pond5.com ): ", profileNameLabelIcon, JLabel.CENTER);
+        delayMinFieldLabel              = new JLabel("Min Delay beetwen uploads ( of each parsed video, in minutes ): ", delayFieldLabelIcon, JLabel.CENTER);
+        delayMaxFieldLabel              = new JLabel("Max Delay beetwen uploads ( of each parsed video, in minutes ): ", delayFieldLabelIcon, JLabel.CENTER);
+        countOfVideosPerDayFieldLabel   = new JLabel("... or videos to upload per day: ", delayFieldLabelIcon, JLabel.CENTER);
+        referalFieldLabel               = new JLabel("Referal Profile ( only name of profile at videohive.net/shutterstock.com/pond5.com): ", referalFieldLabelIcon, JLabel.CENTER);
+        oneLinkUploadFieldLabel         = new JLabel("Direct Project Link ( from videohive.net/shutterstock.com/pond5.com ): ", oneLinkUploadFieldLabelIcon, JLabel.CENTER);
+        additionalTagsFieldLabel        = new JLabel("Additional Tags ( comma separated e.g. tag1,tag2,tag3 ): ");
+        uploadFromVideoNumberLabel      = new JLabel("Upload Profile From Video # ( working only on videohive.net/shutterstock.com )", uploadFromVideoNumberLabelIcon, JLabel.CENTER);
 
         try {
 
@@ -378,6 +384,8 @@ public class AppGui extends JFrame  {
                 InputStream tagsFontStream = new BufferedInputStream(new FileInputStream("fonts/OpenSans-Regular.ttf"));
                 ttfTagsFont = Font.createFont(Font.TRUETYPE_FONT, tagsFontStream);
 
+                commonProgramFont = ttfBaseButtons.deriveFont(Font.BOLD, buttonsFontSize);
+
                 buttonHiveToYoutubeUploadFont = ttfBaseButtons.deriveFont(Font.BOLD, buttonsFontSize);
                 buttonShutterToYoutubeUploadFont = ttfBaseButtons.deriveFont(Font.BOLD, buttonsFontSize);
                 buttonPondToYoutubeUploadFont = ttfBaseButtons.deriveFont(Font.BOLD, buttonsFontSize);
@@ -390,6 +398,7 @@ public class AppGui extends JFrame  {
                 buttonExitFont = ttfBaseButtons.deriveFont(Font.PLAIN, buttonsFontSize);
 
                 profileNameLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
+                delayFieldLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
                 delayFieldLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
                 referalFieldLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
                 oneLinkUploadFieldLabelFont = ttfBaseLabels.deriveFont(Font.PLAIN, labelsFontSize);
@@ -561,13 +570,19 @@ public class AppGui extends JFrame  {
         profileNameLabel.setSize(new Dimension(450,20));
         delayMinFieldLabel.setSize(new Dimension(450,20));
         delayMaxFieldLabel.setSize(new Dimension(450,20));
+        countOfVideosPerDayFieldLabel.setSize(new Dimension(450,20));
+
         profileNameField.setPreferredSize(new Dimension(10,20));
         delayMinField.setPreferredSize(new Dimension(10,20));
         delayMaxField.setPreferredSize(new Dimension(10,20));
+        countOfVideosPerDayField.setPreferredSize(new Dimension(10,20));
 
         profileNameField.setBorder(new RoundedCornerBorder());
+
         delayMinField.setBorder(new RoundedCornerBorder());
         delayMaxField.setBorder(new RoundedCornerBorder());
+        countOfVideosPerDayField.setBorder(new RoundedCornerBorder());
+
         referalField.setBorder(new RoundedCornerBorder());
         oneLinkUploadField.setBorder(new RoundedCornerBorder());
         uploadFromVideoNumberField.setBorder(new RoundedCornerBorder());
@@ -610,6 +625,8 @@ public class AppGui extends JFrame  {
 
         labelFieldBox2_2.add(delayMaxFieldLabel,constraints);
         labelFieldBox2_2.add(delayMaxField,constraints);
+        labelFieldBox2_2.add(countOfVideosPerDayFieldLabel,constraints);
+        labelFieldBox2_2.add(countOfVideosPerDayField,constraints);
 
         labelFieldBox2_2.add(Box.createHorizontalGlue());
 
@@ -958,11 +975,20 @@ public class AppGui extends JFrame  {
                     textInDelayMaxField = delayMaxField.getText();
                     textInDelayMaxFieldInDouble = Double.parseDouble(textInDelayMaxField);
 
-
                 }   else    {
 
                     textArea.append("DelayMax is set to default value.\n");
 
+                }
+
+                if(countOfVideosPerDayField.getText() != null && !countOfVideosPerDayField.getText().isEmpty()) {
+
+
+                    float countOfVideosPerDayDouble = (float) Double.parseDouble(countOfVideosPerDayField.getText());
+
+                    textInDelayMinFieldInDouble = (86400 / countOfVideosPerDayDouble / 60);
+                    textInDelayMaxFieldInDouble = (86400 / countOfVideosPerDayDouble / 60);
+                        
                 }
 
                 if(textInDelayMaxFieldInDouble < textInDelayMinFieldInDouble)  {
@@ -971,7 +997,7 @@ public class AppGui extends JFrame  {
 
                 }   else    {
 
-                    textArea.append("Min Delay = " + textInDelayMinFieldInDouble + ", Max Delay = " + textInDelayMaxFieldInDouble);
+                    textArea.append("Min Delay = " + textInDelayMinFieldInDouble + ", Max Delay = " + textInDelayMaxFieldInDouble + "\n");
 
                 }
 
@@ -1050,13 +1076,23 @@ public class AppGui extends JFrame  {
 
                 }
 
+                if(countOfVideosPerDayField.getText() != null && !countOfVideosPerDayField.getText().isEmpty()) {
+
+
+                    float countOfVideosPerDayDouble = (float) Double.parseDouble(countOfVideosPerDayField.getText());
+
+                    textInDelayMinFieldInDouble = (86400 / countOfVideosPerDayDouble / 60);
+                    textInDelayMaxFieldInDouble = (86400 / countOfVideosPerDayDouble / 60);
+                        
+                }
+
                 if(textInDelayMaxFieldInDouble < textInDelayMinFieldInDouble)  {
 
                     textArea.append("Min Delay = " + textInDelayMinFieldInDouble + " must be lower than Max = " + textInDelayMaxFieldInDouble + "!");
 
                 }   else    {
 
-                    textArea.append("Min Delay = " + textInDelayMinFieldInDouble + ", Max Delay = " + textInDelayMaxFieldInDouble);
+                    textArea.append("Min Delay = " + textInDelayMinFieldInDouble + ", Max Delay = " + textInDelayMaxFieldInDouble + "\n");
 
                 }
 
@@ -1135,13 +1171,23 @@ public class AppGui extends JFrame  {
 
                 }
 
+                if(countOfVideosPerDayField.getText() != null && !countOfVideosPerDayField.getText().isEmpty()) {
+
+
+                    float countOfVideosPerDayDouble = (float) Double.parseDouble(countOfVideosPerDayField.getText());
+
+                    textInDelayMinFieldInDouble = (86400 / countOfVideosPerDayDouble / 60);
+                    textInDelayMaxFieldInDouble = (86400 / countOfVideosPerDayDouble / 60);
+                        
+                }
+
                 if(textInDelayMaxFieldInDouble < textInDelayMinFieldInDouble)  {
 
                     textArea.append("Min Delay = " + textInDelayMinFieldInDouble + " must be lower than Max = " + textInDelayMaxFieldInDouble + "!");
 
                 }   else    {
 
-                    textArea.append("Min Delay = " + textInDelayMinFieldInDouble + ", Max Delay = " + textInDelayMaxFieldInDouble);
+                    textArea.append("Min Delay = " + textInDelayMinFieldInDouble + ", Max Delay = " + textInDelayMaxFieldInDouble + "\n");
 
                 }
 
