@@ -212,6 +212,7 @@ public class OneShutterLinkUpload  {
         }
 
     System.out.println(GREEN_COLOR + "The End of Uploading!\n");
+    
     try {
         System.in.read();
     }   catch(Exception e)  {

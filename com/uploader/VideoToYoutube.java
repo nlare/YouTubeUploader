@@ -85,7 +85,7 @@ public class VideoToYoutube {
             String result_name_of_video = parsed_name_of_video;
             snippet.setTitle(result_name_of_video);
             // snippet.setDescription("Author: " + parsed_name_of_author + "\nLink: " + link_to_videohive);
-            snippet.setDescription("\nTo see all project features go to this link:\n" + parsed_ref_link + "\n" + parsed_description + "\nAuthor: " + parsed_name_of_author + "\nProfile: " + link_to_stock_profile);
+            snippet.setDescription("\nTo see all project features go to this link:\n" + parsed_ref_link + "\n" + parsed_description + "\nAuthor: " + parsed_name_of_author + "\nProfile: " + link_to_stock_profile + "\nIf you want to sell your footage, click here: https://submit.shutterstock.com/?ref=183250328");
 
             List<String> tags = new ArrayList<String>();
             int tag_count = 0;

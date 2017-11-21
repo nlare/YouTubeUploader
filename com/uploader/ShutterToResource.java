@@ -29,7 +29,7 @@ public class ShutterToResource  {
     public static String RED_COLOR = "";
 
     private static String  REF_PART_OF_LINK1 = "?rid=";
-    private static String  REF_PART_OF_LINK2 = "&rid=";
+    private static String  REF_PART_OF_LINK2 = "?rid=";
     private static boolean DELAY_FOR_UPLOAD = true;
     
     private static String link_to_profile;
@@ -365,10 +365,15 @@ public class ShutterToResource  {
     }   while(current_page <= number_of_pages);
 
     System.out.println(GREEN_COLOR + "The End of Uploading!\n");
+
     try {
+
         System.in.read();
+
     }   catch(Exception e)  {
+
         e.printStackTrace();
+
     }
 
     }
