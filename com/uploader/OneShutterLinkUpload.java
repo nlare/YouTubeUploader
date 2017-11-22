@@ -29,7 +29,7 @@ public class OneShutterLinkUpload  {
     public static String RED_COLOR = "";
 
     private static String REF_PART_OF_LINK1 = "?rid=";
-    private static String REF_PART_OF_LINK2 = "&rid=";
+    private static String REF_PART_OF_LINK2 = "?rid=";
     private static boolean DELAY_FOR_UPLOAD = true;
     
     private static String link_to_profile;    

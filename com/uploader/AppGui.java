@@ -62,7 +62,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
-import com.alee.utils.*;
+import org.apache.commons.io.*;
+//import com.alee.utils.*;
 
 public class AppGui extends JFrame  {
 
@@ -789,6 +790,17 @@ public class AppGui extends JFrame  {
 
             public void actionPerformed(ActionEvent evt)    {
 
+                GUIVariablesDebug();
+                RemoveAllFilesInTempDir();
+
+                System.out.println("BEGIN: Cleaning Temp");
+                System.out.println("--------------------");
+
+                RemoveAllFilesInTempDir();
+
+                System.out.println("--------------------");
+                System.out.println("END:  Cleaning Temp");
+
                 String textInNameField = "";
                 String textInDelayField = "";
                 String textInReferalField = "";
@@ -836,6 +848,9 @@ public class AppGui extends JFrame  {
         buttonOneLinkFromShutterUpload.addActionListener(new ActionListener()  {
 
             public void actionPerformed(ActionEvent evt)    {
+
+                GUIVariablesDebug();
+                RemoveAllFilesInTempDir();
 
                 String textInNameField = "";
                 String textInDelayField = "";
@@ -885,6 +900,9 @@ public class AppGui extends JFrame  {
 
             public void actionPerformed(ActionEvent evt)    {
 
+                GUIVariablesDebug();
+                RemoveAllFilesInTempDir();
+
                 String textInNameField = "";
                 String textInDelayField = "";
                 String textInReferalField = "";
@@ -932,6 +950,9 @@ public class AppGui extends JFrame  {
         buttonHiveToYoutubeUpload.addActionListener(new ActionListener()  {
 
             public void actionPerformed(ActionEvent evt)    {
+
+                GUIVariablesDebug();
+                RemoveAllFilesInTempDir();
 
                 if((uploadFromVideoNumberField.getText() != "") && (!uploadFromVideoNumberField.getText().equals("")))  {
 
@@ -1027,6 +1048,9 @@ public class AppGui extends JFrame  {
 
             public void actionPerformed(ActionEvent evt)    {
 
+                GUIVariablesDebug();
+                RemoveAllFilesInTempDir();
+
                 if((uploadFromVideoNumberField.getText() != "") && (!uploadFromVideoNumberField.getText().equals("")))  {
 
                     uploadFromVideoNumber = Integer.parseInt(uploadFromVideoNumberField.getText());
@@ -1121,6 +1145,9 @@ public class AppGui extends JFrame  {
         buttonPondToYoutubeUpload.addActionListener(new ActionListener()  {
 
             public void actionPerformed(ActionEvent evt)    {
+
+                GUIVariablesDebug();
+                RemoveAllFilesInTempDir();
 
                 if((uploadFromVideoNumberField.getText() != "") && (!uploadFromVideoNumberField.getText().equals("")))  {
 
@@ -1297,8 +1324,9 @@ public class AppGui extends JFrame  {
 
             public void actionPerformed(ActionEvent evt)    {
 
-                try {
+                RemoveAllFilesInTempDir();
 
+                try {
 
                     HiveToResource.STOP    = true;
                     ShutterToResource.STOP = true;
@@ -1350,6 +1378,59 @@ public class AppGui extends JFrame  {
                 }
             }         
         });
+    }
+
+    public void GUIVariablesDebug() {
+
+        System.out.println("profileNameField           = " + profileNameField.getText()           );
+        System.out.println("delayMinField              = " + delayMinField.getText()              );
+        System.out.println("delayMaxField              = " + delayMaxField.getText()              );
+        System.out.println("countOfVideosPerDayField   = " + countOfVideosPerDayField.getText()   );
+        System.out.println("referalField               = " + referalField.getText()               );
+        System.out.println("oneLinkUploadField         = " + oneLinkUploadField.getText()         );
+        System.out.println("uploadFromVideoNumberField = " + uploadFromVideoNumberField.getText() );
+        System.out.println("additionalTagsField        = " + additionalTagsField.getText()        );
+
+    }
+
+    public void RemoveAllFilesInTempDir() {
+
+        //FileUtils.cleanDirectory("tmp/");
+        File directory = new File("tmp/");
+
+        //File[] files = directory.listFiles();
+        File[] files = directory.listFiles();
+
+        for(File file: files)   {
+
+            // if(!file.delete())  {
+
+            //     System.out.println("Cannot delete same file: " + file.getName());
+
+            // }
+
+            try {
+
+                FileUtils.deleteDirectory(file);
+
+            }   catch(Exception e) {
+
+                if(file.isDirectory())  {
+
+                    System.out.println("Cannot delete directory: " + file.getName());
+
+                }
+
+                if(file.isDirectory())  {
+
+                    System.out.println("Cannot delete file: " + file.getName());
+
+                }
+
+            }
+
+        }
+
     }
 
     private void upload_hive_to_tube(String _name_of_profile, double _delay_min_in_min, double _delay_max_in_min, String _referal_name)    {
